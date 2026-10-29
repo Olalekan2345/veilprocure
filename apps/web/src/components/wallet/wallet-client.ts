@@ -9,6 +9,23 @@ import type { NearConnector, NearWalletBase } from "@hot-labs/near-connect";
  */
 let connectorPromise: Promise<NearConnector> | null = null;
 
+/**
+ * End-to-end test bridge. Compiled in only when NEXT_PUBLIC_VEIL_E2E_WALLET=1 (refused in
+ * production by the server env validator) and active only when the Playwright harness has
+ * injected these functions; signing happens in the Node test process with testnet keys, so no
+ * private key ever enters the page. Real users always go through NEAR Connect.
+ */
+interface E2EWallet {
+  __veilE2EAccount: () => Promise<string>;
+  __veilE2ESignMessage: (json: string) => Promise<string>;
+  __veilE2ESendTx: (json: string) => Promise<string>;
+}
+function e2e(): E2EWallet | null {
+  if (process.env.NEXT_PUBLIC_VEIL_E2E_WALLET !== "1" || typeof window === "undefined") return null;
+  const w = window as unknown as Partial<E2EWallet>;
+  return w.__veilE2EAccount && w.__veilE2ESignMessage && w.__veilE2ESendTx ? (w as E2EWallet) : null;
+}
+
 function connector(): Promise<NearConnector> {
   connectorPromise ??= import("@hot-labs/near-connect").then(({ NearConnector }) => new NearConnector({ network: "testnet" }));
   return connectorPromise;
@@ -41,6 +58,8 @@ export async function connectedAccount(): Promise<{ wallet: NearWalletBase; acco
 }
 
 export async function connect(): Promise<{ wallet: NearWalletBase; accountId: string }> {
+  const test = e2e();
+  if (test) return { wallet: null as unknown as NearWalletBase, accountId: await test.__veilE2EAccount() };
   try {
     const c = await connector();
     const wallet = await c.connect();
@@ -65,6 +84,12 @@ export async function disconnect(): Promise<void> {
 
 /** Connected wallet for `expectedAccountId`, prompting the user to connect if necessary. */
 export async function walletFor(expectedAccountId: string): Promise<NearWalletBase> {
+  const test = e2e();
+  if (test) {
+    const id = await test.__veilE2EAccount();
+    if (id !== expectedAccountId) throw new WalletError(`Your wallet is connected as ${id}, but this step must be signed by ${expectedAccountId}.`, "wrong_account");
+    return null as unknown as NearWalletBase;
+  }
   const current = (await connectedAccount()) ?? (await connect());
   if (current.accountId !== expectedAccountId) {
     throw new WalletError(
@@ -77,6 +102,8 @@ export async function walletFor(expectedAccountId: string): Promise<NearWalletBa
 
 export async function signBindingMessage(input: { accountId: string; message: string; recipient: string; nonceHex: string }) {
   const wallet = await walletFor(input.accountId);
+  const test = e2e();
+  if (test) return JSON.parse(await test.__veilE2ESignMessage(JSON.stringify(input))) as { accountId: string; publicKey: string; signature: string };
   const nonce = Uint8Array.from(input.nonceHex.match(/../g)!.map((h) => Number.parseInt(h, 16)));
   try {
     const signed = await wallet.signMessage({ message: input.message, recipient: input.recipient, nonce, network: "testnet", signerId: input.accountId });
@@ -98,6 +125,12 @@ export interface IntentLike {
 /** Signs and sends exactly the server-prepared call. Returns the transaction hash. */
 export async function sendIntent(intent: IntentLike): Promise<string> {
   const wallet = await walletFor(intent.signerId);
+  const test = e2e();
+  if (test) {
+    const hash = await test.__veilE2ESendTx(JSON.stringify(intent));
+    if (!hash) throw new WalletError("The test wallet did not return a transaction hash.", "failed");
+    return hash;
+  }
   try {
     const outcome = await wallet.signAndSendTransaction({
       network: "testnet",

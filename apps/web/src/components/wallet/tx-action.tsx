@@ -86,8 +86,9 @@ export function TxAction({
       }
       if (r && !r.ok) return setPhase({ k: "error", message: r.error.message, intent, txHash, retryable: false });
       if (r?.ok && r.data.status === "confirmed") {
+        // Refresh only when the user dismisses the dialog: refreshing now can unmount this
+        // component (e.g. the "Publish" card disappears) and hide the confirmation receipt.
         setPhase({ k: "done", intent, txHash, message: r.data.message });
-        router.refresh();
         return;
       }
       // The failed intent is closed server-side; "Try again" prepares a fresh one.
@@ -117,8 +118,10 @@ export function TxAction({
 
   function close() {
     if (phase.k === "signing" || phase.k === "confirming") return; // never abandon an in-flight check silently
+    const changedChainState = phase.k === "done" || (phase.k === "error" && Boolean(phase.txHash));
     setPhase({ k: "idle" });
     setManualHash("");
+    if (changedChainState) router.refresh();
   }
 
   const intent = "intent" in phase ? phase.intent : undefined;

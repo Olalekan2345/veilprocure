@@ -1,6 +1,6 @@
 # Judge walkthrough
 
-Steps marked **[chain]** need the deployed testnet contract (`NEAR_CONTRACT_ID`), which does not exist yet; until then the app shows "On-chain actions are disabled on this server" instead of pretending. Steps marked **[AI]** need a NEAR AI Cloud key on the worker.
+Steps marked **[chain]** use the deployed testnet contract `veilprocure-106725.testnet` (set `NEAR_CONTRACT_ID`); without it the app shows "On-chain actions are disabled on this server" instead of pretending. They were verified end to end by `tests/e2e/specs/chain.spec.ts`. Steps marked **[AI]** need a NEAR AI Cloud key on the worker.
 
 ## Run locally
 

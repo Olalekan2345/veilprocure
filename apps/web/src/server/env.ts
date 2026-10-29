@@ -35,6 +35,9 @@ const schema = z
     if (env.NODE_ENV === "production" && env.EMAIL_TRANSPORT === "dev-mailbox") {
       ctx.addIssue({ code: "custom", path: ["EMAIL_TRANSPORT"], message: "dev-mailbox is not allowed in production" });
     }
+    if (env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_VEIL_E2E_WALLET === "1") {
+      ctx.addIssue({ code: "custom", path: ["NEXT_PUBLIC_VEIL_E2E_WALLET"], message: "the end-to-end test wallet bridge must never be enabled in production" });
+    }
     if (env.NODE_ENV === "production" && !env.APP_URL.startsWith("https://")) {
       ctx.addIssue({ code: "custom", path: ["APP_URL"], message: "APP_URL must use https in production" });
     }

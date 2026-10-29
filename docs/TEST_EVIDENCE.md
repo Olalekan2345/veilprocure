@@ -1,6 +1,6 @@
 # Test evidence
 
-Actual results from the developer machine on **2026-10-29** (Windows 11, Node 24.14.1, rustc 1.99.1, PostgreSQL 17.10 local cluster). No CI run exists yet (the repository is not published); the workflow is in `.github/workflows/ci.yml`. Coverage was not measured.
+Actual results from the developer machine on **2026-10-29/30** (Windows 11, Node 24.14.1, rustc 1.99.1, PostgreSQL 17.10 local cluster). GitHub Actions CI (`.github/workflows/ci.yml`, private repo Olalekan2345/veilprocure) passed on commit `9e69ec6` (jobs `contract` and `node`). Coverage was not measured.
 
 | Suite | Command | Result |
 |---|---|---|
@@ -32,6 +32,42 @@ Actual results from the developer machine on **2026-10-29** (Windows 11, Node 24
 5. `X-Forwarded-For` was trusted unconditionally (rate-limit bypass) → only with `TRUST_PROXY_HEADERS=true`.
 6. Workspace navigation stayed stale after creating an organisation → layout revalidation.
 
-## Not yet tested (blocked)
 
-Testnet deployment and every on-chain journey (A03, A05–A08, A13–A18, Journey C contract calls, Journey D on chain) — blocked on deployment approval. Live attested NEAR AI inference (A10/A11 live) — blocked on an API key. Real e-mail delivery — no provider credentials. Backup/restore — no hosted database.
+## On-chain journey (NEAR testnet, real UI) — PASSED
+
+`pnpm --filter @veilprocure/e2e exec playwright test specs/chain.spec.ts --project desktop` → **`1 passed (6.8m)`** on 2026-10-29 23:17 UTC against contract `veilprocure-106725.testnet`.
+
+Three isolated browser sessions (buyer, supplier A, supplier B) drove the real UI: e-mail sign-in, organisations, NEP-413 wallet binding (verified server-side against testnet RPC), RFQ rule builder, publication, invitation acceptance by the invited e-mail only, quote drafting, sealing and committing, buyer blind before deadline (comparison refused; competitor gets 404), close after **chain-time** deadline, both commitments recomputed and **verified**, ranking, award, funding, acceptance, delivery anchoring, release. Wallet signatures were produced in the test process with the labelled test accounts' keys through a guarded E2E bridge (only active when `NEXT_PUBLIC_VEIL_E2E_WALLET=1` and the harness injects it; refused in production). The third-party wallet popup itself is the one component not exercised.
+
+| # | Step | Transaction |
+|---|---|---|
+| 1 | create_rfq (buyer publishes policy) | [`762JXoufXFzq…`](https://testnet.nearblocks.io/txns/762JXoufXFzqnEwSGY139nuPrLBtR5NWbbR8ScwqfUid) |
+| 2 | commit_bid (Test Supplier A (e2e)) | [`7N1oDjDxV1B6…`](https://testnet.nearblocks.io/txns/7N1oDjDxV1B6ZoKvp522XNiDPjFVUERX43J9J7gi6W6E) |
+| 3 | commit_bid (Test Supplier B (e2e)) | [`FVcUHZaYCLA9…`](https://testnet.nearblocks.io/txns/FVcUHZaYCLA9SYyyMw2gNHZtoea7fo3wUk4Bs6n2sG4V) |
+| 4 | close_rfq | [`Dw8bJGSqyDY7…`](https://testnet.nearblocks.io/txns/Dw8bJGSqyDY7MmRKfsSRgXGf8VoxAzwQmTvpCoFVCytB) |
+| 5 | award_supplier | [`2yJetkiyadnU…`](https://testnet.nearblocks.io/txns/2yJetkiyadnUVDExFaFBs17tH41QcZBqsyTQp8ksfj1m) |
+| 6 | fund_award (0.5 NEAR principal) | [`F35kVCkhibyZ…`](https://testnet.nearblocks.io/txns/F35kVCkhibyZ75JGpjDPXnfJxLVSsQLFo6pyXumBypzi) |
+| 7 | attack: outsider approve_release (rejected VP_NOT_BUYER) | [`G1UXpWLfseYv…`](https://testnet.nearblocks.io/txns/G1UXpWLfseYvLqtxULyQwBNWiDveu8guZpjA2XCdybAt) |
+| 8 | attack: losing supplier accept_award (rejected VP_NOT_SUPPLIER) | [`7qhSwCMQwrTg…`](https://testnet.nearblocks.io/txns/7qhSwCMQwrTg8Lt1wf6FpJV2hkj7SNgFv7JPQjQaM6xj) |
+| 9 | accept_award (supplier A) | [`5SeKqH8QMKbL…`](https://testnet.nearblocks.io/txns/5SeKqH8QMKbLJpyAZPhhq48MbTZvxRZJqVjKC5EjbyeV) |
+| 10 | submit_delivery (evidence hash) | [`AuNb8RoXAU2t…`](https://testnet.nearblocks.io/txns/AuNb8RoXAU2tUvue1NETKCajg89VMqmQWRViCYQ7qh1N) |
+| 11 | approve_release â†’ transfer â†’ on_payment_result | [`HY2vAtUmsp2V…`](https://testnet.nearblocks.io/txns/HY2vAtUmsp2Vft7BsxNTJMWBe8vNk2GcSTzXeQDs5Pc6) |
+| 12 | attack: second approve_release after payout (rejected) | [`9AuUcmzwBoNQ…`](https://testnet.nearblocks.io/txns/9AuUcmzwBoNQa8Ffr1XkaBvpo1uwYjMmEYk3FwUXJSSY) |
+
+Assertions that passed: supplier A's balance rose by **exactly 500000000000000000000000 yocto (0.5 NEAR)** across the release; the database award status is `paid` with ≥ 5 confirmed escrow transactions; outsider `approve_release` failed with `VP_NOT_BUYER`; the losing supplier's `accept_award` failed with `VP_NOT_SUPPLIER`; a second `approve_release` after payout was rejected.
+
+### Additional on-chain paths
+
+- **Deemed acceptance + reconciler**: in an earlier run's leftover award (RFQ #2, delivered, review window elapsed), supplier A called `claim_after_review` directly: [`7ejt5E3N…`](https://testnet.nearblocks.io/txns/7ejt5E3NNBN65QZwPuzg9eEoitmG2kyDi8vir325D1xM) → contract status `paid`, supplier +0.5 NEAR minus its own gas (499522328072973399999999 yocto net). The worker (`--once`) then reported `reconciled 2 chain change(s)` and the database showed RFQ `settled`, award `paid` — projected from chain state with no UI involvement.
+- **Wallet rebind guard**: re-running the journey with new users made the app require explicit confirmation ("This wallet is bound to another VeilProcure user") before moving the test wallets; the test confirms it and a fresh NEP-413 signature is verified.
+
+### Bugs found by the on-chain run (fixed)
+
+7. The success dialog called `router.refresh()` immediately; on the RFQ page this unmounted the dialog (the Publish card disappears) and hid the confirmation receipt. Refresh now happens when the user closes the dialog.
+
+## Not yet tested (blocked or pending)
+
+- Live attested NEAR AI inference (A10/A11 live) — blocked on an API key (fail-closed paths are tested).
+- On-chain failed-transfer → retry (A17), mutual cancellation/refund (A18) and dispute paths — covered by contract unit/property tests, not yet run on testnet.
+- A third-party wallet's own UI (NEAR Connect popup) with a human — not automatable here.
+- Real e-mail delivery — no provider credentials. Backup/restore — no hosted database.

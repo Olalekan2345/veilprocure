@@ -1,0 +1,11 @@
+{
+  "name": "@veilprocure/scripts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "near-api-js": "7.4.0",
+    "tsx": "4.23.15",
+    "@types/node": "26.6.6"
+  }
+}

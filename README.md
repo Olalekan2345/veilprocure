@@ -6,15 +6,16 @@ Small agencies and technology teams buying fixed-scope digital services (design,
 
 > **Public beta on NEAR testnet.** Testnet NEAR has no monetary value; settlement is economically non-binding. Quotes are protected by application controls and encryption, **not** hidden from the platform operator. The contract is **unaudited**.
 
-## Current status (2026-10-29 — observed evidence only)
+## Current status (2026-10-30 — observed evidence only)
 
 | Capability | Status |
 |---|---|
 | Accounts, orgs, roles, encrypted drafts, invitations, sealed-quote access control (RLS) | Built & verified locally (E2E + DB tests) |
-| Rust escrow/commitment contract | Built & verified natively (37 tests); **not deployed** — awaiting approval |
-| Wallet binding (NEP-413), publish/commit/award/fund/release flows | Built; **not verified on chain** (needs the deployed contract) |
+| Rust escrow/commitment contract | Deployed to NEAR testnet [`veilprocure-106725.testnet`](https://testnet.nearblocks.io/address/veilprocure-106725.testnet); 37 native tests |
+| Full buyer → 2 suppliers → payout journey on testnet | **Verified**: 12 real transactions through the UI, exact +0.5 NEAR payout, attacks rejected ([evidence](docs/TEST_EVIDENCE.md)) |
+| Refund / dispute / failed-transfer retry on chain | Built and unit-tested; not yet run on testnet |
 | NEAR AI Cloud attested evaluation | Built; fail-closed paths verified; **live path blocked on an API key** |
-| Hosted demo / public repo / X post | **TODO** — require the human's credentials and approval |
+| Hosted demo / public repo / X post | **TODO** — repo is private on GitHub; hosting needs credentials; public + X post need the owner |
 
 Full matrix: [docs/LIMITATIONS.md](docs/LIMITATIONS.md). Test output: [docs/TEST_EVIDENCE.md](docs/TEST_EVIDENCE.md).
 
@@ -22,9 +23,9 @@ Full matrix: [docs/LIMITATIONS.md](docs/LIMITATIONS.md). Test output: [docs/TEST
 
 | Technology | How | Status |
 |---|---|---|
-| NEAR smart contract (Rust, near-sdk 5.30.0) | RFQ policy commitments, invite-slot leaves, salted bid commitments, single-award escrow with async transfer + private callbacks | Built; testnet deployment pending approval |
+| NEAR smart contract (Rust, near-sdk 5.30.0) | RFQ policy commitments, invite-slot leaves, salted bid commitments, single-award escrow with async transfer + private callbacks | Live on testnet: `veilprocure-106725.testnet` |
 | NEAR testnet RPC | Server verifies every reported transaction (signer, contract, method, args, deposit) and reads contract state as source of truth | Implemented |
-| NEAR Connect (`@hot-labs/near-connect`) | Wallet connection, NEP-413 signed messages, transaction signing | Implemented; not yet exercised with a live wallet |
+| NEAR Connect (`@hot-labs/near-connect`) | Wallet connection, NEP-413 signed messages, transaction signing | Implemented; automated tests sign via a guarded test bridge, not the popup |
 | NEAR AI Cloud | Attested private inference (TDX + NVIDIA evidence, response signatures) for advisory notes | Implemented; blocked on API key |
 | NEAR Intents | — | Not used |
 
@@ -86,13 +87,20 @@ pnpm --filter @veilprocure/shared test          # 22 (incl. cross-language vecto
 pnpm --filter @veilprocure/db test              # 10 against real Postgres (RLS, immutability)
 pnpm --filter @veilprocure/web test             # 9 security primitives
 pnpm --filter @veilprocure/worker test          # 8 AI fail-closed
-pnpm test:e2e                                   # 8 browser journeys (app running on :3000)
+pnpm test:e2e                                   # 8 off-chain journeys + on-chain Journey A (needs .local/testnet-accounts.json)
 pnpm build:contract                             # WASM + SHA-256
 ```
 
 ## Deployed addresses
 
-**TODO — nothing is deployed.** The testnet contract account, deployment transaction, and any hosted URL will be recorded in [docs/DEPLOYMENTS.md](docs/DEPLOYMENTS.md) only after the human approves and performs/authorises them. Current local WASM SHA-256: `207b23c054421a9b7975320d7e8831498b0b49f77fde24dc5171d59f7e4bc941`.
+| What | Where |
+|---|---|
+| Contract (NEAR testnet) | [`veilprocure-106725.testnet`](https://testnet.nearblocks.io/address/veilprocure-106725.testnet) |
+| Deploy tx | [`BEtCcWWS…ErkF`](https://testnet.nearblocks.io/txns/BEtCcWWShjDeke1wK9F8qGSR5Cfdd2drEqWQE4AQErkf) — code hash `3BnxCPhb…ZwbN` = SHA-256 `207b23c0…bc941` of the WASM built from this repo |
+| Example payout tx | [`HY2vAtUm…5Pc6`](https://testnet.nearblocks.io/txns/HY2vAtUmsp2Vft7BsxNTJMWBe8vNk2GcSTzXeQDs5Pc6) (`approve_release` → transfer → `on_payment_result`) |
+| Hosted app | **TODO** — not deployed; needs host, managed Postgres, secret storage and an e-mail sender |
+
+Details and all journey transactions: [docs/DEPLOYMENTS.md](docs/DEPLOYMENTS.md), [docs/TEST_EVIDENCE.md](docs/TEST_EVIDENCE.md).
 
 ## Judge walkthrough
 
@@ -101,7 +109,8 @@ pnpm build:contract                             # WASM + SHA-256
 ## Development chronology & baseline
 
 - 2026-10-29: repository created empty (inside the hackathon window that began 2026-10-19); no pre-hackathon code exists. Discovery, contract, shared domain, database, web app, worker, tests and docs written this day.
-- Baseline tags (`pre-hackathon`, `hackathon-submission`) will be added when commits are made.
+- 2026-10-29/30: testnet deployment and on-chain journey.
+- Baseline: tag `pre-hackathon` marks the empty initial commit; `hackathon-submission` will mark the submitted commit. Diff: `git diff pre-hackathon..hackathon-submission`.
 
 ## Attribution
 
