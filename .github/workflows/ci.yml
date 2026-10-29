@@ -1,0 +1,60 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - name: Contract state-machine tests
+        working-directory: contracts/veilprocure
+        run: cargo test -p veilprocure-core
+      - name: Build contract WASM
+        working-directory: contracts/veilprocure
+        run: cargo build -p veilprocure --target wasm32-unknown-unknown --release
+
+  node:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: veil
+          POSTGRES_PASSWORD: ci-only-owner
+          POSTGRES_DB: veilprocure_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U veil" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      MIGRATION_DATABASE_URL: postgres://veil:ci-only-owner@localhost:5432/veilprocure_test
+      TEST_DATABASE_URL: postgres://veil_app:ci-only-app@localhost:5432/veilprocure_test
+      TEST_WORKER_DATABASE_URL: postgres://veil_worker:ci-only-worker@localhost:5432/veilprocure_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Create least-privilege roles
+        run: |
+          psql "$MIGRATION_DATABASE_URL" -c "CREATE ROLE veil_app LOGIN PASSWORD 'ci-only-app' NOBYPASSRLS"
+          psql "$MIGRATION_DATABASE_URL" -c "CREATE ROLE veil_worker LOGIN PASSWORD 'ci-only-worker' BYPASSRLS"
+      - run: pnpm db:migrate
+      - run: pnpm -r typecheck
+      - run: pnpm --filter @veilprocure/shared test
+      - run: pnpm --filter @veilprocure/db test
+      - run: pnpm --filter @veilprocure/web test
+      - run: pnpm --filter @veilprocure/worker test
+      - name: Dependency audit (report only)
+        run: pnpm audit --prod || true

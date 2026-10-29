@@ -1,0 +1,28 @@
+{
+  "name": "@veilprocure/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema.ts"
+  },
+  "scripts": {
+    "generate": "drizzle-kit generate --config drizzle.config.ts",
+    "migrate": "tsx src/migrate.ts",
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.45.4",
+    "postgres": "3.4.9"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "drizzle-kit": "0.31.11",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "vitest": "5.0.5"
+  }
+}

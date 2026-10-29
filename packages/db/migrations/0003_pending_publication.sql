@@ -1,0 +1,1 @@
+ALTER TABLE "rfqs" ADD COLUMN "pending_publication_enc" text;

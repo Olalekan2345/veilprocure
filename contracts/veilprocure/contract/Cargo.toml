@@ -1,0 +1,18 @@
+[package]
+name = "veilprocure"
+description = "VeilProcure NEAR contract: RFQ policy commitments, sealed bid commitments and single-award escrow"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+near-sdk = "=5.30.0"
+veilprocure-core = { path = "../core" }
+borsh.workspace = true
+
+[package.metadata.near.reproducible_build]
+# Reproducible (Docker) builds are not available on the current Windows dev machine.
+# See docs/DEPLOYMENTS.md for the exact non-reproducible build command and WASM hash.

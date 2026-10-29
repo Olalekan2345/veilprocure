@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+/*
+ * VeilProcure design tokens.
+ * Graphite ink on warm paper; champagne gold is used sparingly for brand and primary emphasis;
+ * verification blue is reserved for states backed by a cryptographic or on-chain check.
+ */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-mono-face), ui-monospace, "SFMono-Regular", monospace;
+
+  --color-ink: #1b1c1e;
+  --color-ink-2: #2b2c2f;
+  --color-ink-3: #45464b;
+  --color-muted: #63646a;
+  --color-faint: #8d8e93;
+
+  --color-paper: #f6f4ef;
+  --color-surface: #fdfcf9;
+  --color-sunken: #efece4;
+  --color-line: #e1ddd2;
+  --color-line-strong: #cdc7b8;
+
+  --color-gold: #a8844a;
+  --color-gold-soft: #efe5d1;
+  --color-gold-ink: #7a5d2e;
+
+  --color-verify: #2c5a88;
+  --color-verify-soft: #e5edf5;
+
+  --color-ok: #3c7556;
+  --color-ok-soft: #e4efe8;
+  --color-warn: #946b1c;
+  --color-warn-soft: #f6eedb;
+  --color-bad: #a1413a;
+  --color-bad-soft: #f6e4e1;
+
+  --radius-card: 14px;
+  --shadow-card: 0 1px 0 rgb(27 28 30 / 0.04), 0 1px 2px rgb(27 28 30 / 0.06);
+  --shadow-pop: 0 12px 32px -8px rgb(27 28 30 / 0.22), 0 2px 6px rgb(27 28 30 / 0.08);
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-verify);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: var(--color-gold-soft);
+  }
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-gold-ink);
+    font-weight: 600;
+  }
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+  .hash {
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    letter-spacing: -0.01em;
+  }
+  .skeleton {
+    background: linear-gradient(90deg, var(--color-sunken) 0%, var(--color-line) 50%, var(--color-sunken) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+    border-radius: 8px;
+  }
+  .fade-up {
+    animation: fade-up 360ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

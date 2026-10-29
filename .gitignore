@@ -1,0 +1,34 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+.next/
+dist/
+out/
+*.tsbuildinfo
+coverage/
+playwright-report/
+test-results/
+
+# rust
+target/
+
+# local runtime data (Postgres cluster, encrypted object store, logs)
+.local/
+
+# secrets — never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.near-credentials/
+**/neardev/
+
+# os/editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/

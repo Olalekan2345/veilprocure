@@ -1,0 +1,25 @@
+{
+  "name": "veilprocure",
+  "private": true,
+  "description": "Confidential procurement with deadline-sealed bids, attested AI evaluation and NEAR testnet escrow.",
+  "license": "MIT",
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @veilprocure/web dev",
+    "worker": "pnpm --filter @veilprocure/worker start",
+    "build": "pnpm --filter @veilprocure/web build",
+    "typecheck": "pnpm -r --parallel typecheck",
+    "lint": "pnpm -r --parallel lint",
+    "test": "pnpm -r --filter=!@veilprocure/e2e test",
+    "test:e2e": "pnpm --filter @veilprocure/e2e test",
+    "test:contract": "cd contracts/veilprocure && cargo test --workspace",
+    "build:contract": "node scripts/build-contract.mjs",
+    "db:start": "node scripts/dev-db.mjs start",
+    "db:stop": "node scripts/dev-db.mjs stop",
+    "db:generate": "pnpm --filter @veilprocure/db generate",
+    "db:migrate": "pnpm --filter @veilprocure/db migrate"
+  }
+}

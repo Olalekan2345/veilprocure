@@ -1,0 +1,12 @@
+[package]
+name = "veilprocure-core"
+description = "Pure RFQ / bid-commitment / escrow state machine for the VeilProcure NEAR contract"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+borsh.workspace = true
+
+[dev-dependencies]
+sha2 = "0.10"
