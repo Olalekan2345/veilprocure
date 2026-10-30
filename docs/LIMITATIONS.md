@@ -6,8 +6,7 @@ VeilProcure is a **public testnet beta / functional prototype**. It is not produ
 
 | Capability | Status | Evidence / blocker |
 |---|---|---|
-| E-mail-link sign-in, sessions, orgs, roles, team invites | BUILT & VERIFIED (local) | E2E + DB tests |
-| Privy e-mail-code sign-in | BUILT; token verifier unit-tested; browser → Privy code request VERIFIED live; code → session not yet run end to end | needs identity tokens enabled + a Privy test account (`tests/e2e/specs/privy.spec.ts`) |
+| E-mail sign-in, sessions, orgs, roles, team invites | BUILT & VERIFIED (local) | E2E + DB tests |
 | Encrypted RFQ drafts and rule builder | BUILT & VERIFIED (local) | E2E (ciphertext at rest) |
 | Tenant isolation / sealed-quote RLS | BUILT & VERIFIED | `db.test.ts`, E2E IDOR |
 | Contract state machine and escrow logic | BUILT & VERIFIED (native tests) | 37 Rust tests |
@@ -19,7 +18,7 @@ VeilProcure is a **public testnet beta / functional prototype**. It is not produ
 | Deterministic evaluation & ranking | BUILT & VERIFIED | shared tests |
 | Confidential AI notes with attestation | BUILT & VERIFIED (live, locally) | 2 live evaluations, all 27 checks passed (docs/AI_VERIFICATION.md) |
 | Chain reconciler worker | BUILT & VERIFIED | projected an out-of-band `claim_after_review` (RFQ #2 → settled/paid) |
-| Real e-mail delivery (invitations, notifications) | BUILT (Resend adapter); NOT VERIFIED; not required | without it, buyers copy one-time invitation links ("Get invitation link") and send them themselves |
+| Real e-mail delivery (sign-in links, invitations) | BUILT (SMTP, e.g. Gmail with an app password; or Resend); NOT VERIFIED live | needs SMTP credentials. Without e-mail, buyers use "Get invitation link" to copy one-time links and send them themselves |
 | Hosted deployment, backups, monitoring | BLOCKED | needs host/DB/secret-manager credentials |
 | NEAR Intents | OUT OF SCOPE | not integrated |
 
@@ -36,7 +35,6 @@ VeilProcure is a **public testnet beta / functional prototype**. It is not produ
 - Local object storage only (S3-compatible adapter not implemented).
 - The worker's reconciler updates statuses from chain state but does not yet write audit events (the web-side sync does).
 - AI notes may mention the anonymised labels (`Q1`, `Q2`) the model was given; they are displayed verbatim as signed and are advisory only.
-- With Privy sign-in, users' e-mail addresses are processed by Privy (a third party) to send one-time codes.
 - Automated on-chain tests sign through a guarded E2E wallet bridge with test keys, not through a third-party wallet popup.
 - Reproducible (Docker) WASM builds were not possible on the development machine; the published hash is from a host build.
 

@@ -10,7 +10,7 @@ import { Badge, ButtonLink, Callout, Card, CardHeader, Hash, KeyValue, PageHeade
 import { TxAction } from "@/components/wallet/tx-action";
 import { can, requireActorPage } from "@/server/authz";
 import { db, tables } from "@/server/db";
-import { emailDeliveryMode } from "@/server/email";
+import { emailDelivers } from "@/server/email";
 import { contractConfigured, env } from "@/server/env";
 import { prepareRfqChainAction, preparePublishAction, recoverPublicationAction, resendInviteAction, returnToDraftAction } from "@/server/actions/procurement";
 import { syncRfqFromChain, type ChainRfq } from "@/server/chain/sync";
@@ -180,7 +180,7 @@ export default async function RfqDetail({ params }: { params: Promise<{ id: stri
             eyebrow="Suppliers"
             title="Invitation slots"
             description={
-              emailDeliveryMode() === "resend"
+              emailDelivers()
                 ? "Each slot has a private secret; its salted leaf is on chain. Only the invited e-mail can accept."
                 : "Each slot has a private secret; its salted leaf is on chain. This server does not e-mail invitations: use “Get invitation link” and send each supplier their one-time link yourself. Only the invited e-mail can accept."
             }
@@ -203,7 +203,7 @@ export default async function RfqDetail({ params }: { params: Promise<{ id: stri
                     <div className="flex items-center gap-2">
                       <Badge tone={s.status === "accepted" ? "ok" : s.status === "pending" ? "warn" : "neutral"}>{s.status}</Badge>
                       {bid && <Badge tone={bid.withdrawn ? "neutral" : "verify"}>{bid.withdrawn ? "bid withdrawn" : "sealed bid on chain"}</Badge>}
-                      {status === "open" && s.status === "pending" && can(m, "rfq:invite") && <ResendInvite action={resendInviteAction.bind(null, rfq.id, s.id)} label={emailDeliveryMode() === "resend" ? "Re-send invitation" : "Get invitation link"} />}
+                      {status === "open" && s.status === "pending" && can(m, "rfq:invite") && <ResendInvite action={resendInviteAction.bind(null, rfq.id, s.id)} label={emailDelivers() ? "Re-send invitation" : "Get invitation link"} />}
                     </div>
                   </li>
                 );

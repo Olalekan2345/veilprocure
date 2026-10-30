@@ -73,7 +73,7 @@ pnpm install
 node scripts/dev-db.mjs start     # project-local PostgreSQL, generated passwords in .local/
 node scripts/setup-env.mjs        # apps/web/.env.local, apps/worker/.env (local secrets; never committed)
 pnpm db:migrate
-pnpm dev                          # http://localhost:3000 ; with PRIVY_APP_ID set, sign in with an e-mail code; dev-mailbox links at /dev/mailbox
+pnpm dev                          # http://localhost:3000 ; sign-in links appear at /dev/mailbox
 pnpm worker                       # optional
 ```
 
@@ -116,7 +116,7 @@ Details and all journey transactions: [docs/DEPLOYMENTS.md](docs/DEPLOYMENTS.md)
 
 ## Attribution
 
-Code written with Claude Code (Anthropic) under the direction of the project owner. Open-source dependencies (see lockfiles): Next.js, React, Tailwind CSS, Drizzle ORM, postgres.js, zod, lucide-react, @noble/hashes & @noble/curves, @phala/dcap-qvl (Apache-2.0), @hot-labs/near-connect, @privy-io/js-sdk-core and viem (sign-in page only), near-sdk-rs, borsh, Vitest, Playwright. Verification flow follows NEAR AI Cloud's public documentation and reference verifier (MIT).
+Code written with Claude Code (Anthropic) under the direction of the project owner. Open-source dependencies (see lockfiles): Next.js, React, Tailwind CSS, Drizzle ORM, postgres.js, zod, lucide-react, @noble/hashes & @noble/curves, @phala/dcap-qvl (Apache-2.0), @hot-labs/near-connect, Nodemailer, near-sdk-rs, borsh, Vitest, Playwright. Verification flow follows NEAR AI Cloud's public documentation and reference verifier (MIT).
 
 ## License
 

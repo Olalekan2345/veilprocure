@@ -10,10 +10,9 @@ import { requireActor, requireMembership } from "../authz";
 import { db, tables } from "../db";
 import { newToken, sha256Hex } from "../crypto";
 import { sendEmail, type DeliveryStatus } from "../email";
-import { env, privyAppId } from "../env";
+import { env } from "../env";
 import { AppError, toResult, zodFieldErrors, type ActionResult } from "../errors";
 import { verifyNep413 } from "../near";
-import { privyKeySource, verifyPrivyIdentityToken } from "../privy";
 import { clientIpBucket, rateLimit } from "../ratelimit";
 import { createSession, destroySession, setActiveOrg } from "../session";
 
@@ -64,33 +63,15 @@ export async function confirmSignIn(form: FormData): Promise<void> {
     .returning({ email: t.loginTokens.email, nextPath: t.loginTokens.nextPath });
   const row = consumed[0];
   if (!row) redirect("/signin?error=expired");
-  await startVerifiedSession(row.email, "email_link");
-  redirect(safeNext(row.nextPath));
-}
-
-/** Called by the sign-in page after Privy's one-time code; the identity token is verified here. */
-export async function signInWithPrivy(identityToken: string, next: string): Promise<ActionResult<{ next: string }>> {
-  try {
-    const appId = privyAppId();
-    if (!appId) throw new AppError("PRECONDITION_FAILED", "Privy sign-in is not configured on this server.");
-    await rateLimit(`signin-privy:${await clientIpBucket()}`, 20, 600);
-    const { email } = await verifyPrivyIdentityToken(identityToken, appId, privyKeySource(appId));
-    await startVerifiedSession(email, "privy");
-    return { ok: true, data: { next: safeNext(next) } };
-  } catch (err) {
-    return toResult(err);
-  }
-}
-
-async function startVerifiedSession(email: string, method: "email_link" | "privy"): Promise<void> {
   const now = new Date();
   const [user] = await db()
     .insert(t.users)
-    .values({ email, emailVerifiedAt: now, lastLoginAt: now })
+    .values({ email: row.email, emailVerifiedAt: now, lastLoginAt: now })
     .onConflictDoUpdate({ target: t.users.email, set: { lastLoginAt: now, emailVerifiedAt: now } })
     .returning({ id: t.users.id });
   await createSession(user!.id);
-  await audit(db(), { actorKind: "user", actorUserId: user!.id, action: "auth.signed_in", targetType: "user", targetId: user!.id, metadata: { method } });
+  await audit(db(), { actorKind: "user", actorUserId: user!.id, action: "auth.signed_in", targetType: "user", targetId: user!.id });
+  redirect(safeNext(row.nextPath));
 }
 
 export async function signOut(): Promise<void> {

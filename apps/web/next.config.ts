@@ -33,7 +33,7 @@ const config: NextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   transpilePackages: ["@veilprocure/shared", "@veilprocure/db"],
-  serverExternalPackages: ["postgres"],
+  serverExternalPackages: ["postgres", "nodemailer"],
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

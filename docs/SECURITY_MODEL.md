@@ -29,10 +29,7 @@ Trusted: VeilProcure server operators and key holders; Postgres host; Intel/NVID
 
 ## Identity
 
-- Sign-in (two interchangeable proofs of e-mail ownership, then the same session path):
-  - **Privy e-mail code** (when `PRIVY_APP_ID` is set; primary in hosted use). The browser obtains Privy's identity token with the one-time code; the server verifies it independently — ES256 signature against the app's published JWKS (`auth.privy.io/api/v1/apps/<id>/jwks.json`, key id required, one refresh on rotation), `iss = privy.io`, `aud` = our app id, unexpired, issued within the last 10 minutes, `sub` a Privy DID, exactly one linked `email` account. No Privy secret exists on our servers. The SDK runs with in-memory storage and no cookies, and signs out of Privy once our session exists, so no Privy tokens persist on our origin. Server-action origin checks prevent login CSRF; attempts are rate limited per IP.
-  - **E-mail link** (`EMAIL_TRANSPORT=resend`, or the dev mailbox locally): 32-byte tokens stored hashed, 15-minute expiry, single use, consumed only by POST (link scanners cannot burn them).
-  - Sessions: random token in an HttpOnly cookie; only its SHA-256 is stored. Audit event `auth.signed_in` records the method.
+- Passwordless e-mail sign-in: 32-byte tokens stored hashed, 15-minute expiry, single use, consumed only by POST (link scanners cannot burn them). Links are delivered over TLS by SMTP (e.g. Gmail with an app password, never the account password) or Resend; production refuses to start without a delivering transport. Sessions: random token in an HttpOnly cookie; only its SHA-256 is stored.
 - Wallet binding: NEP-413 signed message with a server nonce (32 bytes), recipient = site host, account, user e-mail, network and expiry inside the message; signature verified with ed25519; the key must be a **full-access** key of the account on testnet (RPC `view_access_key`); challenge is single-use and expires in 10 minutes. A wallet bound to another user moves only after explicit confirmation, and the previous owner is notified.
 - CSRF: Server Actions are POST-only with Origin/Host checking by Next.js; JSON route handlers check `Origin` explicitly. Rate limits are Postgres-backed; proxy headers are trusted only with `TRUST_PROXY_HEADERS=true`.
 

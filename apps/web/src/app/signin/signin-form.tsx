@@ -6,7 +6,7 @@ import { useActionState } from "react";
 import { requestSignIn } from "@/server/actions/account";
 import { Button, Callout, Field, inputClass } from "@/components/ui";
 
-export function SignInForm({ next, mode }: { next: string; mode: "resend" | "dev-mailbox" | "disabled" }) {
+export function SignInForm({ next, mode }: { next: string; mode: "smtp" | "resend" | "dev-mailbox" | "disabled" }) {
   const [state, action, pending] = useActionState(requestSignIn, null);
 
   if (state?.ok) {
@@ -38,7 +38,7 @@ export function SignInForm({ next, mode }: { next: string; mode: "resend" | "dev
 
   const err = state && !state.ok ? state.error : null;
   return (
-    <form action={action} className="space-y-4" noValidate data-signin="magic-link">
+    <form action={action} className="space-y-4" noValidate>
       <input type="hidden" name="next" value={next} />
       <Field label="Work e-mail" htmlFor="email" error={err?.fieldErrors?.email}>
         <input

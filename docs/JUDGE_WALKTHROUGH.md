@@ -19,8 +19,8 @@ pnpm worker                          # optional: reconciler + AI jobs
 | Do | See |
 |---|---|
 | Open `/` | Product explanation, testnet banner, disclosure map; no logos, testimonials or counters |
-| Sign in with your e-mail | With Privy configured: a 6-digit code arrives by e-mail; enter it and you are signed in. Locally, "Local development: sign in with the dev mailbox" also works (link appears at `/dev/mailbox`) |
-| Publish, then on a pending supplier click "Get invitation link" (no e-mail provider) | A one-time link to copy and send yourself; older links are revoked; only the invited address can accept |
+| Sign in with any e-mail | With SMTP configured: a one-time link arrives by e-mail. Locally without it: honest "e-mail delivery is not configured" notice; link appears at `/dev/mailbox` (dev only) |
+| Publish without e-mail configured, then click "Get invitation link" on a pending supplier | A one-time link to copy and send yourself; older links are revoked; only the invited address can accept |
 | Open the link, click Continue | Signed in; onboarding explains buyer vs supplier |
 | Create a buyer organisation | Dashboard with zeros and "Create your first request" |
 | New request → fill scope, rules, weights, suppliers → Save & review | "Ready to publish?" with concrete blockers (deadline, wallet, contract) |

@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { expect, type Locator, type Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
 import postgres from "postgres";
 
 /** Reads local DB credentials (worker role) to fetch dev-mailbox sign-in links. Test-only. */
@@ -31,22 +31,14 @@ export async function latestLink(email: string, pathPrefix: string): Promise<str
   throw new Error(`no ${pathPrefix} link for ${email}`);
 }
 
-/** The e-mail link form; on servers with Privy sign-in it sits behind the local-development toggle. */
-export async function magicLinkForm(page: Page): Promise<Locator> {
-  const toggle = page.getByText("Local development: sign in with the dev mailbox");
-  if (await toggle.isVisible()) await toggle.click();
-  return page.locator('form[data-signin="magic-link"]');
-}
-
 /** Full passwordless sign-in through the UI, using the development mailbox. */
 export async function signIn(page: Page, email: string, next = "/app"): Promise<void> {
   // Test infrastructure: every journey signs in from the same local address, so reset the
   // fixed-window limiter (the limiter itself is exercised in ratelimit tests).
   await sql`delete from rate_limits`;
   await page.goto(`/signin?next=${encodeURIComponent(next)}`);
-  const form = await magicLinkForm(page);
-  await form.getByLabel("Work e-mail").fill(email);
-  await form.getByRole("button", { name: "Email me a sign-in link" }).click();
+  await page.getByLabel("Work e-mail").fill(email);
+  await page.getByRole("button", { name: "Email me a sign-in link" }).click();
   await expect(page.getByText("E-mail delivery is not configured on this server")).toBeVisible();
   const link = await latestLink(email, "/auth/confirm");
   await page.goto(link);
