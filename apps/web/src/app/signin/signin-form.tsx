@@ -38,7 +38,7 @@ export function SignInForm({ next, mode }: { next: string; mode: "resend" | "dev
 
   const err = state && !state.ok ? state.error : null;
   return (
-    <form action={action} className="space-y-4" noValidate>
+    <form action={action} className="space-y-4" noValidate data-signin="magic-link">
       <input type="hidden" name="next" value={next} />
       <Field label="Work e-mail" htmlFor="email" error={err?.fieldErrors?.email}>
         <input

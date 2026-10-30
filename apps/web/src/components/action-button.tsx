@@ -57,7 +57,7 @@ export function ActionButton({
 }
 
 /** Re-issues an invitation; when e-mail delivery is unavailable it reveals a copyable link. */
-export function ResendInvite({ action }: { action: () => Promise<ActionResult<{ delivery: string; link: string | null }>> }) {
+export function ResendInvite({ action, label = "Re-send invitation" }: { action: () => Promise<ActionResult<{ delivery: string; link: string | null }>>; label?: string }) {
   const [pending, start] = useTransition();
   const [res, setRes] = useState<{ text: string; link: string | null; ok: boolean } | null>(null);
   const [copied, setCopied] = useState(false);
@@ -82,7 +82,7 @@ export function ResendInvite({ action }: { action: () => Promise<ActionResult<{ 
           })
         }
       >
-        {pending ? "Issuing…" : "Re-send invitation"}
+        {pending ? "Issuing…" : label}
       </Button>
       {res && (
         <span role={res.ok ? "status" : "alert"} className={`max-w-xs text-right text-xs ${res.ok ? "text-muted" : "text-bad"}`}>

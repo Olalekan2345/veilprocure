@@ -4,7 +4,7 @@
  * (IDOR) and CSRF/auth guards. Chain-backed journeys live in chain.spec.ts.
  */
 import { expect, test } from "@playwright/test";
-import { createOrg, latestLink, signIn, sql, testEmail } from "./helpers";
+import { createOrg, latestLink, magicLinkForm, signIn, sql, testEmail } from "./helpers";
 
 test.afterAll(async () => {
   await sql.end({ timeout: 5 });
@@ -29,8 +29,9 @@ test("workspace requires a session", async ({ page }) => {
 test("sign-in links are single use and not consumed by GET", async ({ page }) => {
   const email = testEmail("single-use");
   await page.goto("/signin");
-  await page.getByLabel("Work e-mail").fill(email);
-  await page.getByRole("button", { name: "Email me a sign-in link" }).click();
+  const form = await magicLinkForm(page);
+  await form.getByLabel("Work e-mail").fill(email);
+  await form.getByRole("button", { name: "Email me a sign-in link" }).click();
   const link = await latestLink(email, "/auth/confirm");
   // Simulate a mail scanner prefetching the link twice: still unconsumed.
   await page.request.get(link);
@@ -133,13 +134,15 @@ test("sign-in requests are rate limited per address", async ({ page }) => {
   const email = testEmail("ratelimit");
   for (let i = 0; i < 5; i++) {
     await page.goto("/signin");
-    await page.getByLabel("Work e-mail").fill(email);
-    await page.getByRole("button", { name: "Email me a sign-in link" }).click();
+    const form = await magicLinkForm(page);
+    await form.getByLabel("Work e-mail").fill(email);
+    await form.getByRole("button", { name: "Email me a sign-in link" }).click();
     await expect(page.getByText("E-mail delivery is not configured on this server")).toBeVisible();
   }
   await page.goto("/signin");
-  await page.getByLabel("Work e-mail").fill(email);
-  await page.getByRole("button", { name: "Email me a sign-in link" }).click();
+  const form = await magicLinkForm(page);
+  await form.getByLabel("Work e-mail").fill(email);
+  await form.getByRole("button", { name: "Email me a sign-in link" }).click();
   await expect(page.getByText("Too many attempts")).toBeVisible();
   const [row] = await sql<{ n: number }[]>`select count(*)::int as n from login_tokens where email = ${email}`;
   expect(row!.n).toBe(5);

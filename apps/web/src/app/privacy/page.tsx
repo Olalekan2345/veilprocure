@@ -18,6 +18,10 @@ export default function Privacy() {
           </ul>
         </section>
         <section>
+          <h2 className="text-lg font-semibold text-ink">Sign-in provider</h2>
+          <p className="mt-2">When this server uses Privy for sign-in, your e-mail address is sent to Privy so it can e-mail you a one-time code and confirm you own the address. VeilProcure receives only that confirmation and keeps its own session; Privy&apos;s tokens are not stored in your browser after sign-in.</p>
+        </section>
+        <section>
           <h2 className="text-lg font-semibold text-ink">What goes on chain (public, permanent)</h2>
           <p className="mt-2">Policy and terms hashes, invite-slot leaves, salted bid commitments, wallet account ids, award amounts, agreement and delivery-evidence hashes, statuses and transfers on NEAR testnet.</p>
         </section>

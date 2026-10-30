@@ -15,6 +15,7 @@
     "@hot-labs/near-connect": "0.12.0",
     "@noble/curves": "2.4.0",
     "@noble/hashes": "2.4.0",
+    "@privy-io/js-sdk-core": "0.78.4",
     "@veilprocure/db": "workspace:*",
     "@veilprocure/shared": "workspace:*",
     "drizzle-orm": "0.45.4",
@@ -24,6 +25,7 @@
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "server-only": "0.0.1",
+    "viem": "2.57.7",
     "zod": "4.6.7"
   },
   "devDependencies": {

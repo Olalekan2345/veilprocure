@@ -22,6 +22,7 @@ const schema = z
     RESEND_API_KEY: z.string().optional(),
     EMAIL_FROM: z.string().optional(),
     SUPPORT_EMAIL: z.string().email().optional().or(z.literal("")),
+    PRIVY_APP_ID: z.union([z.literal(""), z.string().regex(/^[a-z0-9]{16,64}$/, "PRIVY_APP_ID must be the app ID from the Privy dashboard")]).default(""),
     NEAR_NETWORK: z.literal("testnet", "VeilProcure only supports NEAR testnet in this release"),
     NEAR_RPC_URL: z.url(),
     NEAR_EXPLORER_URL: z.url(),
@@ -31,6 +32,9 @@ const schema = z
   .superRefine((env, ctx) => {
     if (env.EMAIL_TRANSPORT === "resend" && (!env.RESEND_API_KEY || !env.EMAIL_FROM)) {
       ctx.addIssue({ code: "custom", path: ["RESEND_API_KEY"], message: "EMAIL_TRANSPORT=resend requires RESEND_API_KEY and EMAIL_FROM" });
+    }
+    if (env.NODE_ENV === "production" && !env.PRIVY_APP_ID && env.EMAIL_TRANSPORT !== "resend") {
+      ctx.addIssue({ code: "custom", path: ["PRIVY_APP_ID"], message: "production needs a sign-in method: set PRIVY_APP_ID or EMAIL_TRANSPORT=resend" });
     }
     if (env.NODE_ENV === "production" && env.EMAIL_TRANSPORT === "dev-mailbox") {
       ctx.addIssue({ code: "custom", path: ["EMAIL_TRANSPORT"], message: "dev-mailbox is not allowed in production" });
@@ -60,6 +64,11 @@ export function env(): Env {
 
 export function contractConfigured(): boolean {
   return env().NEAR_CONTRACT_ID.length > 0;
+}
+
+/** Privy e-mail sign-in is used when an app ID is configured (the ID is public, not a secret). */
+export function privyAppId(): string | null {
+  return env().PRIVY_APP_ID || null;
 }
 
 export function explorerTxUrl(txHash: string): string {
