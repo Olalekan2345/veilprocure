@@ -19,7 +19,9 @@ VeilProcure is a **public testnet beta / functional prototype**. It is not produ
 | Confidential AI notes with attestation | BUILT & VERIFIED (live, locally) | 2 live evaluations, all 27 checks passed (docs/AI_VERIFICATION.md) |
 | Chain reconciler worker | BUILT & VERIFIED | projected an out-of-band `claim_after_review` (RFQ #2 → settled/paid) |
 | Real e-mail delivery (sign-in links, invitations) | BUILT & VERIFIED (local) for sign-in via Gmail SMTP; invitations use the same transport | docs/TEST_EVIDENCE.md. Gmail limits sending volume; without e-mail, buyers use "Get invitation link" |
-| Hosted deployment, backups, monitoring | BLOCKED | needs host/DB/secret-manager credentials |
+| Hosted deployment | DEPLOYED (Netlify + Neon) | https://veilprocure.netlify.app; live sign-in, onboarding and encrypted drafts verified (docs/DEPLOYMENTS.md) |
+| Wallet-signed steps, Blobs uploads and AI jobs on the hosted site | BUILT, NOT VERIFIED live | need a real wallet session on the hosted site |
+| Backups, monitoring, alerting | NOT DONE | relies on Neon's built-in restore window; no restore drill, monitoring or alerting set up |
 | NEAR Intents | OUT OF SCOPE | not integrated |
 
 ## Known limitations

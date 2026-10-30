@@ -41,11 +41,11 @@ Alternative with near-cli-rs (not used here; the command lines follow its docume
 
 Optional hardening (human decision): after verification, delete the contract account's full-access key so the code can never be changed (also removes any ability to fix bugs).
 
-## Web app — NOT DEPLOYED (Netlify + Neon prepared)
+## Web app — DEPLOYED on Netlify + Neon (2026-10-30, approved by the project owner)
 
-Runs locally only (`http://localhost:3000`). The owner chose **Netlify** (hosting, functions, Blobs) with **Neon** PostgreSQL and Gmail SMTP for e-mail. No hosted URL exists yet; nothing goes live without the owner's go-ahead.
+**https://veilprocure.netlify.app** (Netlify project `veilprocure`, site id `38c9b6e5-7f63-4cdb-b730-8fdf8b1d6178`). The owner chose **Netlify** (hosting, functions, Blobs) with **Neon** PostgreSQL and Gmail SMTP for e-mail. Testnet beta: contract unaudited, testnet NEAR only.
 
-### Hosting on Netlify (prepared, not yet run)
+### Hosting on Netlify
 
 | Piece | How it runs on Netlify |
 |---|---|
@@ -60,3 +60,22 @@ Runs locally only (`http://localhost:3000`). The owner chose **Netlify** (hostin
 **Neon — PROVISIONED (2026-10-30).** Project in AWS us-east-2 running PostgreSQL 18.6. `provision:hosted` created `veil_app` (NOBYPASSRLS) and `veil_worker` (BYPASSRLS), applied all migrations as `neondb_owner`, and confirmed each role's attribute by logging in through the pooled endpoint. The database security suite (`packages/db`, RLS + immutability) passed **10/10** against a temporary `veilprocure_test` database in the same project, then the test database was dropped (test timeout raised to 120 s: the default 5 s is too short for round trips from the development machine to us-east-2).
 
 Environment (`node scripts/netlify-env.mjs --site <name>` prints the plan with secrets masked; `--apply` sets it through the Netlify CLI; secrets are marked secret, production context only, and the script confirms every key through the Netlify API afterwards): `APP_URL`, `DATABASE_URL`, `WORKER_DATABASE_URL`, `VEIL_MASTER_KEY` and `DOWNLOAD_TOKEN_SECRET` (fresh, not the local ones), `VEIL_KEY_ID`, `STORAGE_BACKEND`, `EMAIL_TRANSPORT`, `SMTP_*`, `EMAIL_FROM`, `TRUST_PROXY_HEADERS`, `NEAR_NETWORK`, `NEAR_RPC_URL`, `NEAR_EXPLORER_URL`, `NEAR_CONTRACT_ID`, `NEARAI_*`, `AI_RUNNER_URL`, `WORKER_TRIGGER_SECRET`. Never set `NEXT_PUBLIC_VEIL_E2E_WALLET`.
+
+### Deploying
+
+`scripts/deploy-netlify.sh <site-id>` on Linux/WSL: clones the committed code (a clean clone cannot contain the gitignored `.env` files, which Next.js would otherwise read into the build), installs the locked dependencies and runs `netlify deploy --prod --filter @veilprocure/web`. The build compiles Next.js and pre-bundles the worker functions with esbuild (`apps/web/scripts/bundle-functions.mjs`). Building on Windows fails inside Netlify's Next.js adapter (it creates symlinks, which Windows refuses without Developer Mode), so the deploys below ran in WSL Ubuntu with Node 22.23.4 (checksum-verified tarball).
+
+New Netlify projects on this team required a Netlify login for every deploy (`sso_login_context = all`); it was set to `non_production`, so the production site is public and deploy previews stay team-only.
+
+| Deploy | Commit | Result |
+|---|---|---|
+| `6ae4a1794b8a2ab3c85bc6c9` | `f4b3051` | Site live; **bug found**: `chain-sync` failed on every run (`ERR_MODULE_NOT_FOUND` for the TypeScript workspace package `@veilprocure/db`, left external by Netlify's packager) |
+| `6ae4a5583b7507ba7132f830` | `b7a7c05` | Functions pre-bundled with esbuild; schedule/background declared in `netlify.toml`. Published 14:14:24 UTC; Netlify function logs show `chain-sync` completing every minute from 14:15 (1.5 s cold start, then 60–190 ms) with no errors, versus `ERR_MODULE_NOT_FOUND` on every run before |
+
+### Live checks (2026-10-30)
+
+- `/` 200, `/signin` 200, `/app` 307 → sign-in, `/dev/mailbox` 404; headers: CSP (no `unsafe-eval`), HSTS, `X-Frame-Options: DENY`, `nosniff`, Referrer-Policy, Permissions-Policy, COOP.
+- Sign-in on the live site for `veilprocure@gmail.com`: Gmail SMTP from Netlify (outbox on Neon `sent`, Gmail message id present), link origin `https://veilprocure.netlify.app`, session cookie `__Host-veil_session` (HttpOnly, Secure, SameSite=Lax).
+- Buyer organisation `VeilProcure Demo Buyer` created; a draft request ("Website accessibility audit (sample draft)") saved: on Neon the draft is sealed with the hosted key id `netlify-1` and contains no plaintext.
+- `POST /.netlify/functions/ai-runner` without the shared secret: 202 and no work (background functions always answer 202; the handler exits without the secret). `chain-sync` by URL: 403 (scheduled functions are not publicly invocable).
+- Not yet exercised on the live site: wallet-signed steps, uploads to Netlify Blobs and AI jobs — they need a real wallet session (the E2E wallet bridge is never enabled in production).

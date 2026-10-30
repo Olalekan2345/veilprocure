@@ -15,7 +15,8 @@ Small agencies and technology teams buying fixed-scope digital services (design,
 | Full buyer → 2 suppliers → payout journey on testnet | **Verified**: 12 real transactions through the UI, exact +0.5 NEAR payout, attacks rejected ([evidence](docs/TEST_EVIDENCE.md)) |
 | Refund / dispute / failed-transfer retry on chain | Built and unit-tested; not yet run on testnet |
 | NEAR AI Cloud attested evaluation | **Verified live**: `Qwen/Qwen3.8-27B`, all 27 attestation/signature/schema checks passed on two evaluations ([evidence](docs/AI_VERIFICATION.md)) |
-| Hosted demo / public repo / X post | **TODO** — repo is private on GitHub; hosting needs credentials; public + X post need the owner |
+| Hosted app | **Live** at https://veilprocure.netlify.app (Netlify + Neon + Gmail SMTP); sign-in, onboarding and encrypted drafts verified on the live site ([deployments](docs/DEPLOYMENTS.md)) |
+| Public repo / X post | **TODO** — repo is private on GitHub; publishing and the X post need the owner |
 
 Full matrix: [docs/LIMITATIONS.md](docs/LIMITATIONS.md). Test output: [docs/TEST_EVIDENCE.md](docs/TEST_EVIDENCE.md).
 
@@ -100,7 +101,7 @@ pnpm build:contract                             # WASM + SHA-256
 | Contract (NEAR testnet) | [`veilprocure-106725.testnet`](https://testnet.nearblocks.io/address/veilprocure-106725.testnet) |
 | Deploy tx | [`BEtCcWWS…ErkF`](https://testnet.nearblocks.io/txns/BEtCcWWShjDeke1wK9F8qGSR5Cfdd2drEqWQE4AQErkf) — code hash `3BnxCPhb…ZwbN` = SHA-256 `207b23c0…bc941` of the WASM built from this repo |
 | Example payout tx | [`HY2vAtUm…5Pc6`](https://testnet.nearblocks.io/txns/HY2vAtUmsp2Vft7BsxNTJMWBe8vNk2GcSTzXeQDs5Pc6) (`approve_release` → transfer → `on_payment_result`) |
-| Hosted app | **TODO** — not deployed; needs host, managed Postgres, secret storage and an e-mail sender |
+| Hosted app | https://veilprocure.netlify.app — Netlify (Next.js + worker functions + Blobs), Neon PostgreSQL, Gmail SMTP |
 
 Details and all journey transactions: [docs/DEPLOYMENTS.md](docs/DEPLOYMENTS.md), [docs/TEST_EVIDENCE.md](docs/TEST_EVIDENCE.md).
 
