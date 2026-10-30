@@ -11,6 +11,7 @@ import {
   type QuoteEvaluation,
   type ScoredQuote,
 } from "@veilprocure/shared";
+import { triggerAiRunner } from "@veilprocure/worker/trigger";
 import { audit } from "../audit";
 import type { Actor } from "../authz";
 import { db, tables, withActor } from "../db";
@@ -238,6 +239,7 @@ export async function requestAiEvaluation(actor: Actor, rfqId: string): Promise<
     .values({ rfqId, kind: "ai", status: "queued", requestedBy: actor.id, policyVersion: frozen?.version ?? 1 })
     .returning({ id: t.evaluationJobs.id });
   await audit(db(), { actorKind: "user", actorUserId: actor.id, orgId: rfq.buyerOrgId, rfqId, action: "evaluation.ai_requested", targetType: "evaluation_job", targetId: job!.id });
+  await triggerAiRunner();
   return job!.id;
 }
 

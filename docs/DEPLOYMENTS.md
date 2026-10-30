@@ -41,6 +41,20 @@ Alternative with near-cli-rs (not used here; the command lines follow its docume
 
 Optional hardening (human decision): after verification, delete the contract account's full-access key so the code can never be changed (also removes any ability to fix bugs).
 
-## Web app — NOT DEPLOYED
+## Web app — NOT DEPLOYED (Netlify + Neon prepared)
 
-Runs locally only (`http://localhost:3000`). Hosting requires human-approved choices and credentials: host (e.g. Vercel/Fly/Render), managed PostgreSQL, secret storage for `VEIL_MASTER_KEY`/`DOWNLOAD_TOKEN_SECRET`, an e-mail provider with a verified sender (Resend is integrated), private object storage (local disk adapter only today), domain and support address. No URL exists yet.
+Runs locally only (`http://localhost:3000`). The owner chose **Netlify** (hosting, functions, Blobs) with **Neon** PostgreSQL and Gmail SMTP for e-mail. No hosted URL exists yet; nothing goes live without the owner's go-ahead.
+
+### Hosting on Netlify (prepared, not yet run)
+
+| Piece | How it runs on Netlify |
+|---|---|
+| Next.js app | Netlify's Next.js adapter; site package directory `apps/web`, base directory unset; build `pnpm --filter @veilprocure/web build` (`apps/web/netlify.toml`) |
+| Encrypted uploads | Netlify Blobs store `veil-objects` (`STORAGE_BACKEND=netlify-blobs`); objects are sealed with the envelope key before they leave the app |
+| Chain reconciler + intent expiry | Scheduled function `chain-sync`, every minute (≤ 30 s), worker role |
+| Confidential AI jobs | Background function `ai-runner` (≤ 15 min), woken by the web app after a request (`AI_RUNNER_URL` + `WORKER_TRIGGER_SECRET`) and by `chain-sync` if jobs wait |
+| Database | Neon PostgreSQL 17; `pnpm --filter @veilprocure/db provision:hosted` creates `veil_app` / `veil_worker`, migrates as the owner and writes pooled logins to `.local/hosted.env` (never committed) |
+| Client IP for rate limits | `TRUST_PROXY_HEADERS=netlify` (Netlify's `x-nf-client-connection-ip`) |
+| E-mail | `EMAIL_TRANSPORT=smtp` (Gmail app password), as verified locally |
+
+Environment (Netlify site settings, secrets marked secret): `APP_URL`, `DATABASE_URL`, `WORKER_DATABASE_URL`, `VEIL_MASTER_KEY` and `DOWNLOAD_TOKEN_SECRET` (fresh, not the local ones), `VEIL_KEY_ID`, `STORAGE_BACKEND`, `EMAIL_TRANSPORT`, `SMTP_*`, `EMAIL_FROM`, `TRUST_PROXY_HEADERS`, `NEAR_NETWORK`, `NEAR_RPC_URL`, `NEAR_EXPLORER_URL`, `NEAR_CONTRACT_ID`, `NEARAI_*`, `AI_RUNNER_URL`, `WORKER_TRIGGER_SECRET`. Never set `NEXT_PUBLIC_VEIL_E2E_WALLET`.

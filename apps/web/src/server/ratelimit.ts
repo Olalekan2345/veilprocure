@@ -24,12 +24,18 @@ export async function rateLimit(bucket: string, limit: number, windowSeconds: nu
 
 /**
  * Client address bucket. Forwarding headers are client-controlled unless a trusted reverse proxy
- * overwrites them, so they are honoured only when TRUST_PROXY_HEADERS=true (set this behind
- * Vercel/Cloudflare/nginx). Otherwise all callers share one bucket, which fails safe (stricter).
+ * overwrites them, so they are honoured only when TRUST_PROXY_HEADERS=true (X-Forwarded-For behind
+ * Vercel/Cloudflare/nginx) or =netlify (Netlify's own client-IP header). Otherwise all callers
+ * share one bucket, which fails safe (stricter).
  */
 export async function clientIpBucket(): Promise<string> {
-  if (process.env.TRUST_PROXY_HEADERS !== "true") return "ip:untrusted-proxy";
+  const mode = process.env.TRUST_PROXY_HEADERS;
+  if (mode !== "true" && mode !== "netlify") return "ip:untrusted-proxy";
   const h = await headers();
-  const ip = h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || "unknown";
+  // Netlify's edge sets x-nf-client-connection-ip itself; it is the only header it guarantees.
+  const ip =
+    mode === "netlify"
+      ? h.get("x-nf-client-connection-ip")?.trim() || "unknown"
+      : h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || "unknown";
   return `ip:${ip}`;
 }

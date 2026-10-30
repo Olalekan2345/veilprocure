@@ -6,10 +6,6 @@
 import { expect, test } from "@playwright/test";
 import { createOrg, latestLink, signIn, sql, testEmail } from "./helpers";
 
-test.afterAll(async () => {
-  await sql.end({ timeout: 5 });
-});
-
 test("public pages are honest and reachable", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Private bids.");

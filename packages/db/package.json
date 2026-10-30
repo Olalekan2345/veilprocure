@@ -12,7 +12,8 @@
     "migrate": "tsx src/migrate.ts",
     "typecheck": "tsc -p tsconfig.json",
     "lint": "tsc -p tsconfig.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "provision:hosted": "tsx src/provision-hosted.ts"
   },
   "dependencies": {
     "drizzle-orm": "0.45.4",

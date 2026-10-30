@@ -17,7 +17,8 @@ const schema = z
     DOWNLOAD_TOKEN_SECRET: z
       .string()
       .refine((v) => Buffer.from(v, "base64").length >= 32, "DOWNLOAD_TOKEN_SECRET must be ≥ 32 random bytes, base64"),
-    STORAGE_DIR: z.string().min(1),
+    STORAGE_BACKEND: z.enum(["fs", "netlify-blobs"]).default("fs"),
+    STORAGE_DIR: z.string().optional(),
     EMAIL_TRANSPORT: z.enum(["smtp", "resend", "dev-mailbox", "disabled"]).default("disabled"),
     SMTP_HOST: z.string().optional(),
     SMTP_PORT: z.coerce.number().int().min(1).max(65535).default(465),
@@ -35,6 +36,9 @@ const schema = z
   .superRefine((env, ctx) => {
     if (env.EMAIL_TRANSPORT === "resend" && (!env.RESEND_API_KEY || !env.EMAIL_FROM)) {
       ctx.addIssue({ code: "custom", path: ["RESEND_API_KEY"], message: "EMAIL_TRANSPORT=resend requires RESEND_API_KEY and EMAIL_FROM" });
+    }
+    if (env.STORAGE_BACKEND === "fs" && !env.STORAGE_DIR) {
+      ctx.addIssue({ code: "custom", path: ["STORAGE_DIR"], message: "STORAGE_BACKEND=fs requires STORAGE_DIR" });
     }
     if (env.EMAIL_TRANSPORT === "smtp" && (!env.SMTP_HOST || !env.SMTP_USER || !env.SMTP_PASS || !env.EMAIL_FROM)) {
       ctx.addIssue({ code: "custom", path: ["SMTP_PASS"], message: "EMAIL_TRANSPORT=smtp requires SMTP_HOST, SMTP_USER, SMTP_PASS and EMAIL_FROM" });

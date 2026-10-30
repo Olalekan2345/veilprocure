@@ -15,7 +15,8 @@ function env(): Record<string, string> {
   );
 }
 
-export const sql = postgres(env().WORKER_DATABASE_URL!, { max: 2, onnotice: () => {} });
+// Shared by every spec in a worker process; idle connections close themselves, so no spec ends it.
+export const sql = postgres(env().WORKER_DATABASE_URL!, { max: 2, idle_timeout: 2, onnotice: () => {} });
 
 export function testEmail(label: string): string {
   return `test-e2e-${label}-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}@example.test`;

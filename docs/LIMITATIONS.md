@@ -32,7 +32,8 @@ VeilProcure is a **public testnet beta / functional prototype**. It is not produ
 - One award and one milestone per RFQ; escrow in testnet NEAR only; the buyer converts the agreed price to NEAR manually.
 - Buyer-side chain actions must be signed by the wallet that published the RFQ.
 - CSP allows `'unsafe-inline'` scripts (Next.js without nonces).
-- Local object storage only (S3-compatible adapter not implemented).
+- Object storage: local directory or Netlify Blobs (S3-compatible adapter not implemented).
+- On Netlify, all functions share one environment, so the web app's functions can read the worker's BYPASSRLS database login; separation is enforced in code (the web app never uses it), not by the platform.
 - The worker's reconciler updates statuses from chain state but does not yet write audit events (the web-side sync does).
 - AI notes may mention the anonymised labels (`Q1`, `Q2`) the model was given; they are displayed verbatim as signed and are advisory only.
 - Automated on-chain tests sign through a guarded E2E wallet bridge with test keys, not through a third-party wallet popup.

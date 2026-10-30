@@ -3,10 +3,11 @@ import { migrate } from "drizzle-orm/postgres-js/migrator";
 import postgres from "postgres";
 import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
+import { normalizeDatabaseUrl } from "./index";
 
 /** Applies migrations as the schema owner. Usage: MIGRATION_DATABASE_URL=... tsx src/migrate.ts */
 export async function runMigrations(url: string): Promise<void> {
-  const client = postgres(url, { max: 1, onnotice: () => {} });
+  const client = postgres(normalizeDatabaseUrl(url), { max: 1, onnotice: () => {} });
   try {
     await migrate(drizzle(client), { migrationsFolder: fileURLToPath(new URL("../migrations", import.meta.url)) });
   } finally {

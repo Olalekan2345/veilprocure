@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "exports": {
+    "./jobs": "./src/jobs.ts",
+    "./trigger": "./src/trigger.ts"
+  },
   "scripts": {
     "start": "tsx --env-file=.env src/index.ts",
     "once": "tsx --env-file=.env src/index.ts --once",

@@ -9,9 +9,21 @@ export { schema as tables };
 export type Db = PostgresJsDatabase<typeof schema>;
 export type Tx = Parameters<Parameters<Db["transaction"]>[0]>[0];
 
+/**
+ * postgres.js forwards unknown URL parameters to the server as settings, so drop libpq-only ones
+ * that hosted providers add (Neon's `channel_binding`); TLS still comes from `sslmode`.
+ */
+export function normalizeDatabaseUrl(url: string): string {
+  const u = new URL(url);
+  u.searchParams.delete("channel_binding");
+  return u.toString();
+}
+
 export function createDb(url: string, opts: { max?: number } = {}): { db: Db; close: () => Promise<void> } {
-  const client = postgres(url, {
+  const client = postgres(normalizeDatabaseUrl(url), {
     max: opts.max ?? 10,
+    // Transaction-mode poolers (e.g. Neon's "-pooler" endpoint) cannot track prepared statements.
+    prepare: !/-pooler\./.test(url),
     // Never log query parameters: they can contain e-mail addresses or ciphertext.
     debug: false,
     onnotice: () => {},

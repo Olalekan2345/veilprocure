@@ -1,0 +1,13 @@
+# Netlify site for the web app. Set the site's package directory to apps/web and leave the base
+# directory unset: dependencies install and the build runs from the repository root, so paths here
+# are relative to the root. Configuration and secrets: docs/DEPLOYMENTS.md ("Hosting on Netlify").
+[build]
+  command = "pnpm --filter @veilprocure/web build"
+  publish = "apps/web/.next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  directory = "apps/web/netlify/functions"
+  node_bundler = "esbuild"

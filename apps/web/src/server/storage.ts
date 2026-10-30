@@ -35,7 +35,7 @@ export function safeFilename(name: string): string {
 }
 
 function root(): string {
-  return resolve(env().STORAGE_DIR);
+  return resolve(env().STORAGE_DIR!);
 }
 
 function pathFor(key: string): string {
@@ -60,12 +60,40 @@ export async function putEncrypted(data: Buffer, aadFor: (storageKey: string) =>
   if (!contentType) throw new AppError("UPLOAD_REJECTED", "Only PDF, PNG, JPEG and plain-text files are accepted.");
   const storageKey = randomUUID();
   const sealed = await seal(data, aadFor(storageKey));
-  const p = pathFor(storageKey);
-  await mkdir(dirname(p), { recursive: true });
-  await writeFile(p, sealed, { flag: "wx" });
+  await writeObject(storageKey, sealed);
   return { storageKey, sha256: createHash("sha256").update(data).digest("hex"), sizeBytes: data.length, contentType, encMeta: "inline-envelope-v1" };
 }
 
 export async function getDecrypted(storageKey: string, aad: Aad): Promise<Buffer> {
-  return open(await readFile(pathFor(storageKey), "utf8"), aad);
+  return open(await readObject(storageKey), aad);
+}
+
+// Objects are sealed before they reach either backend, so neither ever holds plaintext.
+const BLOB_STORE = "veil-objects";
+
+async function blobStore() {
+  const { getStore } = await import("@netlify/blobs");
+  return getStore({ name: BLOB_STORE, consistency: "strong" });
+}
+
+async function writeObject(key: string, sealed: string): Promise<void> {
+  if (env().STORAGE_BACKEND === "netlify-blobs") {
+    if (!/^[0-9a-f-]{36}$/.test(key)) throw new Error("invalid storage key");
+    const res = await (await blobStore()).set(key, sealed, { onlyIfNew: true });
+    if (!res.modified) throw new Error("storage key already exists");
+    return;
+  }
+  const p = pathFor(key);
+  await mkdir(dirname(p), { recursive: true });
+  await writeFile(p, sealed, { flag: "wx" });
+}
+
+async function readObject(key: string): Promise<string> {
+  if (env().STORAGE_BACKEND === "netlify-blobs") {
+    if (!/^[0-9a-f-]{36}$/.test(key)) throw new Error("invalid storage key");
+    const value = await (await blobStore()).get(key, { type: "text" });
+    if (value === null) throw new Error("stored object not found");
+    return value;
+  }
+  return readFile(pathFor(key), "utf8");
 }

@@ -20,7 +20,6 @@ const NEAR = 10n ** 24n;
 
 test.afterAll(async () => {
   if (journey.length) writeFileSync(resolve(import.meta.dirname, "../../../.local/testnet-journey.json"), JSON.stringify({ at: new Date().toISOString(), journey }, null, 2));
-  await sql.end({ timeout: 5 });
 });
 
 async function walletPage(browser: Browser, accountId: string): Promise<Page> {
