@@ -73,7 +73,9 @@ async function main(): Promise<void> {
       const password = randomBytes(24).toString("base64url");
       const verb = existing ? "ALTER" : "CREATE";
       try {
-        await owner.unsafe(`${verb} ROLE ${role.name} WITH LOGIN PASSWORD '${password}' ${role.attrs}`);
+        // Rotation changes only the password: managed hosts (Neon) refuse attribute changes, and
+        // the attributes are verified by logging in below.
+        await owner.unsafe(existing ? `ALTER ROLE ${role.name} WITH PASSWORD '${password}'` : `CREATE ROLE ${role.name} WITH LOGIN PASSWORD '${password}' ${role.attrs}`);
       } catch (err) {
         throw new Error(`${verb} ROLE ${role.name} failed: ${err instanceof Error ? err.message : err}`);
       }

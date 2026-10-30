@@ -99,7 +99,16 @@ if (!apply) process.exit(0);
 const cli = join(execSync("npm root -g", { encoding: "utf8" }).trim(), "netlify-cli", "bin", "run.js");
 if (!existsSync(cli)) throw new Error(`Netlify CLI not found at ${cli}; run: npm i -g netlify-cli`);
 for (const [key, value, secret] of vars) {
-  const extra = secret ? ["--secret", "--scope", "functions"] : [];
-  execFileSync(process.execPath, [cli, "env:set", key, value, "--site", site, "--force", ...extra], { stdio: ["ignore", "ignore", "inherit"] });
+  // Secrets: production deploys only (never previews), functions scope only.
+  const extra = secret ? ["--secret", "--scope", "functions", "--context", "production"] : [];
+  try {
+    // --filter answers the CLI's monorepo "which app?" prompt.
+    execFileSync(process.execPath, [cli, "env:set", key, value, "--site", site, "--filter", "@veilprocure/web", "--force", ...extra], { stdio: ["ignore", "ignore", "pipe"] });
+  } catch (err) {
+    // Never echo the command line: it contains the value.
+    const reason = String(err.stderr ?? "").split(/\r?\n/).find((l) => /error/i.test(l)) ?? `exit ${err.status}`;
+    console.error(`failed to set ${key}: ${reason.replaceAll(value, "<redacted>").trim()}`);
+    process.exit(1);
+  }
   console.log(`set ${key}`);
 }
