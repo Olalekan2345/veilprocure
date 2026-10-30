@@ -1,11 +1,11 @@
 # Feasibility spikes
 
-The brief requires three go/no-go spikes with real tool output. Status on 2026-10-29:
+The brief requires three go/no-go spikes with real tool output. Status on 2026-10-30:
 
 | # | Spike | Status | Evidence |
 |---|---|---|---|
 | 1 | Compile/deploy a Rust contract and call it from real testnet wallets | **DONE** — deployed to `veilprocure-106725.testnet`, called by 4 separate testnet accounts | `docs/DEPLOYMENTS.md`, `docs/TEST_EVIDENCE.md` |
-| 2 | Verify one NEAR AI Cloud request + attestation/signature | **BLOCKED: no NEAR AI Cloud API key** | verifier implemented and unit-tested; no live request made |
+| 2 | Verify one NEAR AI Cloud request + attestation/signature | **DONE** — `Qwen/Qwen3.8-27B`, all 27 checks passed on two live evaluations | `docs/AI_VERIFICATION.md` |
 | 3 | Escrow transfer + callback to a second account | **DONE** — `approve_release` transfer + `on_payment_result` callback paid exactly 0.5 NEAR to a second account; `claim_after_review` likewise | `docs/TEST_EVIDENCE.md` |
 
 ## 1. Contract build (real output)
@@ -25,7 +25,7 @@ Deployed on 2026-10-29 after the project owner's approval: tx `BEtCcWWShjDeke1wK
 
 ## 2. NEAR AI Cloud
 
-Implemented: `apps/worker/src/attestation.ts` and `evaluate.ts` follow the documented flow (see `docs/AI_VERIFICATION.md`). Unit tests prove fail-closed behaviour (no key → blocked with zero network calls; unverifiable attestation → the chat endpoint is never called). **No live attested completion has been obtained** because no API key is available. Nothing in the UI claims a verified result.
+Implemented: `apps/worker/src/attestation.ts` and `evaluate.ts` follow the documented flow (see `docs/AI_VERIFICATION.md`). Unit tests prove fail-closed behaviour (no key → blocked with zero network calls; unverifiable attestation → the chat endpoint is never called). On 2026-10-30, with the owner's API key, two live evaluations of the on-chain journey's quotes passed every check (TDX quote + collateral, nonce and signer bindings, MRCONFIGID, RTMR3 replay, NVIDIA NRAS, `provider_tee` response signature bound to the verified model signer, output schema). Evidence: `docs/AI_VERIFICATION.md`.
 
 ## 3. Escrow and callbacks
 

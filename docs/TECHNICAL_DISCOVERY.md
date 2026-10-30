@@ -51,7 +51,7 @@ Docs drift noted: the NEAR wallet-login page builds a NEP-413 nonce with `Buffer
 
 Docs drift noted: the quickstart example model `zai-org/GLM-5.1-FP8` is **not** in the live model list.
 
-**Status: BLOCKED** on an API key — the quickstart says keys are created after purchasing credits at https://cloud.near.ai. No attested request has been made. Candidate model to validate once a key exists: `Qwen/Qwen3.8-27B` (fallback `z-ai/glm-5.3-flash`); the choice is final only after its `model_attestations` verify under our policy.
+**Status: VERIFIED (2026-10-30).** Keys are created after purchasing credits at https://cloud.near.ai. `Qwen/Qwen3.8-27B` returned one model candidate whose attestation passed our policy, and two live evaluations verified end to end (`docs/AI_VERIFICATION.md`). Fallback candidate `z-ai/glm-5.3-flash` not tested.
 
 ## Local environment (this machine)
 

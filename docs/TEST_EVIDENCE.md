@@ -51,7 +51,7 @@ Three isolated browser sessions (buyer, supplier A, supplier B) drove the real U
 | 8 | attack: losing supplier accept_award (rejected VP_NOT_SUPPLIER) | [`7qhSwCMQwrTg…`](https://testnet.nearblocks.io/txns/7qhSwCMQwrTg8Lt1wf6FpJV2hkj7SNgFv7JPQjQaM6xj) |
 | 9 | accept_award (supplier A) | [`5SeKqH8QMKbL…`](https://testnet.nearblocks.io/txns/5SeKqH8QMKbLJpyAZPhhq48MbTZvxRZJqVjKC5EjbyeV) |
 | 10 | submit_delivery (evidence hash) | [`AuNb8RoXAU2t…`](https://testnet.nearblocks.io/txns/AuNb8RoXAU2tUvue1NETKCajg89VMqmQWRViCYQ7qh1N) |
-| 11 | approve_release â†’ transfer â†’ on_payment_result | [`HY2vAtUmsp2V…`](https://testnet.nearblocks.io/txns/HY2vAtUmsp2Vft7BsxNTJMWBe8vNk2GcSTzXeQDs5Pc6) |
+| 11 | approve_release → transfer → on_payment_result | [`HY2vAtUmsp2V…`](https://testnet.nearblocks.io/txns/HY2vAtUmsp2Vft7BsxNTJMWBe8vNk2GcSTzXeQDs5Pc6) |
 | 12 | attack: second approve_release after payout (rejected) | [`9AuUcmzwBoNQ…`](https://testnet.nearblocks.io/txns/9AuUcmzwBoNQa8Ffr1XkaBvpo1uwYjMmEYk3FwUXJSSY) |
 
 Assertions that passed: supplier A's balance rose by **exactly 500000000000000000000000 yocto (0.5 NEAR)** across the release; the database award status is `paid` with ≥ 5 confirmed escrow transactions; outsider `approve_release` failed with `VP_NOT_BUYER`; the losing supplier's `accept_award` failed with `VP_NOT_SUPPLIER`; a second `approve_release` after payout was rejected.
@@ -65,9 +65,12 @@ Assertions that passed: supplier A's balance rose by **exactly 50000000000000000
 
 7. The success dialog called `router.refresh()` immediately; on the RFQ page this unmounted the dialog (the Publish card disappears) and hid the confirmation receipt. Refresh now happens when the user closes the dialog.
 
+## Live NEAR AI evaluation (A10/A11)
+
+`VEIL_AI_LIVE=1 pnpm exec playwright test specs/ai-live.spec.ts` — **1 passed (1.7 min), rerun 1 passed (1.5 min)** on 2026-10-30. Buyer requested AI notes on RFQ #3 in the UI → `pnpm --filter @veilprocure/worker once` → job `succeeded`, evidence `verified = true` (model `Qwen/Qwen3.8-27B`, `provider_tee` signer `0x835ab53d20294ef795906dff21ae4c045336aa26`, TCB `UpToDate`, NRAS `true`) → notes visible on the comparison page → evidence page `VERIFIED under policy vp-nearai-1` with 27 passing checks. Job ids and hashes: `docs/AI_VERIFICATION.md`.
+
 ## Not yet tested (blocked or pending)
 
-- Live attested NEAR AI inference (A10/A11 live) — blocked on an API key (fail-closed paths are tested).
 - On-chain failed-transfer → retry (A17), mutual cancellation/refund (A18) and dispute paths — covered by contract unit/property tests, not yet run on testnet.
 - A third-party wallet's own UI (NEAR Connect popup) with a human — not automatable here.
 - Real e-mail delivery — no provider credentials. Backup/restore — no hosted database.

@@ -1,6 +1,6 @@
 # Judge walkthrough
 
-Steps marked **[chain]** use the deployed testnet contract `veilprocure-106725.testnet` (set `NEAR_CONTRACT_ID`); without it the app shows "On-chain actions are disabled on this server" instead of pretending. They were verified end to end by `tests/e2e/specs/chain.spec.ts`. Steps marked **[AI]** need a NEAR AI Cloud key on the worker.
+Steps marked **[chain]** use the deployed testnet contract `veilprocure-106725.testnet` (set `NEAR_CONTRACT_ID`); without it the app shows "On-chain actions are disabled on this server" instead of pretending. They were verified end to end by `tests/e2e/specs/chain.spec.ts`. Steps marked **[AI]** need a NEAR AI Cloud key on the worker; they were verified live by `tests/e2e/specs/ai-live.spec.ts`. `pnpm --filter @veilprocure/worker attest:check` lets anyone with a key re-run the attestation checks without sending content.
 
 ## Run locally
 
@@ -29,7 +29,7 @@ pnpm worker                          # optional: reconciler + AI jobs
 | Invite link (dev mailbox) as the invited supplier → accept → write quote → Seal & commit **[chain]** | Immutable revision, salted commitment on chain, downloadable receipt with salt |
 | Buyer opens the request before the deadline | Commitments only (wallet, version, hash, time); contents sealed |
 | After the deadline: Close bidding **[chain]** → Open comparison | Each quote "Commitment verified" (recomputed vs chain), pass/fail per rule with basis, exact-arithmetic ranking |
-| Request AI notes **[AI]** | Either verified notes + evidence page, or "UNVERIFIED — notes withheld" / "unavailable — nothing was sent" |
+| Request AI notes **[AI]**, then run the worker | "Attestation and signature verified" with per-quote notes citing quote fields; "View evidence" lists 27 passing checks. Without a key: "unavailable — nothing was sent"; failed checks: "UNVERIFIED — notes withheld" |
 | Award → Fund escrow → (supplier) Accept → Anchor delivery → (buyer) Approve & release **[chain]** | Award status follows the contract; escrow transactions with explorer links; payout only after the callback confirms |
 | Click "Approve & release" twice | Second attempt rejected (`WRONG_AWARD_STATE` / contract `VP_WRONG_AWARD_STATE`) |
 | `/app/activity` | Hash-chained audit trail with tx links |

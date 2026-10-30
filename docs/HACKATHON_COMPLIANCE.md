@@ -12,7 +12,7 @@ Source: https://nearhackathon.com/HACKATHON.md (read 2026-10-29). Re-read immedi
 | Libraries / AI-generated code listed | README "Attribution" |
 | Testnet-only eligibility | Yes — no mainnet-only integration used (NEAR Intents not integrated) |
 | X demo post with video/screenshots, "built at NEAR HACKATHON" | Pending — the human publishes it |
-| Tracks | `business` (primary). `privacy` only if live attested AI is demonstrated; `security`/`realworld` only if justified by the final build |
+| Tracks | `business` (primary). `privacy` — live attested AI demonstrated locally on 2026-10-30 (docs/AI_VERIFICATION.md); `security`/`realworld` only if justified by the final build |
 | Submission | One-time `POST https://nearhackathon.com/api/applications` (2026-11-01 → 2026-11-14). The agent will show the exact JSON and wait for explicit approval. Never submitted automatically |
 
 ## Payload fields the human must supply (never invented)

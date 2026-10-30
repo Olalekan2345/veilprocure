@@ -78,6 +78,36 @@ interface Config {
   kek: Kek;
 }
 
+export interface AttestationReport {
+  gateway_attestation?: AttestationEntry;
+  model_attestations?: AttestationEntry[];
+}
+
+/** Fetches gateway + NEAR model attestation evidence bound to our fresh nonce. Throws if unavailable. */
+export async function fetchAttestationReport(baseUrl: string, headers: Record<string, string>, model: string, nonceHex: string): Promise<AttestationReport> {
+  const url = new URL("/v1/attestation/report", baseUrl);
+  url.search = new URLSearchParams({ model, provider: "near", signing_algo: "ecdsa", nonce: nonceHex, include_tls_fingerprint: "false" }).toString();
+  const res = await fetch(url, { headers, signal: AbortSignal.timeout(60_000) });
+  if (!res.ok) throw new Error(`attestation endpoint HTTP ${res.status}`);
+  return (await res.json()) as AttestationReport;
+}
+
+/** Verifies every entry of a report; only candidates that pass the whole policy become signers. */
+export async function verifyAttestationReport(report: AttestationReport, nonceHex: string): Promise<{ checks: Check[]; gateway: VerifiedSigner | null; models: VerifiedSigner[] }> {
+  const checks: Check[] = [];
+  const gw = report.gateway_attestation ? await verifyEntry(report.gateway_attestation, nonceHex, "gateway") : { checks: [{ name: "gateway: present", ok: false, detail: "missing" }], signer: null };
+  checks.push(...gw.checks);
+  const candidates = report.model_attestations ?? [];
+  if (!candidates.length) checks.push({ name: "model: candidates present", ok: false, detail: "model_attestations missing or empty" });
+  const models: VerifiedSigner[] = [];
+  for (const c of candidates) {
+    const r = await verifyEntry(c, nonceHex, "model");
+    checks.push(...r.checks);
+    if (r.signer) models.push(r.signer);
+  }
+  return { checks, gateway: gw.signer, models };
+}
+
 async function finish(db: Db, job: Job, status: "succeeded" | "failed" | "blocked", code: string | null, message: string | null) {
   await db
     .update(t.evaluationJobs)
@@ -109,29 +139,19 @@ export async function runAiJob(db: Db, job: Job, cfg: Partial<Config> & { kek: K
   };
 
   // 1. Preflight attestation (gateway + NEAR model candidates) with our fresh nonce.
-  let report: { gateway_attestation?: AttestationEntry; model_attestations?: AttestationEntry[] };
+  let report: AttestationReport;
   try {
-    const url = new URL("/v1/attestation/report", baseUrl);
-    url.search = new URLSearchParams({ model, provider: "near", signing_algo: "ecdsa", nonce: nonceHex, include_tls_fingerprint: "false" }).toString();
-    const res = await fetch(url, { headers, signal: AbortSignal.timeout(60_000) });
-    if (!res.ok) throw new Error(`attestation endpoint HTTP ${res.status}`);
-    report = (await res.json()) as typeof report;
+    report = await fetchAttestationReport(baseUrl, headers, model, nonceHex);
   } catch (err) {
     const reason = err instanceof Error ? err.message : "attestation unavailable";
     checks.push({ name: "attestation report fetched", ok: false, detail: reason });
     await evidence(false, [reason]);
     return finish(db, job, "failed", "ATTESTATION_UNAVAILABLE", `${reason}. No quote content was sent.`);
   }
-  const gw = report.gateway_attestation ? await verifyEntry(report.gateway_attestation, nonceHex, "gateway") : { checks: [{ name: "gateway: present", ok: false, detail: "missing" }], signer: null };
-  checks.push(...gw.checks);
-  const candidates = report.model_attestations ?? [];
-  if (!candidates.length) checks.push({ name: "model: candidates present", ok: false, detail: "model_attestations missing or empty" });
-  const verifiedModels: VerifiedSigner[] = [];
-  for (const c of candidates) {
-    const r = await verifyEntry(c, nonceHex, "model");
-    checks.push(...r.checks);
-    if (r.signer) verifiedModels.push(r.signer);
-  }
+  const verifiedReport = await verifyAttestationReport(report, nonceHex);
+  checks.push(...verifiedReport.checks);
+  const gw = { signer: verifiedReport.gateway };
+  const verifiedModels = verifiedReport.models;
   if (!verifiedModels.length) {
     const reasons = checks.filter((c) => !c.ok).map((c) => `${c.name}: ${c.detail}`).slice(0, 8);
     await evidence(false, reasons, { gatewayQuoteSha256: gw.signer?.quoteSha256 ?? null });

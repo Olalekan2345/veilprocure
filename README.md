@@ -14,7 +14,7 @@ Small agencies and technology teams buying fixed-scope digital services (design,
 | Rust escrow/commitment contract | Deployed to NEAR testnet [`veilprocure-106725.testnet`](https://testnet.nearblocks.io/address/veilprocure-106725.testnet); 37 native tests |
 | Full buyer → 2 suppliers → payout journey on testnet | **Verified**: 12 real transactions through the UI, exact +0.5 NEAR payout, attacks rejected ([evidence](docs/TEST_EVIDENCE.md)) |
 | Refund / dispute / failed-transfer retry on chain | Built and unit-tested; not yet run on testnet |
-| NEAR AI Cloud attested evaluation | Built; fail-closed paths verified; **live path blocked on an API key** |
+| NEAR AI Cloud attested evaluation | **Verified live**: `Qwen/Qwen3.8-27B`, all 27 attestation/signature/schema checks passed on two evaluations ([evidence](docs/AI_VERIFICATION.md)) |
 | Hosted demo / public repo / X post | **TODO** — repo is private on GitHub; hosting needs credentials; public + X post need the owner |
 
 Full matrix: [docs/LIMITATIONS.md](docs/LIMITATIONS.md). Test output: [docs/TEST_EVIDENCE.md](docs/TEST_EVIDENCE.md).
@@ -26,7 +26,7 @@ Full matrix: [docs/LIMITATIONS.md](docs/LIMITATIONS.md). Test output: [docs/TEST
 | NEAR smart contract (Rust, near-sdk 5.30.0) | RFQ policy commitments, invite-slot leaves, salted bid commitments, single-award escrow with async transfer + private callbacks | Live on testnet: `veilprocure-106725.testnet` |
 | NEAR testnet RPC | Server verifies every reported transaction (signer, contract, method, args, deposit) and reads contract state as source of truth | Implemented |
 | NEAR Connect (`@hot-labs/near-connect`) | Wallet connection, NEP-413 signed messages, transaction signing | Implemented; automated tests sign via a guarded test bridge, not the popup |
-| NEAR AI Cloud | Attested private inference (TDX + NVIDIA evidence, response signatures) for advisory notes | Implemented; blocked on API key |
+| NEAR AI Cloud | Attested private inference (TDX + NVIDIA evidence, response signatures) for advisory notes | Verified live (local worker) |
 | NEAR Intents | — | Not used |
 
 ## Architecture
@@ -87,7 +87,9 @@ pnpm --filter @veilprocure/shared test          # 22 (incl. cross-language vecto
 pnpm --filter @veilprocure/db test              # 10 against real Postgres (RLS, immutability)
 pnpm --filter @veilprocure/web test             # 9 security primitives
 pnpm --filter @veilprocure/worker test          # 8 AI fail-closed
+pnpm --filter @veilprocure/worker attest:check  # live NEAR AI attestation only; sends no quote content (needs NEARAI_API_KEY)
 pnpm test:e2e                                   # 8 off-chain journeys + on-chain Journey A (needs .local/testnet-accounts.json)
+VEIL_AI_LIVE=1 pnpm test:e2e -- ai-live         # live attested AI evaluation of the journey's quotes (spends credits)
 pnpm build:contract                             # WASM + SHA-256
 ```
 
@@ -104,7 +106,7 @@ Details and all journey transactions: [docs/DEPLOYMENTS.md](docs/DEPLOYMENTS.md)
 
 ## Judge walkthrough
 
-“Do X → see Y” steps and the demo storyboard: [docs/JUDGE_WALKTHROUGH.md](docs/JUDGE_WALKTHROUGH.md). Steps requiring the contract or AI key are labelled and the app shows honest disabled states until they exist.
+“Do X → see Y” steps and the demo storyboard: [docs/JUDGE_WALKTHROUGH.md](docs/JUDGE_WALKTHROUGH.md). Steps requiring the contract or AI key are labelled and the app shows honest disabled states when they are not configured.
 
 ## Development chronology & baseline
 

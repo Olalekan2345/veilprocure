@@ -6,6 +6,7 @@
   "scripts": {
     "start": "tsx --env-file=.env src/index.ts",
     "once": "tsx --env-file=.env src/index.ts --once",
+    "attest:check": "tsx --env-file=.env src/check-attestation.ts",
     "typecheck": "tsc -p tsconfig.json",
     "lint": "tsc -p tsconfig.json",
     "test": "vitest run"

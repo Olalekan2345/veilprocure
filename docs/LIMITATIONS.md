@@ -16,7 +16,7 @@ VeilProcure is a **public testnet beta / functional prototype**. It is not produ
 | Refund / cancellation / dispute / failed-transfer retry on testnet | BUILT, NOT VERIFIED on chain | covered by contract tests only |
 | Bid commitment construction & recomputation | BUILT & VERIFIED | cross-language vectors |
 | Deterministic evaluation & ranking | BUILT & VERIFIED | shared tests |
-| Confidential AI notes with attestation | BUILT, fail-closed VERIFIED; live path NOT VERIFIED | needs NEAR AI Cloud API key |
+| Confidential AI notes with attestation | BUILT & VERIFIED (live, locally) | 2 live evaluations, all 27 checks passed (docs/AI_VERIFICATION.md) |
 | Chain reconciler worker | BUILT & VERIFIED | projected an out-of-band `claim_after_review` (RFQ #2 → settled/paid) |
 | Real e-mail delivery | BUILT (Resend adapter); NOT VERIFIED | needs provider key + verified sender |
 | Hosted deployment, backups, monitoring | BLOCKED | needs host/DB/secret-manager credentials |
@@ -34,6 +34,7 @@ VeilProcure is a **public testnet beta / functional prototype**. It is not produ
 - CSP allows `'unsafe-inline'` scripts (Next.js without nonces).
 - Local object storage only (S3-compatible adapter not implemented).
 - The worker's reconciler updates statuses from chain state but does not yet write audit events (the web-side sync does).
+- AI notes may mention the anonymised labels (`Q1`, `Q2`) the model was given; they are displayed verbatim as signed and are advisory only.
 - Automated on-chain tests sign through a guarded E2E wallet bridge with test keys, not through a third-party wallet popup.
 - Reproducible (Docker) WASM builds were not possible on the development machine; the published hash is from a host build.
 
