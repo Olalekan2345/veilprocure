@@ -69,8 +69,12 @@ Assertions that passed: supplier A's balance rose by **exactly 50000000000000000
 
 `VEIL_AI_LIVE=1 pnpm exec playwright test specs/ai-live.spec.ts` — **1 passed (1.7 min), rerun 1 passed (1.5 min)** on 2026-10-30. Buyer requested AI notes on RFQ #3 in the UI → `pnpm --filter @veilprocure/worker once` → job `succeeded`, evidence `verified = true` (model `Qwen/Qwen3.8-27B`, `provider_tee` signer `0x835ab53d20294ef795906dff21ae4c045336aa26`, TCB `UpToDate`, NRAS `true`) → notes visible on the comparison page → evidence page `VERIFIED under policy vp-nearai-1` with 27 passing checks. Job ids and hashes: `docs/AI_VERIFICATION.md`.
 
+## Live e-mail sign-in (Gmail SMTP)
+
+2026-10-30, local app with `EMAIL_TRANSPORT=smtp` (`smtp.gmail.com:465`, TLS, app password for the project's own `veilprocure@gmail.com`): `transporter.verify()` succeeded; a sign-in request from the UI showed "Check your inbox" and the outbox row became `sent` at 12:02:11 UTC with Gmail message id `<a60476a4-f765-cd66-ae9d-015302a9a0ed@gmail.com>`. The project owner received the e-mail and opened the link: the login token was consumed at 12:05:00 UTC (by POST, single use) and `auth.signed_in` was recorded at 12:05:01 UTC.
+
 ## Not yet tested (blocked or pending)
 
 - On-chain failed-transfer → retry (A17), mutual cancellation/refund (A18) and dispute paths — covered by contract unit/property tests, not yet run on testnet.
 - A third-party wallet's own UI (NEAR Connect popup) with a human — not automatable here.
-- Real e-mail delivery — no provider credentials. Backup/restore — no hosted database.
+- Supplier/team invitation e-mails over SMTP (same transport as the verified sign-in e-mail). Backup/restore — no hosted database.

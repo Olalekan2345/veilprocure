@@ -18,7 +18,7 @@ VeilProcure is a **public testnet beta / functional prototype**. It is not produ
 | Deterministic evaluation & ranking | BUILT & VERIFIED | shared tests |
 | Confidential AI notes with attestation | BUILT & VERIFIED (live, locally) | 2 live evaluations, all 27 checks passed (docs/AI_VERIFICATION.md) |
 | Chain reconciler worker | BUILT & VERIFIED | projected an out-of-band `claim_after_review` (RFQ #2 → settled/paid) |
-| Real e-mail delivery (sign-in links, invitations) | BUILT (SMTP, e.g. Gmail with an app password; or Resend); NOT VERIFIED live | needs SMTP credentials. Without e-mail, buyers use "Get invitation link" to copy one-time links and send them themselves |
+| Real e-mail delivery (sign-in links, invitations) | BUILT & VERIFIED (local) for sign-in via Gmail SMTP; invitations use the same transport | docs/TEST_EVIDENCE.md. Gmail limits sending volume; without e-mail, buyers use "Get invitation link" |
 | Hosted deployment, backups, monitoring | BLOCKED | needs host/DB/secret-manager credentials |
 | NEAR Intents | OUT OF SCOPE | not integrated |
 
