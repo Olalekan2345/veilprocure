@@ -16,7 +16,7 @@ Small agencies and technology teams buying fixed-scope digital services (design,
 | Refund / dispute / failed-transfer retry on chain | Built and unit-tested; not yet run on testnet |
 | NEAR AI Cloud attested evaluation | **Verified live**: `Qwen/Qwen3.8-27B`, all 27 attestation/signature/schema checks passed on two evaluations ([evidence](docs/AI_VERIFICATION.md)) |
 | Hosted app | **Live** at https://veilprocure.netlify.app (Netlify + Neon + Gmail SMTP); sign-in, onboarding and encrypted drafts verified on the live site ([deployments](docs/DEPLOYMENTS.md)) |
-| Public repo / X post | **TODO** — repo is private on GitHub; publishing and the X post need the owner |
+| Public repo / X post | Repo **public** since 2026-10-30; X demo post **TODO** (the owner publishes it) |
 
 Full matrix: [docs/LIMITATIONS.md](docs/LIMITATIONS.md). Test output: [docs/TEST_EVIDENCE.md](docs/TEST_EVIDENCE.md).
 
@@ -113,6 +113,7 @@ Details and all journey transactions: [docs/DEPLOYMENTS.md](docs/DEPLOYMENTS.md)
 
 - 2026-10-29: repository created empty (inside the hackathon window that began 2026-10-19); no pre-hackathon code exists. Discovery, contract, shared domain, database, web app, worker, tests and docs written this day.
 - 2026-10-29/30: testnet deployment and on-chain journey.
+- 2026-10-30: hosted on Netlify + Neon. Before the repository went public, commit author e-mails were rewritten to the owner's GitHub no-reply address (content and dates unchanged, `pre-hackathon` tag recreated with its original date); commit IDs therefore differ from those in earlier CI runs and Netlify deploy titles.
 - Baseline: tag `pre-hackathon` marks the empty initial commit; `hackathon-submission` will mark the submitted commit. Diff: `git diff pre-hackathon..hackathon-submission`.
 
 ## Attribution

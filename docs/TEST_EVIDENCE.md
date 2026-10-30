@@ -1,6 +1,6 @@
 # Test evidence
 
-Actual results from the developer machine on **2026-10-29/30** (Windows 11, Node 24.14.1, rustc 1.99.1, PostgreSQL 17.10 local cluster). GitHub Actions CI (`.github/workflows/ci.yml`, private repo Olalekan2345/veilprocure) passed on commit `9e69ec6` (jobs `contract` and `node`). Coverage was not measured.
+Actual results from the developer machine on **2026-10-29/30** (Windows 11, Node 24.14.1, rustc 1.99.1, PostgreSQL 17.10 local cluster). GitHub Actions CI (`.github/workflows/ci.yml`, repo Olalekan2345/veilprocure) passed on every push (jobs `contract` and `node`); runs before the 2026-10-30 author-e-mail rewrite list the earlier commit IDs (first build commit `9e69ec6`, now `5624799`). Coverage was not measured.
 
 | Suite | Command | Result |
 |---|---|---|

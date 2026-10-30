@@ -6,7 +6,7 @@ Source: https://nearhackathon.com/HACKATHON.md (read 2026-10-29). Re-read immedi
 |---|---|
 | Work inside the window (from 2026-10-19) | Repository started empty on 2026-10-29; no baseline code |
 | Baseline marking (`pre-hackathon` / `hackathon-submission` tags + README diff link) | `pre-hackathon` tags the empty initial commit; `hackathon-submission` to be added at submission |
-| Public repository by 2026-11-14T23:59Z | Private at github.com/Olalekan2345/veilprocure; making it public is the owner's step (`gh repo edit Olalekan2345/veilprocure --visibility public --accept-visibility-change-consequences`) |
+| Public repository by 2026-11-14T23:59Z | **Public** at https://github.com/Olalekan2345/veilprocure since 2026-10-30, at the owner's request |
 | LICENSE | MIT (`LICENSE`), confirmed by the owner |
 | README "do X → see Y" | `README.md`, `docs/JUDGE_WALKTHROUGH.md` |
 | Libraries / AI-generated code listed | README "Attribution" |

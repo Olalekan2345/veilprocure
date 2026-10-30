@@ -69,8 +69,10 @@ New Netlify projects on this team required a Netlify login for every deploy (`ss
 
 | Deploy | Commit | Result |
 |---|---|---|
-| `6ae4a1794b8a2ab3c85bc6c9` | `f4b3051` | Site live; **bug found**: `chain-sync` failed on every run (`ERR_MODULE_NOT_FOUND` for the TypeScript workspace package `@veilprocure/db`, left external by Netlify's packager) |
-| `6ae4a5583b7507ba7132f830` | `b7a7c05` | Functions pre-bundled with esbuild; schedule/background declared in `netlify.toml`. Published 14:14:24 UTC; Netlify function logs show `chain-sync` completing every minute from 14:15 (1.5 s cold start, then 60–190 ms) with no errors, versus `ERR_MODULE_NOT_FOUND` on every run before |
+| `6ae4a1794b8a2ab3c85bc6c9` | `c222d9a` | Site live; **bug found**: `chain-sync` failed on every run (`ERR_MODULE_NOT_FOUND` for the TypeScript workspace package `@veilprocure/db`, left external by Netlify's packager) |
+| `6ae4a5583b7507ba7132f830` | `748bf1b` | Functions pre-bundled with esbuild; schedule/background declared in `netlify.toml`. Published 14:14:24 UTC; Netlify function logs show `chain-sync` completing every minute from 14:15 (1.5 s cold start, then 60–190 ms) with no errors, versus `ERR_MODULE_NOT_FOUND` on every run before |
+
+Commit IDs are those after the 2026-10-30 author-e-mail rewrite (see README, chronology); the Netlify deploy titles show the earlier IDs `f4b3051` and `b7a7c05` of the same commits.
 
 ### Live checks (2026-10-30)
 
