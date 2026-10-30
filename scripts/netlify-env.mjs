@@ -90,7 +90,7 @@ const vars = [
 
 console.log(`Netlify site: ${site} (${appUrl})${apply ? "" : "  [plan only — rerun with --apply to set]"}`);
 for (const [key, value, secret] of vars) {
-  console.log(`  ${key.padEnd(22)} ${secret ? `(secret, ${value.length} chars) → functions only` : `${value} → all scopes`}`);
+  console.log(`  ${key.padEnd(22)} ${secret ? `(secret, ${value.length} chars) → production only` : `${value} → all contexts`}`);
 }
 console.log("  not sent: MIGRATION_DATABASE_URL (schema owner), NEXT_PUBLIC_VEIL_E2E_WALLET, STORAGE_DIR");
 if (!apply) process.exit(0);
@@ -99,8 +99,9 @@ if (!apply) process.exit(0);
 const cli = join(execSync("npm root -g", { encoding: "utf8" }).trim(), "netlify-cli", "bin", "run.js");
 if (!existsSync(cli)) throw new Error(`Netlify CLI not found at ${cli}; run: npm i -g netlify-cli`);
 for (const [key, value, secret] of vars) {
-  // Secrets: production deploys only (never previews), functions scope only.
-  const extra = secret ? ["--secret", "--scope", "functions", "--context", "production"] : [];
+  // Secrets: production deploys only (never previews). Do not add --scope: on Netlify's free plan
+  // the CLI then silently skips the write (observed with netlify-cli 27.16.1).
+  const extra = secret ? ["--secret", "--context", "production"] : [];
   try {
     // --filter answers the CLI's monorepo "which app?" prompt.
     execFileSync(process.execPath, [cli, "env:set", key, value, "--site", site, "--filter", "@veilprocure/web", "--force", ...extra], { stdio: ["ignore", "ignore", "pipe"] });
@@ -112,3 +113,15 @@ for (const [key, value, secret] of vars) {
   }
   console.log(`set ${key}`);
 }
+
+// The CLI can exit 0 without writing, so confirm every key through the API (names only).
+const state = JSON.parse(readFileSync(join(root, "apps/web/.netlify/state.json"), "utf8"));
+const api = (method, data) => JSON.parse(execFileSync(process.execPath, [cli, "api", method, "--data", JSON.stringify(data)], { stdio: ["ignore", "pipe", "ignore"], encoding: "utf8" }));
+const { account_slug } = api("getSite", { site_id: state.siteId });
+const present = new Map(api("getEnvVars", { account_id: account_slug, site_id: state.siteId }).map((v) => [v.key, v]));
+const missing = vars.filter(([key, , secret]) => !present.has(key) || present.get(key).is_secret !== secret).map(([key]) => key);
+if (missing.length) {
+  console.error(`NOT confirmed on Netlify: ${missing.join(", ")}`);
+  process.exit(1);
+}
+console.log(`confirmed via API: ${vars.length} variables present (${vars.filter((v) => v[2]).length} secret)`);
