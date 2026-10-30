@@ -2,8 +2,8 @@
  * Hosted worker, part 2 (background, ≤ 15 min): drains queued confidential AI evaluation jobs with
  * the same fail-closed attestation flow as the long-running worker. Invoked with a shared secret
  * by the web app after a request and by chain-sync as a fallback; Netlify answers 202 at once.
+ * Background mode: apps/web/netlify.toml. Bundled by scripts/bundle-functions.mjs.
  */
-import type { Config } from "@netlify/functions";
 import { createDb } from "@veilprocure/db";
 import { drainAiJobs, workerConfigFromEnv } from "@veilprocure/worker/jobs";
 import { isValidTrigger, TRIGGER_HEADER } from "@veilprocure/worker/trigger";
@@ -18,5 +18,3 @@ export default async (req: Request) => {
     await close();
   }
 };
-
-export const config: Config = { background: true };

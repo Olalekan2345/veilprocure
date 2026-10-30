@@ -35,3 +35,4 @@ Thumbs.db
 
 # Netlify CLI link state
 .netlify/
+apps/web/netlify/bundled-functions/

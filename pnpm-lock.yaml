@@ -59,9 +59,6 @@ importers:
         specifier: 4.6.7
         version: 4.6.7
     devDependencies:
-      '@netlify/functions':
-        specifier: 6.0.2
-        version: 6.0.2
       '@tailwindcss/postcss':
         specifier: 4.3.3
         version: 4.3.3
@@ -77,6 +74,9 @@ importers:
       '@types/react-dom':
         specifier: 19.3.0
         version: 19.3.0(@types/react@19.3.0)
+      esbuild:
+        specifier: 0.28.2
+        version: 0.28.2
       tailwindcss:
         specifier: 4.3.3
         version: 4.3.3
@@ -845,20 +845,12 @@ packages:
     resolution: {integrity: sha512-p+M9a8mI0H0rRohY7Z4TkblvJMwsl5nfNKzmmhz1XBgSLBoDcgwf1TroHvM0TyK5sRiD8LViXe1wuJbzYlilUQ==}
     engines: {node: '>=22.12.0'}
 
-  '@netlify/functions@6.0.2':
-    resolution: {integrity: sha512-JqbPgAOt2GAwzCEitdEWAHOn6AkZ0Rna401wdAyuDIBiDv9M03b3Cu5mGH7/eHOmIXfZIcN1pG35flHjfu6asQ==}
-    engines: {node: '>=22.12.0'}
-
   '@netlify/otel@7.0.6':
     resolution: {integrity: sha512-PUE0NwWiXU2xh64WNb2y5cFFjkn3CvMH5ReL1zL8M9cue3BmEpqpCb1VPdsnrMtZdatjqmGDND8ACmGdrR/THg==}
     engines: {node: '>=22.12.0'}
 
   '@netlify/runtime-utils@3.0.0':
     resolution: {integrity: sha512-OHo40+V3QZkR+UrDjqhN+LekrAby/dSSJxsvyYs9i88E/mSl3goB/ysoL+VYROm190egxmQyRYlHK7vL4GeHBQ==}
-    engines: {node: '>=22.12.0'}
-
-  '@netlify/types@3.2.0':
-    resolution: {integrity: sha512-PVvY1EEN9i2Er0LQoiyNG7i/BnwnttLuZqIkBnhL2Jrcj3P5N/NcGkv1i20MJ2ngNGSPQcT7tagDmF3V6BsdWg==}
     engines: {node: '>=22.12.0'}
 
   '@next/env@16.4.3':
@@ -2622,10 +2614,6 @@ snapshots:
       parse-gitignore: 2.0.0
       semver: 7.8.5
 
-  '@netlify/functions@6.0.2':
-    dependencies:
-      '@netlify/types': 3.2.0
-
   '@netlify/otel@7.0.6':
     dependencies:
       '@opentelemetry/api': 1.9.1
@@ -2637,8 +2625,6 @@ snapshots:
       - supports-color
 
   '@netlify/runtime-utils@3.0.0': {}
-
-  '@netlify/types@3.2.0': {}
 
   '@next/env@16.4.3': {}
 

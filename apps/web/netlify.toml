@@ -2,12 +2,19 @@
 # directory unset: dependencies install and the build runs from the repository root, so paths here
 # are relative to the root. Configuration and secrets: docs/DEPLOYMENTS.md ("Hosting on Netlify").
 [build]
-  command = "pnpm --filter @veilprocure/web build"
+  command = "pnpm --filter @veilprocure/web build && pnpm --filter @veilprocure/web bundle-functions"
   publish = "apps/web/.next"
 
 [build.environment]
   NODE_VERSION = "22"
 
+# Worker functions are pre-bundled into self-contained modules (sources: apps/web/netlify/functions).
 [functions]
-  directory = "apps/web/netlify/functions"
+  directory = "apps/web/netlify/bundled-functions"
   node_bundler = "esbuild"
+
+[functions."chain-sync"]
+  schedule = "* * * * *"
+
+[functions."ai-runner"]
+  background = true
