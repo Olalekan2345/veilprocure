@@ -4,13 +4,14 @@ const isDev = process.env.NODE_ENV !== "production";
 
 // Wallet connectors run wallet code in sandboxed iframes and talk to NEAR RPC endpoints, so
 // frame-src / connect-src allow https. Everything else is same-origin. A nonce-based script CSP
-// is a documented hardening follow-up (docs/SECURITY_MODEL.md).
+// is a documented hardening follow-up (docs/SECURITY_MODEL.md). Wallet windows run inside that
+// iframe under this policy, so the two font hosts Meteor's connect screen uses are allowed.
 const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
-  "style-src 'self' 'unsafe-inline'",
+  "style-src 'self' 'unsafe-inline' https://rsms.me https://fonts.cdnfonts.com",
   "img-src 'self' data: blob: https:",
-  "font-src 'self' data:",
+  "font-src 'self' data: https://rsms.me https://fonts.cdnfonts.com",
   `connect-src 'self' https: wss:${isDev ? " ws:" : ""}`,
   "frame-src https: blob:",
   "frame-ancestors 'none'",
