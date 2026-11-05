@@ -66,8 +66,12 @@ async function bindWallet(page: Page, accountId: string) {
   await page.goto("/app/wallet");
   const bound = page.getByText(`Bound ${accountId}.`);
   const confirmMove = page.getByRole("button", { name: "Yes, continue" });
+  const bindButton = page.getByRole("button", { name: "Bind this wallet" });
+  // Two steps: connect (wallet popup), then bind (a separate click, so the signing popup is
+  // user-initiated and not blocked by the browser).
   await expect(async () => {
-    await page.getByRole("button", { name: /Connect & bind wallet|Bind a different wallet/ }).click();
+    if (!(await bindButton.isVisible())) await page.getByRole("button", { name: "Connect wallet" }).click();
+    await bindButton.click({ timeout: 10_000 });
     await expect(bound.or(confirmMove)).toBeVisible({ timeout: 30_000 });
   }).toPass({ timeout: 120_000 });
   // A wallet bound to another user (e.g. a previous test run) moves only after explicit

@@ -57,7 +57,10 @@ describe("signed download tokens", () => {
     expect(verifyDownload("att-1", "user-1", tok)).toBe(true);
     expect(verifyDownload("att-2", "user-1", tok)).toBe(false);
     expect(verifyDownload("att-1", "user-2", tok)).toBe(false);
-    expect(verifyDownload("att-1", "user-1", tok.replace(/.$/, (c) => (c === "A" ? "B" : "A")))).toBe(false);
+    // Tamper with the first MAC character: it carries 6 data bits (the last one partly carries
+    // base64 padding bits that decode to the same bytes, which made this check flaky).
+    const [exp, mac] = tok.split(".") as [string, string];
+    expect(verifyDownload("att-1", "user-1", `${exp}.${mac[0] === "A" ? "B" : "A"}${mac.slice(1)}`)).toBe(false);
     const expired = signDownload("att-1", "user-1", -1);
     expect(verifyDownload("att-1", "user-1", expired)).toBe(false);
   });
@@ -111,7 +114,7 @@ describe("NEP-413 signed-message verification", () => {
 
     // A function-call key cannot bind a wallet.
     fetchMock.mockImplementationOnce(async () => new Response(JSON.stringify({ jsonrpc: "2.0", id: "x", result: { permission: { FunctionCall: {} } } })));
-    expect(await near.verifyNep413(base)).toEqual({ ok: false, reason: "The signing key must be a full-access key of the account." });
+    expect(await near.verifyNep413(base)).toEqual({ ok: false, reason: "The signing key must be a full-access key of the account. Got: FunctionCall" });
     vi.unstubAllGlobals();
   });
 

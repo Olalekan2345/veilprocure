@@ -112,8 +112,9 @@ export async function connect(): Promise<{
 
     // Add timeout to prevent infinite hanging
     // Using 120 seconds for mobile wallets (QR code scanning takes longer)
+    let timer: ReturnType<typeof setTimeout> | undefined;
     const timeoutPromise = new Promise<never>((_, reject) => {
-      setTimeout(() => {
+      timer = setTimeout(() => {
         console.error("[NEAR Connect] Connection timeout after 120 seconds");
         reject(
           new Error(
@@ -125,7 +126,7 @@ export async function connect(): Promise<{
 
     // Request connection - NEAR Connect handles key permissions automatically
     // Full-access keys are required for signing messages (NEP-413)
-    const wallet = await Promise.race([c.connect(), timeoutPromise]);
+    const wallet = await Promise.race([c.connect(), timeoutPromise]).finally(() => clearTimeout(timer));
     console.log("[NEAR Connect] Wallet connected, getting accounts...");
     const accounts = await wallet.getAccounts();
     console.log("[NEAR Connect] Accounts returned:", accounts);
@@ -200,7 +201,7 @@ export async function signBindingMessage(input: {
   // Check if wallet supports signMessage
   if (!wallet.signMessage) {
     throw new WalletError(
-      "This wallet doesn't support message signing (NEP-413). Please use a different wallet like Meteor, HERE, or Sender Wallet.",
+      "This wallet doesn't support message signing (NEP-413). Please use a different wallet, such as Meteor or Intear.",
       "unavailable",
     );
   }

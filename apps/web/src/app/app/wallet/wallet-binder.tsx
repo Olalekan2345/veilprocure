@@ -161,7 +161,7 @@ export function WalletBinder({
       )}
 
       {!boundAccount && !connectedWallet && (
-        <Callout tone="info">
+        <Callout tone="neutral">
           <strong>Recommended:</strong> Use{" "}
           <a
             href="https://wallet.meteorwallet.app/"
@@ -171,9 +171,9 @@ export function WalletBinder({
           >
             Meteor Wallet (web version)
           </a>{" "}
-          for best compatibility. Browser extensions like HERE Wallet or Sender
-          Wallet also work. Mobile wallets via QR code may have limited
-          permissions.
+          for best compatibility. Intear Wallet also works on testnet; HOT
+          Wallet does not support testnet. Mobile wallets via QR code may have
+          limited permissions.
         </Callout>
       )}
 
@@ -189,9 +189,11 @@ export function WalletBinder({
           </Button>
         ) : (
           <>
-            <Callout tone="ok" className="w-full">
-              Wallet connected: <strong>{connectedWallet.accountId}</strong>
-            </Callout>
+            <div className="w-full">
+              <Callout tone="ok">
+                Wallet connected: <strong>{connectedWallet.accountId}</strong>
+              </Callout>
+            </div>
             <Button
               onClick={() => bindWallet(false, connectedWallet.accountId)}
               disabled={s.k === "busy"}
