@@ -14,7 +14,13 @@
 
 import { execFileSync, spawnSync } from "node:child_process";
 import { randomBytes } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { join, resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
@@ -27,8 +33,10 @@ function pgBin(name) {
   const exe = process.platform === "win32" ? `${name}.exe` : name;
   const candidates = [
     process.env.PG_BIN && join(process.env.PG_BIN, exe),
-    process.platform === "win32" && join("C:\\Program Files\\PostgreSQL\\17\\bin", exe),
-    process.platform === "win32" && join("C:\\Program Files\\PostgreSQL\\16\\bin", exe),
+    process.platform === "win32" &&
+      join("C:\\Program Files\\PostgreSQL\\17\\bin", exe),
+    process.platform === "win32" &&
+      join("C:\\Program Files\\PostgreSQL\\16\\bin", exe),
   ].filter(Boolean);
   return candidates.find((c) => existsSync(c)) ?? exe;
 }
@@ -48,17 +56,41 @@ function secret() {
 }
 
 function run(bin, args, opts = {}) {
-  const res = spawnSync(pgBin(bin), args, { stdio: "pipe", encoding: "utf8", ...opts });
+  const res = spawnSync(pgBin(bin), args, {
+    stdio: "pipe",
+    encoding: "utf8",
+    ...opts,
+  });
   if (res.status !== 0) {
-    throw new Error(`${bin} ${args.join(" ")} failed (${res.status}):\n${res.stdout}\n${res.stderr}`);
+    throw new Error(
+      `${bin} ${args.join(" ")} failed (${res.status}):\n${res.stdout}\n${res.stderr}`,
+    );
   }
   return res.stdout;
 }
 
 function psql(env, db, sql) {
-  return run("psql", ["-h", "127.0.0.1", "-p", String(port), "-U", "veil", "-d", db, "-v", "ON_ERROR_STOP=1", "-qAt", "-c", sql], {
-    env: { ...process.env, PGPASSWORD: env.VEIL_PG_OWNER_PASSWORD },
-  });
+  return run(
+    "psql",
+    [
+      "-h",
+      "127.0.0.1",
+      "-p",
+      String(port),
+      "-U",
+      "veil",
+      "-d",
+      db,
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-qAt",
+      "-c",
+      sql,
+    ],
+    {
+      env: { ...process.env, PGPASSWORD: env.VEIL_PG_OWNER_PASSWORD },
+    },
+  );
 }
 
 function init() {
@@ -71,7 +103,18 @@ function init() {
   const pwfile = join(local, "pg-owner-pw.tmp");
   writeFileSync(pwfile, env.VEIL_PG_OWNER_PASSWORD, { mode: 0o600 });
   try {
-    run("initdb", ["-D", dataDir, "-U", "veil", "--pwfile", pwfile, "--auth=scram-sha-256", "-E", "UTF8", "--locale=C"]);
+    run("initdb", [
+      "-D",
+      dataDir,
+      "-U",
+      "veil",
+      "--pwfile",
+      pwfile,
+      "--auth=scram-sha-256",
+      "-E",
+      "UTF8",
+      "--locale=C",
+    ]);
   } finally {
     rmSync(pwfile, { force: true });
   }
@@ -88,32 +131,73 @@ function init() {
 }
 
 function isRunning() {
-  return spawnSync(pgBin("pg_ctl"), ["-D", dataDir, "status"], { stdio: "ignore" }).status === 0;
+  return (
+    spawnSync(pgBin("pg_ctl"), ["-D", dataDir, "status"], { stdio: "ignore" })
+      .status === 0
+  );
 }
 
 function ensureRolesAndDatabases(env) {
-  const roles = psql(env, "postgres", "select rolname from pg_roles").split(/\r?\n/);
+  const roles = psql(env, "postgres", "select rolname from pg_roles").split(
+    /\r?\n/,
+  );
   const ensureRole = (name, pw, extra) => {
     const verb = roles.includes(name) ? "ALTER" : "CREATE";
-    psql(env, "postgres", `${verb} ROLE ${name} WITH LOGIN PASSWORD '${pw}' ${extra}`);
+    psql(
+      env,
+      "postgres",
+      `${verb} ROLE ${name} WITH LOGIN PASSWORD '${pw}' ${extra}`,
+    );
   };
-  ensureRole("veil_app", env.VEIL_PG_APP_PASSWORD, "NOSUPERUSER NOCREATEDB NOCREATEROLE NOBYPASSRLS");
-  ensureRole("veil_worker", env.VEIL_PG_WORKER_PASSWORD, "NOSUPERUSER NOCREATEDB NOCREATEROLE BYPASSRLS");
-  const dbs = psql(env, "postgres", "select datname from pg_database").split(/\r?\n/);
+  ensureRole(
+    "veil_app",
+    env.VEIL_PG_APP_PASSWORD,
+    "NOSUPERUSER NOCREATEDB NOCREATEROLE NOBYPASSRLS",
+  );
+  ensureRole(
+    "veil_worker",
+    env.VEIL_PG_WORKER_PASSWORD,
+    "NOSUPERUSER NOCREATEDB NOCREATEROLE BYPASSRLS",
+  );
+  const dbs = psql(env, "postgres", "select datname from pg_database").split(
+    /\r?\n/,
+  );
   for (const db of ["veilprocure", "veilprocure_test"]) {
-    if (!dbs.includes(db)) psql(env, "postgres", `CREATE DATABASE ${db} OWNER veil`);
+    if (!dbs.includes(db))
+      psql(env, "postgres", `CREATE DATABASE ${db} OWNER veil`);
   }
 }
 
 function urls(env) {
-  const u = (user, pw, db) => `postgres://${user}:${encodeURIComponent(pw)}@127.0.0.1:${port}/${db}`;
+  const u = (user, pw, db) =>
+    `postgres://${user}:${encodeURIComponent(pw)}@127.0.0.1:${port}/${db}`;
   return {
     DATABASE_URL: u("veil_app", env.VEIL_PG_APP_PASSWORD, "veilprocure"),
-    WORKER_DATABASE_URL: u("veil_worker", env.VEIL_PG_WORKER_PASSWORD, "veilprocure"),
-    MIGRATION_DATABASE_URL: u("veil", env.VEIL_PG_OWNER_PASSWORD, "veilprocure"),
-    TEST_DATABASE_URL: u("veil_app", env.VEIL_PG_APP_PASSWORD, "veilprocure_test"),
-    TEST_WORKER_DATABASE_URL: u("veil_worker", env.VEIL_PG_WORKER_PASSWORD, "veilprocure_test"),
-    TEST_MIGRATION_DATABASE_URL: u("veil", env.VEIL_PG_OWNER_PASSWORD, "veilprocure_test"),
+    WORKER_DATABASE_URL: u(
+      "veil_worker",
+      env.VEIL_PG_WORKER_PASSWORD,
+      "veilprocure",
+    ),
+    MIGRATION_DATABASE_URL: u(
+      "veil",
+      env.VEIL_PG_OWNER_PASSWORD,
+      "veilprocure",
+    ),
+    TEST_DATABASE_URL: u(
+      "veil_app",
+      env.VEIL_PG_APP_PASSWORD,
+      "veilprocure_test",
+    ),
+    TEST_WORKER_DATABASE_URL: u(
+      "veil_worker",
+      env.VEIL_PG_WORKER_PASSWORD,
+      "veilprocure_test",
+    ),
+    TEST_MIGRATION_DATABASE_URL: u(
+      "veil",
+      env.VEIL_PG_OWNER_PASSWORD,
+      "veilprocure_test",
+    ),
   };
 }
 
@@ -121,11 +205,25 @@ const cmd = process.argv[2] ?? "status";
 if (cmd === "start") {
   let env = readEnv();
   if (!existsSync(join(dataDir, "PG_VERSION"))) env = init();
-  if (!env) throw new Error(".local/db.env missing for an existing cluster; delete .local/pgdata to re-init");
+  if (!env)
+    throw new Error(
+      ".local/db.env missing for an existing cluster; delete .local/pgdata to re-init",
+    );
   if (!isRunning()) {
+    const socketDir = join(local, "sockets");
+    mkdirSync(socketDir, { recursive: true });
     execFileSync(
       pgBin("pg_ctl"),
-      ["-D", dataDir, "-l", join(local, "postgres.log"), "-o", `-p ${port} -c listen_addresses=127.0.0.1`, "-w", "start"],
+      [
+        "-D",
+        dataDir,
+        "-l",
+        join(local, "postgres.log"),
+        "-o",
+        `-p ${port} -c listen_addresses=127.0.0.1 -c unix_socket_directories=${socketDir}`,
+        "-w",
+        "start",
+      ],
       { stdio: "ignore", windowsHide: true },
     );
   }
@@ -134,12 +232,21 @@ if (cmd === "start") {
   const merged = { ...env, ...all };
   writeFileSync(
     envFile,
-    ["# Generated by scripts/dev-db.mjs — local development only. Do not commit.", ...Object.entries(merged).map(([k, v]) => `${k}=${v}`), ""].join("\n"),
+    [
+      "# Generated by scripts/dev-db.mjs — local development only. Do not commit.",
+      ...Object.entries(merged).map(([k, v]) => `${k}=${v}`),
+      "",
+    ].join("\n"),
     { mode: 0o600 },
   );
-  console.log(`PostgreSQL running on 127.0.0.1:${port}. Connection strings written to .local/db.env`);
+  console.log(
+    `PostgreSQL running on 127.0.0.1:${port}. Connection strings written to .local/db.env`,
+  );
 } else if (cmd === "stop") {
-  if (isRunning()) execFileSync(pgBin("pg_ctl"), ["-D", dataDir, "-w", "stop"], { stdio: "inherit" });
+  if (isRunning())
+    execFileSync(pgBin("pg_ctl"), ["-D", dataDir, "-w", "stop"], {
+      stdio: "inherit",
+    });
   else console.log("not running");
 } else {
   console.log(isRunning() ? `running (port ${port})` : "stopped");
