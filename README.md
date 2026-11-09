@@ -13,7 +13,7 @@ Small agencies and technology teams buying fixed-scope digital services (design,
 | Accounts, orgs, roles, encrypted drafts, invitations, sealed-quote access control (RLS) | Built & verified locally (E2E + DB tests) |
 | Rust escrow/commitment contract | Deployed to NEAR testnet [`veilprocure-106725.testnet`](https://testnet.nearblocks.io/address/veilprocure-106725.testnet); 37 native tests |
 | Full buyer → 2 suppliers → payout journey on testnet | **Verified**: 12 real transactions through the UI, exact +0.5 NEAR payout, attacks rejected ([evidence](docs/TEST_EVIDENCE.md)) |
-| Refund / dispute / failed-transfer retry on chain | Built and unit-tested; not yet run on testnet |
+| Refunds, cancellation and disputes on chain | **Verified** on testnet through the UI: decline refund, mutual cancellation refund, reviewer-decided dispute with exact balance checks (Journey B, 19 txs); failed-transfer retry is unit-tested only |
 | NEAR AI Cloud attested evaluation | **Verified live**: `Qwen/Qwen3.8-27B`, all 27 attestation/signature/schema checks passed on two evaluations ([evidence](docs/AI_VERIFICATION.md)) |
 | Hosted app | **Live** at https://veilprocure.netlify.app (Netlify + Neon + Gmail SMTP); sign-in, onboarding and encrypted drafts verified on the live site ([deployments](docs/DEPLOYMENTS.md)) |
 | Public repo / X post | Repo **public** since 2026-10-30; X demo post **TODO** (the owner publishes it) |
@@ -89,7 +89,7 @@ pnpm --filter @veilprocure/db test              # 10 against real Postgres (RLS,
 pnpm --filter @veilprocure/web test             # 9 security primitives
 pnpm --filter @veilprocure/worker test          # 8 AI fail-closed
 pnpm --filter @veilprocure/worker attest:check  # live NEAR AI attestation only; sends no quote content (needs NEARAI_API_KEY)
-pnpm test:e2e                                   # 8 off-chain journeys + on-chain Journey A (needs .local/testnet-accounts.json)
+pnpm test:e2e                                   # 8 off-chain journeys + on-chain Journeys A (payout) and B (refunds, cancellation, dispute); needs .local/testnet-accounts.json
 VEIL_AI_LIVE=1 pnpm test:e2e -- ai-live         # live attested AI evaluation of the journey's quotes (spends credits)
 pnpm build:contract                             # WASM + SHA-256
 ```

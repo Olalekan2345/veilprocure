@@ -8,89 +8,19 @@
  */
 import { existsSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { expect, test, type Browser, type Page } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { actions } from "near-api-js";
-import { signMessage } from "near-api-js/nep413";
-import { loadAccount, MANIFEST, readManifest, rpc, txHashOf } from "../../../scripts/testnet/lib";
+import { loadAccount, MANIFEST, readManifest, txHashOf } from "../../../scripts/testnet/lib";
+import { balance, bindWallet, localInput, NEAR, signTx as signTxIn, walletPage, type Journey } from "./chain-helpers";
 import { latestLink, signIn, sql, testEmail } from "./helpers";
 
 const enabled = existsSync(MANIFEST);
-const journey: { step: string; txHash: string }[] = [];
-const NEAR = 10n ** 24n;
+const journey: Journey = [];
+const signTx = (page: Page, label: string | RegExp, step: string) => signTxIn(page, label, step, journey);
 
 test.afterAll(async () => {
   if (journey.length) writeFileSync(resolve(import.meta.dirname, "../../../.local/testnet-journey.json"), JSON.stringify({ at: new Date().toISOString(), journey }, null, 2));
 });
-
-async function walletPage(browser: Browser, accountId: string): Promise<Page> {
-  const ctx = await browser.newContext();
-  const page = await ctx.newPage();
-  const account = loadAccount(accountId);
-  await page.exposeFunction("__veilE2EAccount", async () => accountId);
-  await page.exposeFunction("__veilE2ESignMessage", async (json: string) => {
-    const i = JSON.parse(json) as { message: string; recipient: string; nonceHex: string };
-    const signed = await signMessage({ signerAccount: account, payload: { message: i.message, recipient: i.recipient, nonce: Buffer.from(i.nonceHex, "hex") } });
-    return JSON.stringify({ accountId, publicKey: signed.publicKey.toString(), signature: Buffer.from(signed.signature).toString("base64") });
-  });
-  await page.exposeFunction("__veilE2ESendTx", async (json: string) => {
-    const i = JSON.parse(json) as { receiverId: string; methodName: string; args: object; gas: string; depositYocto: string };
-    const res = await account.signAndSendTransaction({
-      receiverId: i.receiverId,
-      actions: [actions.functionCall(i.methodName, i.args, BigInt(i.gas), BigInt(i.depositYocto))],
-      waitUntil: "FINAL",
-      throwOnFailure: false,
-    });
-    return txHashOf(res as never);
-  });
-  return page;
-}
-
-/** Clicks a TxAction, reviews the preview, signs, and waits for server-side chain confirmation. */
-async function signTx(page: Page, label: string | RegExp, step: string): Promise<string> {
-  const dialog = page.getByRole("dialog");
-  await expect(async () => {
-    await page.getByRole("button", { name: label }).first().click();
-    await expect(dialog.getByRole("button", { name: "Sign with wallet" })).toBeVisible({ timeout: 15_000 });
-  }).toPass({ timeout: 60_000 });
-  await expect(dialog.getByText("NEAR testnet (no monetary value)")).toBeVisible();
-  await dialog.getByRole("button", { name: "Sign with wallet" }).click();
-  await expect(dialog.getByText("Confirmed on chain")).toBeVisible({ timeout: 120_000 });
-  const href = await dialog.getByRole("link", { name: /View on explorer/ }).getAttribute("href");
-  const txHash = href!.split("/txns/")[1]!;
-  journey.push({ step, txHash });
-  await dialog.getByRole("button", { name: "Close" }).click();
-  return txHash;
-}
-
-async function bindWallet(page: Page, accountId: string) {
-  await page.goto("/app/wallet");
-  const bound = page.getByText(`Bound ${accountId}.`);
-  const confirmMove = page.getByRole("button", { name: "Yes, continue" });
-  const bindButton = page.getByRole("button", { name: "Bind this wallet" });
-  // Two steps: connect (wallet popup), then bind (a separate click, so the signing popup is
-  // user-initiated and not blocked by the browser).
-  await expect(async () => {
-    if (!(await bindButton.isVisible())) await page.getByRole("button", { name: "Connect wallet" }).click();
-    await bindButton.click({ timeout: 10_000 });
-    await expect(bound.or(confirmMove)).toBeVisible({ timeout: 30_000 });
-  }).toPass({ timeout: 120_000 });
-  // A wallet bound to another user (e.g. a previous test run) moves only after explicit
-  // confirmation — the account-takeover guard. Confirm it and expect a fresh signature check.
-  if (await confirmMove.isVisible()) {
-    await expect(page.getByText("This wallet is bound to another VeilProcure user")).toBeVisible();
-    await confirmMove.click();
-  }
-  await expect(bound).toBeVisible({ timeout: 60_000 });
-}
-
-async function balance(accountId: string): Promise<bigint> {
-  return BigInt((await rpc<{ amount: string }>("query", { request_type: "view_account", finality: "final", account_id: accountId })).amount);
-}
-
-function localInput(d: Date): string {
-  const p = (n: number) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`;
-}
 
 test.describe.configure({ mode: "serial" });
 

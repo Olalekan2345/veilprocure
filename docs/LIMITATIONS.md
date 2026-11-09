@@ -13,7 +13,8 @@ VeilProcure is a **public testnet beta / functional prototype**. It is not produ
 | Contract on NEAR testnet | BUILT & VERIFIED | `veilprocure-106725.testnet`, code hash verified (docs/DEPLOYMENTS.md) |
 | Wallet binding (NEP-413) | BUILT & VERIFIED with real testnet keys (incl. rebind confirmation guard); not yet with a third-party wallet UI | on-chain E2E |
 | Publish / bid commit / close / award / fund / accept / deliver / release on testnet | BUILT & VERIFIED | on-chain E2E, 12 txs (docs/TEST_EVIDENCE.md) |
-| Refund / cancellation / dispute / failed-transfer retry on testnet | BUILT, NOT VERIFIED on chain | covered by contract tests only |
+| Decline refund, mutual cancellation refund, dispute decided by reviewer on testnet | BUILT & VERIFIED | Journey B, 19 txs, exact balance checks (docs/TEST_EVIDENCE.md) |
+| Failed-transfer retry on testnet | BUILT, NOT VERIFIED on chain | contract tests only; a failing transfer cannot be induced safely on testnet |
 | Bid commitment construction & recomputation | BUILT & VERIFIED | cross-language vectors |
 | Deterministic evaluation & ranking | BUILT & VERIFIED | shared tests |
 | Confidential AI notes with attestation | BUILT & VERIFIED (live, locally) | 2 live evaluations, all 27 checks passed (docs/AI_VERIFICATION.md) |

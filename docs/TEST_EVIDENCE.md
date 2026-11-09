@@ -73,8 +73,40 @@ Assertions that passed: supplier A's balance rose by **exactly 50000000000000000
 
 2026-10-30, local app with `EMAIL_TRANSPORT=smtp` (`smtp.gmail.com:465`, TLS, app password for the project's own `veilprocure@gmail.com`): `transporter.verify()` succeeded; a sign-in request from the UI showed "Check your inbox" and the outbox row became `sent` at 12:02:11 UTC with Gmail message id `<a60476a4-f765-cd66-ae9d-015302a9a0ed@gmail.com>`. The project owner received the e-mail and opened the link: the login token was consumed at 12:05:00 UTC (by POST, single use) and `auth.signed_in` was recorded at 12:05:01 UTC.
 
+## Escrow paths on NEAR testnet (Journey B, real UI) — PASSED
+
+`pnpm --filter @veilprocure/e2e exec playwright test specs/chain-escrow.spec.ts` → **`1 passed (9.2m)`** on 2026-11-09 (21:41 UTC) against `veilprocure-106725.testnet`. One request with two sealed bids and a dispute reviewer (`vp-106725-test-outsider.testnet`), three award rounds — every refund returns the request to "closed" so the buyer can re-award:
+
+1. **Decline refund:** award A → fund 0.2 NEAR → supplier A declines → the contract refunds the buyer. Buyer balance rose by **exactly 0.2 NEAR**; award round 1 `refunded`.
+2. **Mutual cancellation:** award B → fund → B accepts → buyer requests cancellation → B approves → refund. Buyer balance rose by **exactly 0.2 NEAR**; award round 2 `refunded`.
+3. **Dispute decided by the reviewer:** award A → fund → accept → delivery anchored → buyer opens a dispute. The buyer's own `resolve_dispute` was **rejected (`VP_NOT_REVIEWER`)**; the reviewer, acting on chain outside the app, released to the supplier: supplier A balance rose by **exactly 0.2 NEAR**. The worker reconciler then projected the outcome from chain state alone (`reconciled 2 chain change(s)`): award round 3 `paid`, request `settled`, buyer page shows "Paid".
+
+| # | Step | Transaction |
+|---|---|---|
+| 1 | create_rfq (buyer publishes policy) | [`H8YqSR2MVkcX…`](https://testnet.nearblocks.io/txns/H8YqSR2MVkcXEEwo21qRhhVFCiCoweG1WshDfpNhKMij) |
+| 2 | commit_bid (Test Escrow Supplier A (e2e)) | [`3jVyCRtNCFuW…`](https://testnet.nearblocks.io/txns/3jVyCRtNCFuWUq88BZnrgBnqqkLJyKLuJ6nwH18iNBtE) |
+| 3 | commit_bid (Test Escrow Supplier B (e2e)) | [`Evxz4iGcCXZw…`](https://testnet.nearblocks.io/txns/Evxz4iGcCXZwEJsupwDsDgsUx5hZk4PkGG6texVz6PQm) |
+| 4 | close_rfq | [`Bui7XmsPsGtN…`](https://testnet.nearblocks.io/txns/Bui7XmsPsGtNdEUyGw62rfNynMeSpkcsCjPLnpoBHcpQ) |
+| 5 | award_supplier round 1 → Test Escrow Supplier A (e2e) | [`3z1ca8YyWQ9i…`](https://testnet.nearblocks.io/txns/3z1ca8YyWQ9iHnHdVjpkaKctubkwNQ9BFRW2wxWLbnER) |
+| 6 | fund_award round 1 (0.2 NEAR principal) | [`9BzqqojAaJRS…`](https://testnet.nearblocks.io/txns/9BzqqojAaJRS7qb9rZmMLFaxyoCBLBDyVo7jyeAiQKxQ) |
+| 7 | decline_award round 1 → refund → on_refund_result | [`AihYcEdik3Mz…`](https://testnet.nearblocks.io/txns/AihYcEdik3MzXaFsRXq9erWjtKqx2a9XsUAx9SPLbu8a) |
+| 8 | award_supplier round 2 → Test Escrow Supplier B (e2e) | [`7WqZYpFw4u9B…`](https://testnet.nearblocks.io/txns/7WqZYpFw4u9BCmKd22KnD8eagVg1Gt8HQnDFN7q25eAT) |
+| 9 | fund_award round 2 (0.2 NEAR principal) | [`6RsWfFP2EBB4…`](https://testnet.nearblocks.io/txns/6RsWfFP2EBB48Zh5UembEkMAjv9bionKyyuhCgz5uY1Y) |
+| 10 | accept_award round 2 (supplier B) | [`22dWxHfs6Nk8…`](https://testnet.nearblocks.io/txns/22dWxHfs6Nk8byESXi4T8sGuqtofyuXCuc3uQYQCw4Jv) |
+| 11 | request_cancel round 2 (buyer) | [`F3oW3nrdtFUY…`](https://testnet.nearblocks.io/txns/F3oW3nrdtFUYgaFc3kUNfML3u8fiTDhTrLe4UvwFaudW) |
+| 12 | approve_cancel round 2 (supplier B) → refund → on_refund_result | [`7C3wYFZoYhaM…`](https://testnet.nearblocks.io/txns/7C3wYFZoYhaMrKiU7EpS5VyaZk2Ya4D5W7t1FTE6NyuB) |
+| 13 | award_supplier round 3 → Test Escrow Supplier A (e2e) | [`EnGkZhGY6h98…`](https://testnet.nearblocks.io/txns/EnGkZhGY6h98Jxk2uRA3LmGbVRbLfb42HDRd5iLEs5NG) |
+| 14 | fund_award round 3 (0.2 NEAR principal) | [`Ccdj3TzTeTrd…`](https://testnet.nearblocks.io/txns/Ccdj3TzTeTrdrErLXzhXjaoCkk1Bu2Pi9vuiw3nYN4Mr) |
+| 15 | accept_award round 3 (supplier A) | [`56Dvd1t9RkWA…`](https://testnet.nearblocks.io/txns/56Dvd1t9RkWAeCyyoWpdg4zXcEix5cjZ7nNJYi43TnAV) |
+| 16 | submit_delivery round 3 (evidence hash) | [`FiS3MkUib17C…`](https://testnet.nearblocks.io/txns/FiS3MkUib17CyvFyRKkfyZqpcMszndiYwyMyQoP5Ki3P) |
+| 17 | open_dispute round 3 (buyer) | [`FJuD2m42WAU4…`](https://testnet.nearblocks.io/txns/FJuD2m42WAU4X7GMsYVJ3mYvqnvbcuwsgjSJjuTK96d4) |
+| 18 | attack: buyer resolve_dispute in own favour (rejected VP_NOT_REVIEWER) | [`G65cddaFxSov…`](https://testnet.nearblocks.io/txns/G65cddaFxSovvFupPXFpmw6664q8kHENGxsPKK48mFPW) |
+| 19 | resolve_dispute round 3 by reviewer → release → on_payment_result | [`GttSVbqUwayv…`](https://testnet.nearblocks.io/txns/GttSVbqUwayvZQsdGgAK3KsosepEnSgzDVqJKxcBVdtr) |
+
+Journey A was re-run the same day after the wallet-connect pull request (two-step Connect → Bind): **`1 passed (7.8m)`**, 12 transactions, exact 0.5 NEAR payout and the three attacks rejected again (create_rfq [`BftZ1YGTvnCD…`](https://testnet.nearblocks.io/txns/BftZ1YGTvnCD8kcv594e7pTmyJvyCsqrC3aFAy8Sgko5), commit_bid [`HDThHyYfMGvc…`](https://testnet.nearblocks.io/txns/HDThHyYfMGvchaX9Lvuigjx2dMxoS5fimvfbQcy7UVc2), commit_bid [`4vsnpNFnWs6N…`](https://testnet.nearblocks.io/txns/4vsnpNFnWs6NtZe4eHQYcbvjYqqfLWUe7roAP5bnad9x), close_rfq [`9DuR1qjmbBS8…`](https://testnet.nearblocks.io/txns/9DuR1qjmbBS872kQ2GYEzYVvJiVP9SXi2F9veR3D4Dak), award_supplier [`6DY1aP2mJcq7…`](https://testnet.nearblocks.io/txns/6DY1aP2mJcq7Hg32ZDoHyerREQmMCS8hZJCG6rSgbXDG), fund_award [`9WrXKqiPWyXp…`](https://testnet.nearblocks.io/txns/9WrXKqiPWyXpdkT4GocegBHYqTkfhMUgR5VF32sdF2vG), attack: [`8mVTev7VadLY…`](https://testnet.nearblocks.io/txns/8mVTev7VadLYrdMtreprptHNg3WE5QGMkjicGkHxd6Vz), attack: [`4xE8SPYrT9m5…`](https://testnet.nearblocks.io/txns/4xE8SPYrT9m5Ncasz6PztS249g9MSkFkbWk7YHk9ARJa), accept_award [`CN8WzEpXNKVe…`](https://testnet.nearblocks.io/txns/CN8WzEpXNKVeiFMQdyU6DCkWwHwRaBmBeFZ2NHAo9yYy), submit_delivery [`aoSR69vBFDK6…`](https://testnet.nearblocks.io/txns/aoSR69vBFDK6CNBCDXbxBAr97vnc6mcTn4hAZ7TuV9T), approve_release [`BThEo2UwPv6P…`](https://testnet.nearblocks.io/txns/BThEo2UwPv6PCScgiE1gATrGBYrjbzC3RVoTTM2CDxdF), attack: [`8MgtxqYHMx2P…`](https://testnet.nearblocks.io/txns/8MgtxqYHMx2P7LqoHUK8mobtSq2TkzNoQ94xv7VdkMba)).
+
 ## Not yet tested (blocked or pending)
 
-- On-chain failed-transfer → retry (A17), mutual cancellation/refund (A18) and dispute paths — covered by contract unit/property tests, not yet run on testnet.
+- On-chain failed-transfer → retry (A17) and `reclaim_unaccepted` / `claim_after_review` through the UI — covered by contract unit/property tests (`claim_after_review` was run directly on testnet on 2026-10-29); a failing transfer cannot be induced safely on testnet.
 - A third-party wallet's own UI (NEAR Connect popup) with a human — not automatable here.
 - Supplier/team invitation e-mails over SMTP (same transport as the verified sign-in e-mail). Backup/restore — no hosted database.
