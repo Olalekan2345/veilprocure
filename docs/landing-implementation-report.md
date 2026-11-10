@@ -40,11 +40,12 @@ CSS transitions/keyframes plus one IntersectionObserver script (`SiteMotion`); n
 | Regression | `offchain.spec.ts` 8 + `landing.spec.ts` 12 → **20 passed** (desktop + mobile projects); unit tests 9 web + 8 worker + 22 shared + 10 db **all passed**; typecheck of every package clean; production `next build` succeeds |
 | Lighthouse 13.6.0 (production build, Edge headless, mobile and desktop presets) | **Accessibility 100, Best Practices 100, SEO 100**. The first run scored Accessibility 96 on colour contrast (faint pre-reveal words); fixed by the grey→ink reveal. **Performance score not obtained locally:** Lighthouse's trace failed with `NO_NAVSTART` on this machine with both Playwright Chromium and Edge |
 | Performance, measured in-browser on the production build (PerformanceObserver, CDP throttling) | Mobile profile (390 px, 4× CPU, ≈1.6 Mbps, 150 ms RTT): FCP 1.45 s, **LCP 1.45 s (the hero headline)**, **CLS 0.000**, 2 long tasks / ≈ 0.52 s blocking. Desktop (unthrottled): FCP/LCP 0.77 s, CLS 0.000, ≈ 0.30 s blocking |
+| Live site after deploy (https://veilprocure.netlify.app, deploy of `883bffd`) | Headline renders in Manrope (font loaded), no horizontal overflow at 1440 and 390 px, no console errors, logo served through Netlify's image CDN (200), `/icon.png` served. Lighthouse 13.6.0 against the live URL: **Accessibility 100, Best Practices 100, SEO 100**; performance trace again `NO_NAVSTART` locally. PageSpeed Insights (Google-hosted Lighthouse) refused with HTTP 429 — its shared keyless daily quota was exhausted |
 | JavaScript on `/` | 181 KB gzip (582 KB raw), of which the landing's own code (menu, motion, bid toggle, icons) is ≈ 9.5 KB gzip; the rest is React DOM and the Next.js runtime. No wallet, database or validation libraries are shipped to the page. HTML 145 KB raw |
 
 ## Known gaps
 
-- Lighthouse **performance** score still to be measured on the hosted site (local trace failure above).
+- Lighthouse **performance** score not yet obtained: the local trace fails on this machine and PageSpeed Insights' keyless quota was exhausted on 2026-11-10. Run https://pagespeed.web.dev/ against https://veilprocure.netlify.app/ to record it.
 - The blocking time on throttled mobile comes from React/Next.js hydration; reducing it further would need fewer client islands or a lighter framework runtime.
 - `/security`, `/privacy`, `/terms` and `/support` use the new header/footer, but their bodies keep the earlier serif/gold styling.
 - No real product screenshots are used; the workspace preview is an abstract illustration (sanitised real screens would need the owner's consent).
