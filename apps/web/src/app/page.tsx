@@ -19,6 +19,7 @@ import {
   UserCheck,
   Wallet,
 } from "lucide-react";
+import { BackToTop } from "@/components/site/back-to-top";
 import { BidInbox } from "@/components/site/bid-inbox";
 import { HeroVisual } from "@/components/site/hero-visual";
 import { SiteMotion } from "@/components/site/motion";
@@ -116,7 +117,7 @@ const FAQ: { id: string; q: string; a: React.ReactNode }[] = [
 
 export default function Home() {
   return (
-    <div className="site">
+    <div className="site" id="top">
       <MotionBoot />
       <SiteMotion />
       <SiteHeader />
@@ -630,6 +631,7 @@ export default function Home() {
         </section>
       </main>
       <SiteFooter />
+      <BackToTop />
     </div>
   );
 }

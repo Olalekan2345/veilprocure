@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUp } from "lucide-react";
 import { getSession } from "@/server/session";
 import { BrandLockup } from "./brand";
 import { MobileNav } from "./mobile-nav";
@@ -103,9 +103,15 @@ export function SiteFooter() {
         ])}
       </div>
       <div className="border-t border-vp-border">
-        <div className="vp-container flex flex-col gap-2 py-6 text-[13px] text-vp-muted md:flex-row md:items-center md:justify-between">
-          <p>Public beta on NEAR testnet. Test tokens have no monetary value; the escrow contract has not been audited.</p>
-          <p>Built on NEAR testnet; not affiliated with or endorsed by the NEAR Foundation.</p>
+        <div className="vp-container flex flex-col gap-3 pb-24 pt-6 text-[13px] text-vp-muted md:flex-row md:items-center md:justify-between md:pb-6">
+          <div className="space-y-1">
+            <p>Public beta on NEAR testnet. Test tokens have no monetary value; the escrow contract has not been audited.</p>
+            <p>Built on NEAR testnet; not affiliated with or endorsed by the NEAR Foundation.</p>
+          </div>
+          {/* Plain link: works without JavaScript (CSS smooth scrolling where motion is allowed). */}
+          <a href="#top" className="inline-flex shrink-0 items-center gap-1.5 font-semibold text-vp-ink">
+            Back to top <ArrowUp className="size-3.5" aria-hidden />
+          </a>
         </div>
       </div>
     </footer>

@@ -106,6 +106,23 @@ test.describe("landing page", () => {
     await expect(page.locator("#faq-money")).toHaveAttribute("open", "");
   });
 
+  test("back to top: appears after the first screen, returns to the top and moves focus", async ({ page }) => {
+    await page.goto("/");
+    const button = page.locator(".vp-totop");
+    await expect(button).toBeHidden();
+    await expect(async () => {
+      await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight / 2, behavior: "instant" }));
+      await expect(button).toBeVisible({ timeout: 1000 });
+    }).toPass({ timeout: 30_000 });
+    await expect(button).toHaveAccessibleName("Back to top");
+    await button.click();
+    await expect.poll(() => page.evaluate(() => window.scrollY), { timeout: 10_000 }).toBe(0);
+    await expect(page.getByRole("link", { name: "VeilProcure home" })).toBeFocused();
+    await expect(button).toBeHidden();
+    // The footer link works on its own (no JavaScript needed).
+    await expect(page.locator("footer").getByRole("link", { name: "Back to top" })).toHaveAttribute("href", "#top");
+  });
+
   test("reduced motion: everything is visible without scrolling", async ({ browser }) => {
     const ctx = await browser.newContext({ reducedMotion: "reduce" });
     const page = await ctx.newPage();
