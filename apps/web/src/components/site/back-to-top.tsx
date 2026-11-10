@@ -7,6 +7,8 @@ import { useEffect, useRef } from "react";
  * Floating "back to top" control. Appears once the first screen has been scrolled past; its ring
  * fills with scroll progress. Returns focus to the top of the page so keyboard users continue from
  * the header. (Without JavaScript the footer's plain "Back to top" link does the same job.)
+ * On Netlify's free plan a "Powered by Netlify" badge (#nl-badge-frame) is pinned to the same
+ * corner above everything; the button lifts itself clear of it instead of hiding under it.
  */
 export function BackToTop() {
   const ref = useRef<HTMLAnchorElement>(null);
@@ -19,6 +21,9 @@ export function BackToTop() {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       el.dataset.show = String(window.scrollY > window.innerHeight * 0.9);
       el.style.setProperty("--sp", max > 0 ? (window.scrollY / max).toFixed(4) : "0");
+      const badge = document.getElementById("nl-badge-frame")?.getBoundingClientRect();
+      const lift = badge && badge.height > 0 && badge.top < window.innerHeight ? window.innerHeight - badge.top : 0;
+      el.style.setProperty("--lift", `${Math.round(lift)}px`);
     };
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update);

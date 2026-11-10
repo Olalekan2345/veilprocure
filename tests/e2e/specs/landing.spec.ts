@@ -123,6 +123,28 @@ test.describe("landing page", () => {
     await expect(page.locator("footer").getByRole("link", { name: "Back to top" })).toHaveAttribute("href", "#top");
   });
 
+  test("back to top stays clickable above a host badge in the same corner (Netlify free plan)", async ({ page }) => {
+    await page.goto("/");
+    // Simulate Netlify's injected badge: fixed 197x64 iframe, bottom-right, topmost.
+    await page.evaluate(() => {
+      const f = document.createElement("iframe");
+      f.id = "nl-badge-frame";
+      f.title = "Powered by Netlify";
+      Object.assign(f.style, { position: "fixed", right: "0", bottom: "0", width: "197px", height: "64px", border: "0", zIndex: "2147483645" });
+      document.body.appendChild(f);
+    });
+    const button = page.locator(".vp-totop");
+    await expect(async () => {
+      await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight / 2, behavior: "instant" }));
+      await expect(button).toBeVisible({ timeout: 1000 });
+    }).toPass({ timeout: 30_000 });
+    const btn = (await page.locator(".vp-totop-btn").boundingBox())!;
+    const badge = (await page.locator("#nl-badge-frame").boundingBox())!;
+    expect(btn.y + btn.height, "button sits above the badge").toBeLessThanOrEqual(badge.y);
+    await button.click();
+    await expect.poll(() => page.evaluate(() => window.scrollY), { timeout: 10_000 }).toBe(0);
+  });
+
   test("reduced motion: everything is visible without scrolling", async ({ browser }) => {
     const ctx = await browser.newContext({ reducedMotion: "reduce" });
     const page = await ctx.newPage();

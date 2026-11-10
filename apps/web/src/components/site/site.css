@@ -1208,7 +1208,8 @@
 .vp-totop {
   position: fixed;
   right: clamp(16px, 3vw, 32px);
-  bottom: clamp(16px, 3vw, 32px);
+  /* --lift: height of a host badge pinned to this corner (set by the component), plus a gap. */
+  bottom: max(clamp(16px, 3vw, 32px), calc(var(--lift, 0px) + 10px));
   z-index: 45;
   display: inline-flex;
   align-items: center;
