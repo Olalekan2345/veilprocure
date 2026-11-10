@@ -41,6 +41,27 @@
   --shadow-pop: 0 12px 32px -8px rgb(27 28 30 / 0.22), 0 2px 6px rgb(27 28 30 / 0.08);
 }
 
+/* Always emitted: the public website stylesheet (components/site/site.css) reads these directly. */
+@theme static {
+  /* Public website (NEAR-inspired mint on warm white). Mint is an accent, never body text on white. */
+  --font-site: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-vp-ink: #191729;
+  --color-vp-body: #333644;
+  --color-vp-muted: #66716e;
+  --color-vp-paper: #ffffff;
+  --color-vp-canvas: #fafbf9;
+  --color-vp-mint: #00ec97;
+  --color-vp-mint-soft: #e8fff5;
+  --color-vp-mint-sage: #c7f5d8;
+  --color-vp-evergreen: #087a58;
+  --color-vp-night: #0d201c;
+  --color-vp-border: #e4ebe7;
+  --color-vp-gold: #c49b4e;
+  --ease-vp: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-vp-out: cubic-bezier(0.3, 0.7, 0.4, 1);
+  --ease-vp-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
 @layer base {
   html {
     background: var(--color-paper);

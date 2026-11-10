@@ -8,9 +8,10 @@ import { createOrg, latestLink, signIn, sql, testEmail } from "./helpers";
 
 test("public pages are honest and reachable", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Private bids.");
-  await expect(page.getByText("Public beta on NEAR testnet").first()).toBeVisible();
-  await expect(page.getByText(/no monetary value/i).first()).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Better sourcing.");
+  const main = page.locator("main");
+  await expect(main.getByText(/Public beta on NEAR testnet/).first()).toBeVisible();
+  await expect(main.getByText(/no monetary value/i).first()).toBeVisible();
   for (const path of ["/security", "/terms", "/privacy", "/support"]) {
     const res = await page.goto(path);
     expect(res?.status(), path).toBe(200);
