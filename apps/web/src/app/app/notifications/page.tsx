@@ -26,7 +26,7 @@ export default async function Notifications() {
             {items.map((n) => (
               <li key={n.id} className="px-5 py-4 sm:px-6">
                 <p className="flex items-center gap-2 font-medium text-ink">
-                  {!n.readAt && <span className="size-2 rounded-full bg-gold" aria-label="Unread" />}
+                  {!n.readAt && <span className="size-2 rounded-full bg-accent" aria-label="Unread" />}
                   {n.linkPath ? <Link href={n.linkPath} className="hover:underline">{n.title}</Link> : n.title}
                 </p>
                 <p className="mt-0.5 text-sm text-muted">{n.body}</p>

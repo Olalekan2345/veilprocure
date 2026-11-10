@@ -47,7 +47,7 @@ export function AwardForm({ rfqId, options, explorerBase, reviewer }: { rfqId: s
           <TxAction
             prepare={() => prepareAwardActionServer(rfqId, { quoteId, amountNear: amount, workSummary: summary, overrideReason: reason || undefined })}
             label="Sign award"
-            variant="gold"
+            variant="accent"
             explorerBase={explorerBase}
             disabled={!valid}
             icon={<Gavel className="size-4" aria-hidden />}

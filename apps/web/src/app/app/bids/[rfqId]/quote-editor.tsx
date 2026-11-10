@@ -167,7 +167,7 @@ export function QuoteEditor({
               <TxAction
                 prepare={() => prepareCommitAction(rfqId)}
                 label={committed ? "Commit revised bid" : "Seal & commit bid"}
-                variant="gold"
+                variant="accent"
                 explorerBase={explorerBase}
                 disabled={!saved || pending}
                 icon={<Lock className="size-4" aria-hidden />}

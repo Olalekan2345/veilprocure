@@ -12,13 +12,13 @@ export const metadata = { title: "Confirm sign-in", robots: { index: false } };
 export default async function ConfirmPage({ searchParams }: { searchParams: Promise<{ token?: string }> }) {
   const { token } = await searchParams;
   return (
-    <main id="main" className="grid min-h-dvh place-items-center px-4">
+    <main id="main" className="auth-canvas grid min-h-dvh place-items-center px-4">
       <div className="w-full max-w-[420px] text-center">
         <Link href="/" className="inline-block" aria-label="VeilProcure home">
           <Wordmark />
         </Link>
-        <div className="card mt-8 p-8">
-          <h1 className="display text-3xl text-ink">Finish signing in</h1>
+        <div className="card mt-8 p-8 shadow-[var(--shadow-pop)]">
+          <h1 className="display text-[2rem] leading-tight text-ink">Finish signing in</h1>
           {token ? (
             <form action={confirmSignIn} className="mt-6">
               <input type="hidden" name="token" value={token} />

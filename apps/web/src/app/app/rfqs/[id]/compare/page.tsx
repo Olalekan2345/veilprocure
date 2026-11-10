@@ -128,7 +128,7 @@ export default async function Compare({ params }: { params: Promise<{ id: string
         <Card>
           <CardHeader
             eyebrow="Advisory only"
-            title={<span className="flex items-center gap-2"><Sparkles className="size-4 text-gold" aria-hidden /> Private AI notes</span>}
+            title={<span className="flex items-center gap-2"><Sparkles className="size-4 text-accent-ink" aria-hidden /> Private AI notes</span>}
             description="Qualitative notes from a model running in a NEAR AI Cloud TEE. Shown only when the attestation and response signature verify. They never change eligibility or scores and cannot award."
             action={can(m, "rfq:evaluate") && (!ai || ["failed", "blocked", "succeeded"].includes(ai.job.status)) && <ActionButton action={requestAiEvaluationAction.bind(null, id)} label={ai ? "Request again" : "Request AI notes"} size="sm" successText="Queued for the evaluation worker." />}
           />

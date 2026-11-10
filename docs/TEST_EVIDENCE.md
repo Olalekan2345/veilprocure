@@ -11,6 +11,7 @@ Actual results from the developer machine on **2026-10-29/30** (Windows 11, Node
 | Web security primitives | `pnpm --filter @veilprocure/web test` | `Tests 9 passed (9)` |
 | Worker / AI fail-closed | `pnpm --filter @veilprocure/worker test` | `Tests 8 passed (8)` |
 | Browser E2E (Chromium desktop + Pixel 7 mobile) | `pnpm test:e2e` (app on :3000) | `8 passed` |
+| Browser E2E after the app-wide re-theme, 2026-11-10 | `playwright test specs/offchain.spec.ts specs/landing.spec.ts specs/app-theme.spec.ts` | `23 passed, 1 failed` — the link check timed out while the dev server compiled `/terms` under load; rerun alone: `1 passed (19.0s)`. Web unit tests `9 passed` |
 | Typecheck | `tsc --noEmit` in shared, db, web, worker | 0 errors |
 
 ## What the tests prove
@@ -21,7 +22,7 @@ Actual results from the developer machine on **2026-10-29/30** (Windows 11, Node
 - **Database (veil_app role, RLS)**: supplier-to-supplier IDOR blocked by id; buyer sees nothing before close and only *committed* revisions after; another buyer sees nothing; no-context queries fail closed; committed quote content immutable even for its owner and the BYPASSRLS worker; audit log append-only; published policy fields frozen; a wallet bound to one user at a time.
 - **Web**: envelope encryption AAD binding and tamper detection; download tokens bound to file/user/expiry; content sniffing rejects HTML/SVG/executables; path traversal in filenames; NEP-413 verification with real ed25519 signatures and rejection of altered recipient/nonce/message and of function-call keys; contract error surfacing; SQL parameters never logged.
 - **Worker**: unconfigured AI is `blocked` with zero network calls; unverifiable attestation never reaches the model; RTMR3 replay/forgery; EIP-191 recovery; schema containment of injected sources.
-- **E2E**: honest public pages; auth required for the workspace; sign-in links single-use and not consumed by GET prefetch; fresh buyer onboarding with zero-valued empty states, encrypted draft at rest, publish gating; cross-organisation IDOR returns 404 for view/edit/compare; API rejects cross-site and unauthenticated calls; sign-in rate limit; mobile navigation.
+- **E2E**: honest public pages; auth required for the workspace; sign-in links single-use and not consumed by GET prefetch; fresh buyer onboarding with zero-valued empty states, encrypted draft at rest, publish gating; cross-organisation IDOR returns 404 for view/edit/compare; API rejects cross-site and unauthenticated calls; sign-in rate limit; mobile navigation; the signed-in app uses the website theme (Manrope, heavy headings, green logo only, night-green primary button, no overflow at 1440/390 px, full-height phone menu).
 
 ## Bugs found by these tests (and fixed)
 

@@ -4,6 +4,7 @@ import { Activity, ArrowLeftRight, FileText, Gavel, LayoutDashboard, Menu, Setti
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { cx } from "@/components/ui";
 
 type Kind = "buyer" | "supplier" | null;
@@ -38,8 +39,8 @@ function NavList({ kind, isOperator, onNavigate }: { kind: Kind; isOperator: boo
                 onClick={onNavigate}
                 aria-current={active ? "page" : undefined}
                 className={cx(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
-                  active ? "bg-ink text-paper" : "text-ink-3 hover:bg-sunken hover:text-ink",
+                  "flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition-colors",
+                  active ? "bg-night font-semibold text-white [&>svg]:text-accent" : "font-medium text-ink-3 hover:bg-accent-soft hover:text-ink",
                 )}
               >
                 <it.icon className="size-4 shrink-0" aria-hidden />
@@ -61,27 +62,37 @@ export function MobileMenu({ kind, isOperator, email, children }: { kind: Kind; 
   const [open, setOpen] = useState(false);
   const path = usePathname();
   useEffect(() => setOpen(false), [path]);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
   return (
     <>
-      <button type="button" onClick={() => setOpen(true)} className="grid size-9 place-items-center rounded-lg hover:bg-sunken" aria-label="Open menu" aria-expanded={open}>
+      <button type="button" onClick={() => setOpen(true)} className="grid size-10 place-items-center rounded-full hover:bg-accent-soft" aria-label="Open menu" aria-expanded={open}>
         <Menu className="size-5" aria-hidden />
       </button>
-      {open && (
-        <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true" aria-label="Menu">
-          <button type="button" className="absolute inset-0 bg-ink/40" onClick={() => setOpen(false)} aria-label="Close menu" />
-          <div className="absolute inset-y-0 left-0 flex w-[86%] max-w-[320px] flex-col overflow-y-auto bg-surface shadow-[var(--shadow-pop)]">
-            <div className="flex h-14 items-center justify-between px-4">
-              <span className="text-sm font-semibold">Menu</span>
-              <button type="button" onClick={() => setOpen(false)} className="grid size-9 place-items-center rounded-lg hover:bg-sunken" aria-label="Close menu">
-                <X className="size-5" aria-hidden />
-              </button>
+      {/* Portalled to <body>: the sticky header's backdrop blur would otherwise become the containing
+          block of this fixed overlay and clip it to the header's height. */}
+      {open &&
+        createPortal(
+          <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true" aria-label="Menu">
+            <button type="button" className="absolute inset-0 bg-night/45 backdrop-blur-[2px]" onClick={() => setOpen(false)} aria-label="Close menu" />
+            <div className="absolute inset-y-0 left-0 flex w-[86%] max-w-[320px] flex-col overflow-y-auto bg-surface shadow-[var(--shadow-pop)]">
+              <div className="flex h-16 items-center justify-between px-4">
+                <span className="text-sm font-bold">Menu</span>
+                <button type="button" onClick={() => setOpen(false)} className="grid size-10 place-items-center rounded-full hover:bg-accent-soft" aria-label="Close menu" autoFocus>
+                  <X className="size-5" aria-hidden />
+                </button>
+              </div>
+              <div className="px-4 pb-4">{children}</div>
+              <NavList kind={kind} isOperator={isOperator} onNavigate={() => setOpen(false)} />
+              <p className="mt-auto truncate border-t border-line p-4 text-xs text-muted">{email}</p>
             </div>
-            <div className="px-4 pb-4">{children}</div>
-            <NavList kind={kind} isOperator={isOperator} onNavigate={() => setOpen(false)} />
-            <p className="mt-auto truncate border-t border-line p-4 text-xs text-muted">{email}</p>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </>
   );
 }

@@ -19,14 +19,14 @@ function nsDate(ns: string | undefined): string {
   return new Date(Number(BigInt(ns) / 1_000_000n)).toISOString().replace("T", " ").slice(0, 16) + " UTC";
 }
 
-const COPY: Partial<Record<IntentKind, { label: string; variant?: "primary" | "gold" | "secondary" | "danger"; copy: string }>> = {
-  fund_award: { label: "Fund escrow", variant: "gold", copy: "Attach exactly the awarded amount. The contract holds it; it can only go to the selected supplier or back to you." },
+const COPY: Partial<Record<IntentKind, { label: string; variant?: "primary" | "accent" | "secondary" | "danger"; copy: string }>> = {
+  fund_award: { label: "Fund escrow", variant: "accent", copy: "Attach exactly the awarded amount. The contract holds it; it can only go to the selected supplier or back to you." },
   revoke_award: { label: "Revoke award", variant: "secondary", copy: "Withdraw this unfunded award. No funds move; you can award another bid." },
   reclaim_unaccepted: { label: "Reclaim escrow", variant: "secondary", copy: "The supplier did not accept in time. The contract refunds the full principal to you." },
-  approve_release: { label: "Approve & release payment", variant: "gold", copy: "Releases the full principal to the supplier. Final once the transfer succeeds." },
-  accept_award: { label: "Accept award", variant: "gold", copy: "Accept the agreed amount, windows and reviewer. The escrow is already funded." },
+  approve_release: { label: "Approve & release payment", variant: "accent", copy: "Releases the full principal to the supplier. Final once the transfer succeeds." },
+  accept_award: { label: "Accept award", variant: "accent", copy: "Accept the agreed amount, windows and reviewer. The escrow is already funded." },
   decline_award: { label: "Decline award", variant: "danger", copy: "Decline this award. If it is funded, the principal is refunded to the buyer." },
-  claim_after_review: { label: "Claim payment", variant: "gold", copy: "The buyer's review window has passed with no release, dispute or cancellation. The contract pays you the principal." },
+  claim_after_review: { label: "Claim payment", variant: "accent", copy: "The buyer's review window has passed with no release, dispute or cancellation. The contract pays you the principal." },
   retry_transfer: { label: "Retry failed transfer", variant: "primary", copy: "Re-attempts the same transfer to the same destination. Amount and recipient cannot change." },
   request_cancel: { label: "Request cancellation", variant: "secondary", copy: "Asks the other party to agree to cancel. If they approve, the principal is refunded to the buyer." },
   approve_cancel: { label: "Approve cancellation", variant: "danger", copy: "Agrees to cancel. The full principal is refunded to the buyer." },

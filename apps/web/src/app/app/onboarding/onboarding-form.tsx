@@ -40,12 +40,12 @@ export function OnboardingForm({ hasMemberships, invites }: { hasMemberships: bo
               <label
                 key={k.kind}
                 className={cx(
-                  "cursor-pointer rounded-xl border p-4 transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-verify/30",
-                  kind === k.kind ? "border-ink bg-sunken/60" : "border-line hover:border-line-strong",
+                  "cursor-pointer rounded-2xl border p-4 transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-ink",
+                  kind === k.kind ? "border-accent-ink bg-accent-soft ring-1 ring-accent-ink" : "border-line hover:border-accent-sage hover:bg-accent-soft/40",
                 )}
               >
                 <input type="radio" name="kind" value={k.kind} checked={kind === k.kind} onChange={() => setKind(k.kind)} className="sr-only" />
-                <k.icon className="size-5 text-gold-ink" aria-hidden />
+                <k.icon className="size-5 text-accent-ink" aria-hidden />
                 <span className="mt-3 block font-semibold text-ink">{k.title}</span>
                 <span className="mt-1 block text-sm leading-relaxed text-muted">{k.body}</span>
               </label>
@@ -72,7 +72,7 @@ export function OnboardingForm({ hasMemberships, invites }: { hasMemberships: bo
       </form>
       <aside className="space-y-4">
         {invites.length > 0 && (
-          <Callout tone="gold" title="You were invited to quote">
+          <Callout tone="accent" title="You were invited to quote">
             {invites.map((i) => (
               <span key={i.title} className="block">
                 &ldquo;{i.title}&rdquo; from {i.buyer}

@@ -51,7 +51,7 @@ export function TxAction({
 }: {
   prepare: () => Promise<ActionResult<IntentView>>;
   label: string;
-  variant?: "primary" | "gold" | "secondary" | "danger";
+  variant?: "primary" | "accent" | "secondary" | "danger";
   explorerBase: string;
   disabled?: boolean;
   confirmCopy?: ReactNode;
@@ -173,7 +173,7 @@ export function TxAction({
             </>
           )}
           {phase.k === "signing" && (
-            <Callout tone="gold" icon={<Wallet className="size-4" />}>
+            <Callout tone="accent" icon={<Wallet className="size-4" />}>
               Approve the request in your wallet window.
             </Callout>
           )}

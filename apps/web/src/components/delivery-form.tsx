@@ -29,7 +29,7 @@ export function DeliveryForm({ rfqId, explorerBase }: { rfqId: string; explorerB
       <TxAction
         prepare={() => prepareDeliveryAction(rfqId, { note, attachmentIds: files.map((f) => f.id) })}
         label="Anchor delivery on chain"
-        variant="gold"
+        variant="accent"
         explorerBase={explorerBase}
         disabled={note.trim().length < 10}
         confirmCopy="Anchors the hash of your note and files. This starts the buyer's review window."

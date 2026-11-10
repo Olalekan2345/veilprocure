@@ -33,7 +33,7 @@ export function FileUpload({ purpose, rfqId, onUploaded }: { purpose: "quote" | 
   }
   return (
     <div>
-      <label htmlFor={id} className="inline-flex cursor-pointer items-center gap-2 rounded-[10px] border border-dashed border-line-strong px-3 py-2 text-sm text-ink-3 hover:bg-sunken has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-verify/30">
+      <label htmlFor={id} className="inline-flex cursor-pointer items-center gap-2 rounded-full border border-dashed border-line-strong px-4 py-2 text-sm font-semibold text-ink-3 hover:border-accent-ink hover:bg-accent-soft hover:text-ink has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent-ink/30">
         <Paperclip className="size-4" aria-hidden />
         {state.busy ? "Encrypting & uploading…" : "Attach a file (PDF, PNG, JPEG or text, max 10 MB)"}
         <input

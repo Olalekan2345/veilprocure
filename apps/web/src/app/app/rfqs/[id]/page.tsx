@@ -107,7 +107,7 @@ export default async function RfqDetail({ params }: { params: Promise<{ id: stri
                   <TxAction
                     prepare={preparePublishAction.bind(null, rfq.id)}
                     label={status === "publishing" ? "Sign publication" : "Publish on NEAR testnet"}
-                    variant="gold"
+                    variant="accent"
                     explorerBase={explorer}
                     disabled={readiness.issues.length > 0 && status !== "publishing"}
                     icon={<Send className="size-4" aria-hidden />}
@@ -224,7 +224,7 @@ export default async function RfqDetail({ params }: { params: Promise<{ id: stri
               }
               action={
                 status !== "open" && status !== "cancelled" ? (
-                  <ButtonLink href={`/app/rfqs/${rfq.id}/compare`} variant="gold">
+                  <ButtonLink href={`/app/rfqs/${rfq.id}/compare`} variant="accent">
                     <ScanEye className="size-4" aria-hidden /> Open comparison
                   </ButtonLink>
                 ) : undefined

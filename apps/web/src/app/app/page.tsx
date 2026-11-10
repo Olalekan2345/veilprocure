@@ -28,7 +28,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
 
   const inviteBanner =
     invites.length > 0 ? (
-      <Callout tone="gold" title={`You have ${invites.length} pending invitation${invites.length > 1 ? "s" : ""} to quote`}>
+      <Callout tone="accent" title={`You have ${invites.length} pending invitation${invites.length > 1 ? "s" : ""} to quote`}>
         Open the invitation link the buyer sent you to accept it into a supplier organisation.{" "}
         {invites.map((i) => `"${i.rfqTitle}" from ${i.buyerName}`).join(", ")}.
       </Callout>

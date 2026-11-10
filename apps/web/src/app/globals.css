@@ -1,44 +1,47 @@
 @import "tailwindcss";
 
 /*
- * VeilProcure design tokens.
- * Graphite ink on warm paper; champagne gold is used sparingly for brand and primary emphasis;
- * verification blue is reserved for states backed by a cryptographic or on-chain check.
+ * VeilProcure design tokens (app), shared with the public website (NEAR green on near-white).
+ * Night-green ink and Manrope throughout; mint is the brand accent for the primary money actions and
+ * is never used as text on white (accent-ink carries text); aqua "verify" is reserved for states
+ * backed by a cryptographic or on-chain check.
  */
 @theme {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-display-serif), ui-serif, Georgia, serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono-face), ui-monospace, "SFMono-Regular", monospace;
 
-  --color-ink: #1b1c1e;
-  --color-ink-2: #2b2c2f;
-  --color-ink-3: #45464b;
-  --color-muted: #63646a;
-  --color-faint: #8d8e93;
+  --color-ink: #191729;
+  --color-ink-2: #262838;
+  --color-ink-3: #333644;
+  --color-muted: #5f6a67;
+  --color-faint: #7a8580;
 
-  --color-paper: #f6f4ef;
-  --color-surface: #fdfcf9;
-  --color-sunken: #efece4;
-  --color-line: #e1ddd2;
-  --color-line-strong: #cdc7b8;
+  --color-paper: #fafbf9;
+  --color-surface: #ffffff;
+  --color-sunken: #f1f5f2;
+  --color-line: #e4ebe7;
+  --color-line-strong: #cbd7d0;
 
-  --color-gold: #a8844a;
-  --color-gold-soft: #efe5d1;
-  --color-gold-ink: #7a5d2e;
+  --color-night: #0d201c;
+  --color-accent: #00ec97;
+  --color-accent-soft: #e8fff5;
+  --color-accent-sage: #c7f5d8;
+  --color-accent-ink: #087a58;
 
-  --color-verify: #2c5a88;
-  --color-verify-soft: #e5edf5;
+  --color-verify: #0b6476;
+  --color-verify-soft: #e4f6f8;
 
-  --color-ok: #3c7556;
-  --color-ok-soft: #e4efe8;
-  --color-warn: #946b1c;
-  --color-warn-soft: #f6eedb;
-  --color-bad: #a1413a;
-  --color-bad-soft: #f6e4e1;
+  --color-ok: #2b7a4b;
+  --color-ok-soft: #e7f6ec;
+  --color-warn: #8a6214;
+  --color-warn-soft: #fbf2dc;
+  --color-bad: #b03c33;
+  --color-bad-soft: #fcebe8;
 
-  --radius-card: 14px;
-  --shadow-card: 0 1px 0 rgb(27 28 30 / 0.04), 0 1px 2px rgb(27 28 30 / 0.06);
-  --shadow-pop: 0 12px 32px -8px rgb(27 28 30 / 0.22), 0 2px 6px rgb(27 28 30 / 0.08);
+  --radius-card: 18px;
+  --shadow-card: 0 1px 0 rgb(13 32 28 / 0.03), 0 1px 3px rgb(13 32 28 / 0.05);
+  --shadow-pop: 0 24px 48px -20px rgb(13 32 28 / 0.28), 0 2px 8px rgb(13 32 28 / 0.06);
 }
 
 /* Always emitted: the public website stylesheet (components/site/site.css) reads these directly. */
@@ -71,15 +74,15 @@
   }
   body {
     font-family: var(--font-sans);
-    font-feature-settings: "cv11", "ss01";
   }
   :focus-visible {
-    outline: 2px solid var(--color-verify);
+    outline: 2px solid var(--color-accent-ink);
     outline-offset: 2px;
-    border-radius: 6px;
+    border-radius: 8px;
   }
   ::selection {
-    background: var(--color-gold-soft);
+    background: var(--color-accent-sage);
+    color: var(--color-ink);
   }
   input,
   textarea,
@@ -90,23 +93,32 @@
 }
 
 @layer components {
+  /* Headings follow the website: heavy Manrope with tight tracking. */
   .display {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
-    font-weight: 400;
+    letter-spacing: -0.04em;
+    font-weight: 800;
+    text-wrap: balance;
   }
   .eyebrow {
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    font-size: 11px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--color-gold-ink);
-    font-weight: 600;
+    color: var(--color-accent-ink);
+    font-weight: 700;
   }
   .card {
     background: var(--color-surface);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card);
+  }
+  /* Sign-in and confirmation screens: the website's soft mint glow behind a single card. */
+  .auth-canvas {
+    background:
+      radial-gradient(56rem 28rem at 50% -12%, rgb(0 236 151 / 0.16), transparent 70%),
+      radial-gradient(36rem 22rem at 100% 100%, rgb(199 245 216 / 0.45), transparent 70%),
+      var(--color-paper);
   }
   .hash {
     font-family: var(--font-mono);

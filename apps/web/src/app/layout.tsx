@@ -1,19 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Inter, JetBrains_Mono, Manrope } from "next/font/google";
+import { JetBrains_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-const serif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-display-serif",
-  display: "swap",
-});
-// Public website typeface (variable 200–800, SIL OFL).
+// The one typeface for the website and the app (variable 200–800, SIL OFL).
 const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-manrope",
@@ -36,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f6f4ef",
+  themeColor: "#fafbf9",
   width: "device-width",
   initialScale: 1,
 };
@@ -49,7 +38,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${serif.variable} ${manrope.variable} ${mono.variable}`}
+      className={`${manrope.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-dvh bg-paper text-ink" suppressHydrationWarning>

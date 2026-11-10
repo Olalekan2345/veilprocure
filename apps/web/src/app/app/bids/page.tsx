@@ -16,7 +16,7 @@ export default async function Bids() {
       <PageHeader eyebrow="Supplier workspace" title="Invitations & bids" description="Requests you accepted. Your quote is private to your organisation; the buyer can open it only after the deadline, and other suppliers never can." />
       {pending.length > 0 && (
         <div className="mb-6">
-          <Callout tone="gold" title="Waiting for you">
+          <Callout tone="accent" title="Waiting for you">
             {pending.length} invitation{pending.length > 1 ? "s" : ""} sent to {actor.email} not yet accepted. Open the link in the invitation e-mail to accept.
           </Callout>
         </div>

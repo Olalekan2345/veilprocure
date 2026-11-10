@@ -19,7 +19,7 @@ export function ActionButton({
   action: () => Promise<ActionResult<unknown>>;
   label: string;
   pendingLabel?: string;
-  variant?: "primary" | "secondary" | "ghost" | "danger" | "gold";
+  variant?: "primary" | "secondary" | "ghost" | "danger" | "accent";
   size?: "sm" | "md";
   successText?: string;
   confirmText?: string;

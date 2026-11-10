@@ -22,29 +22,29 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         <label htmlFor="org-switch" className="sr-only">
           Active organisation
         </label>
-        <select id="org-switch" name="orgId" defaultValue={actor.activeOrg?.orgId} className="h-9 min-w-0 flex-1 rounded-lg border border-line-strong bg-surface px-2 text-sm">
+        <select id="org-switch" name="orgId" defaultValue={actor.activeOrg?.orgId} className="h-9 min-w-0 flex-1 rounded-xl border border-line-strong bg-surface px-2 text-sm">
           {actor.memberships.map((m) => (
             <option key={m.orgId} value={m.orgId}>
               {m.orgName} ({m.orgKind})
             </option>
           ))}
         </select>
-        <button type="submit" className="h-9 rounded-lg border border-line-strong px-3 text-sm hover:bg-sunken">
+        <button type="submit" className="h-9 rounded-full border border-line px-3.5 text-sm font-semibold hover:border-accent-ink hover:text-accent-ink">
           Switch
         </button>
       </form>
     ) : actor.activeOrg ? (
-      <p className="truncate text-sm font-medium text-ink">
+      <p className="truncate text-sm font-semibold text-ink">
         {actor.activeOrg.orgName} <span className="font-normal text-faint">· {actor.activeOrg.orgKind}</span>
       </p>
     ) : null;
 
   const walletLine = actor.wallet ? (
-    <Link href="/app/wallet" className="block truncate rounded-lg bg-verify-soft px-2.5 py-1.5 text-xs text-verify hover:underline" title="Bound NEAR testnet wallet">
+    <Link href="/app/wallet" className="block truncate rounded-xl bg-verify-soft px-3 py-1.5 text-xs font-medium text-verify ring-1 ring-inset ring-verify/15 hover:underline" title="Bound NEAR testnet wallet">
       ● {actor.wallet.accountId}
     </Link>
   ) : (
-    <Link href="/app/wallet" className="block rounded-lg bg-warn-soft px-2.5 py-1.5 text-xs font-medium text-warn hover:underline">
+    <Link href="/app/wallet" className="block rounded-xl bg-warn-soft px-3 py-1.5 text-xs font-semibold text-warn ring-1 ring-inset ring-warn/20 hover:underline">
       Connect a testnet wallet
     </Link>
   );
@@ -75,7 +75,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       </aside>
 
       <div className="min-w-0">
-        <header className="sticky top-0 z-20 flex h-14 items-center justify-between gap-3 border-b border-line bg-paper/90 px-4 backdrop-blur-md sm:px-6">
+        <header className="sticky top-0 z-20 flex h-16 items-center justify-between gap-3 border-b border-line bg-paper/80 px-4 backdrop-blur-md backdrop-saturate-150 sm:px-6">
           <div className="flex items-center gap-3 lg:hidden">
             <MobileMenu kind={kind} isOperator={actor.isPlatformOperator} email={actor.email}>
               <div className="space-y-3">
@@ -90,9 +90,9 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           <div className="hidden text-sm text-muted lg:block">{actor.activeOrg ? `Signed in to ${actor.activeOrg.orgName}` : "Set up your organisation"}</div>
           <div className="flex items-center gap-2">
             <TestnetPill />
-            <Link href="/app/notifications" className="relative grid size-9 place-items-center rounded-lg text-ink-3 hover:bg-sunken" aria-label={`Notifications${unread?.n ? `, ${unread.n} unread` : ""}`}>
+            <Link href="/app/notifications" className="relative grid size-10 place-items-center rounded-full text-ink-3 hover:bg-accent-soft hover:text-ink" aria-label={`Notifications${unread?.n ? `, ${unread.n} unread` : ""}`}>
               <Bell className="size-[18px]" aria-hidden />
-              {Boolean(unread?.n) && <span className="absolute right-1.5 top-1.5 size-2 rounded-full bg-gold" aria-hidden />}
+              {Boolean(unread?.n) && <span className="absolute right-1.5 top-1.5 size-2 rounded-full bg-accent ring-2 ring-paper" aria-hidden />}
             </Link>
           </div>
         </header>

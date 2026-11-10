@@ -13,7 +13,7 @@ export default async function SignInPage({ searchParams }: { searchParams: Promi
   const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : "/app";
   if (await getSession()) redirect(safeNext);
   return (
-    <main id="main" className="grid min-h-dvh place-items-center px-4 py-12">
+    <main id="main" className="auth-canvas grid min-h-dvh place-items-center px-4 py-12">
       <div className="w-full max-w-[420px]">
         <div className="mb-8 flex items-center justify-between">
           <Link href="/" aria-label="VeilProcure home">
@@ -21,8 +21,9 @@ export default async function SignInPage({ searchParams }: { searchParams: Promi
           </Link>
           <TestnetPill />
         </div>
-        <div className="card p-6 sm:p-8">
-          <h1 className="display text-3xl text-ink">Sign in</h1>
+        <div className="card p-6 shadow-[var(--shadow-pop)] sm:p-8">
+          <p className="eyebrow">Welcome</p>
+          <h1 className="display mt-2 text-[2rem] leading-tight text-ink">Sign in</h1>
           <p className="mt-2 text-sm text-muted">We will e-mail you a one-time link. New here? The same link creates your account.</p>
           <div className="mt-6 space-y-4">
             {error && (

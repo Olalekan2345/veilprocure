@@ -11,12 +11,12 @@ export function BrandLockup({ height = 34, className = "" }: { height?: number; 
   const wordWidth = Math.round((564 / 96) * wordHeight);
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
-      <Image src="/brand/vp-mark.png" alt="" width={markWidth} height={height} priority />
-      <Image src="/brand/vp-wordmark.png" alt="VeilProcure" width={wordWidth} height={wordHeight} priority />
+      <Image src="/brand/vp-mark-green.png" alt="" width={markWidth} height={height} priority />
+      <Image src="/brand/vp-wordmark-green.png" alt="VeilProcure" width={wordWidth} height={wordHeight} priority />
     </span>
   );
 }
 
 export function BrandMark({ height = 32 }: { height?: number }) {
-  return <Image src="/brand/vp-mark.png" alt="" width={Math.round((289 / 192) * height)} height={height} />;
+  return <Image src="/brand/vp-mark-green.png" alt="" width={Math.round((289 / 192) * height)} height={height} />;
 }

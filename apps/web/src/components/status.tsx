@@ -5,7 +5,7 @@ import { Badge, type Tone } from "./ui";
 const RFQ_TONE: Record<RfqStatus, Tone> = {
   draft: "neutral",
   publishing: "warn",
-  open: "gold",
+  open: "accent",
   closed: "verify",
   awarded: "verify",
   settled: "ok",
@@ -14,7 +14,7 @@ const RFQ_TONE: Record<RfqStatus, Tone> = {
 
 const AWARD_TONE: Record<AwardStatus | "pending_signature", Tone> = {
   pending_signature: "warn",
-  awarded: "gold",
+  awarded: "accent",
   funded: "verify",
   accepted: "verify",
   delivered: "verify",

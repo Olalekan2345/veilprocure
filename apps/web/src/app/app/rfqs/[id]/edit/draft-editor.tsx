@@ -216,7 +216,7 @@ export function DraftEditor({
             <label htmlFor={`w-${k}`} className="text-sm font-medium capitalize text-ink">
               {k === "delivery" ? "Delivery time" : k === "revisions" ? "Revision rounds" : "Price"}
             </label>
-            <input id={`w-${k}`} type="range" min={0} max={100} step={5} value={d.weights[k]} onChange={(e) => set("weights", { ...d.weights, [k]: Number(e.target.value) })} className="accent-[var(--color-gold)]" />
+            <input id={`w-${k}`} type="range" min={0} max={100} step={5} value={d.weights[k]} onChange={(e) => set("weights", { ...d.weights, [k]: Number(e.target.value) })} className="accent-[var(--color-accent-ink)]" />
             <span className="text-right text-sm tabular-nums text-ink">{d.weights[k]}%</span>
           </div>
         ))}
