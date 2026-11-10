@@ -81,3 +81,7 @@ Commit IDs are those after the 2026-10-30 author-e-mail rewrite (see README, chr
 - Buyer organisation `VeilProcure Demo Buyer` created; a draft request ("Website accessibility audit (sample draft)") saved: on Neon the draft is sealed with the hosted key id `netlify-1` and contains no plaintext.
 - `POST /.netlify/functions/ai-runner` without the shared secret: 202 and no work (background functions always answer 202; the handler exits without the secret). `chain-sync` by URL: 403 (scheduled functions are not publicly invocable).
 - Not yet exercised on the live site: wallet-signed steps, uploads to Netlify Blobs and AI jobs — they need a real wallet session (the E2E wallet bridge is never enabled in production).
+
+### App-wide re-theme (2026-11-10, commit `d6c467f`)
+
+Deployed from a clean Linux clone (deploy `6af39bb8fd5faed328a0d0a5`). Checked on https://veilprocure.netlify.app at 1440 and 390 px: `/`, `/signin` and `/security` render in Manrope (font loaded), show only the green logo files (`vp-mark-green.png`, `vp-wordmark-green.png`, served through Netlify's image CDN), have no horizontal overflow and log no console errors; the sign-in button is night green (`rgb(13, 32, 28)`); `/icon.png` 200 `image/png`.
