@@ -145,6 +145,36 @@ test.describe("landing page", () => {
     await expect.poll(() => page.evaluate(() => window.scrollY), { timeout: 10_000 }).toBe(0);
   });
 
+  test("workspace showcase plays once inside its window and settles on the final frame", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/");
+    const fig = page.locator(".jf-figure");
+    const before = await fig.boundingBox();
+    await fig.scrollIntoViewIfNeeded();
+    await expect(fig).toHaveAttribute("data-done", "true", { timeout: 30_000 });
+    for (const sel of [".jf-panel", ".jf-approve", ".jf-escrow"]) {
+      expect(Number(await fig.locator(sel).evaluate((el) => getComputedStyle(el).opacity)), sel).toBe(1);
+    }
+    // Same footprint as before it played, and no claim that a payment happened.
+    expect((await fig.boundingBox())!.height).toBeCloseTo(before!.height, 0);
+    const text = await fig.innerText();
+    expect(text).not.toMatch(/\bpaid\b|confirmed|\d+(\.\d+)?\s?NEAR\b/i);
+    expect(text).toContain("Illustration of the workspace — not live data.");
+  });
+
+  test("reduced motion: the showcase shows its complete final frame without animating", async ({ browser }) => {
+    const ctx = await browser.newContext({ reducedMotion: "reduce" });
+    const page = await ctx.newPage();
+    await page.goto("/");
+    const fig = page.locator(".jf-figure");
+    await expect(fig).toHaveAttribute("data-ready", "static");
+    for (const sel of [".jf-panel", ".jf-approve", ".jf-escrow"]) {
+      expect(Number(await fig.locator(sel).evaluate((el) => getComputedStyle(el).opacity)), sel).toBe(1);
+    }
+    expect(await page.evaluate(() => document.getAnimations().filter((a) => a.playState === "running").length)).toBe(0);
+    await ctx.close();
+  });
+
   test("reduced motion: everything is visible without scrolling", async ({ browser }) => {
     const ctx = await browser.newContext({ reducedMotion: "reduce" });
     const page = await ctx.newPage();

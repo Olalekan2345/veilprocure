@@ -22,6 +22,7 @@ import {
 import { BackToTop } from "@/components/site/back-to-top";
 import { BidInbox } from "@/components/site/bid-inbox";
 import { HeroVisual } from "@/components/site/hero-visual";
+import { JourneyFilm } from "@/components/site/journey-film";
 import { SiteMotion } from "@/components/site/motion";
 import { MotionBoot } from "@/components/site/motion-boot";
 import { SiteFooter, SiteHeader, START_HREF } from "@/components/site/site-chrome";
@@ -491,62 +492,7 @@ export default function Home() {
                 From request to receipt, <span className="vp-hl">in one place.</span>
               </h2>
             </div>
-            <figure className="vp-journey mt-16" aria-label="Illustration of the VeilProcure workspace">
-              <div className="vp-window" data-reveal="scale">
-                <div className="vp-window-bar" aria-hidden>
-                  <i />
-                  <i />
-                  <i />
-                  <span className="ml-3 text-[12px] font-semibold text-vp-muted">VeilProcure workspace</span>
-                </div>
-                <div className="grid min-h-[360px] grid-cols-[160px_1fr] max-sm:grid-cols-1">
-                  <ul className="border-r border-vp-border bg-vp-canvas p-4 text-[13px] font-semibold text-vp-muted max-sm:hidden" aria-hidden>
-                    {["Overview", "Requests", "Transactions", "Audit trail", "Wallet"].map((n, i) => (
-                      <li key={n} className={`rounded-lg px-3 py-2 ${i === 1 ? "bg-vp-night text-white" : ""}`}>
-                        {n}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="p-5 sm:p-7" aria-hidden>
-                    <p className="text-[12px] font-bold uppercase tracking-[0.14em] text-vp-evergreen">Comparison</p>
-                    <p className="mt-1 text-xl font-extrabold tracking-[-0.03em] text-vp-ink">Checked against chain</p>
-                    <div className="mt-5 divide-y divide-vp-border rounded-2xl border border-vp-border">
-                      {[0, 1, 2].map((i) => (
-                        <div key={i} className="flex flex-wrap items-center gap-3 px-4 py-3.5">
-                          <span className="size-8 rounded-full bg-vp-mint-soft" />
-                          <span className="vp-bar vp-bar-strong w-28" />
-                          <span className="vp-chip vp-chip-mint ml-auto">Commitment verified</span>
-                          <span className="vp-chip vp-chip-ink">{i < 2 ? "Eligible" : "Rule not met"}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-5 grid gap-2">
-                      <span className="vp-bar w-3/4" />
-                      <span className="vp-bar w-1/2" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:mt-0">
-                {[
-                  { icon: Lock, t: "Sealed bid", s: "Committed on chain", pos: "lg:-left-16 lg:top-[44%]", depth: "-26px" },
-                  { icon: ListChecks, t: "Comparison", s: "Your rules, exact arithmetic", pos: "lg:-right-12 lg:-top-8", depth: "22px" },
-                  { icon: Signature, t: "Approval", s: "Signed in your wallet", pos: "lg:-left-14 lg:bottom-10", depth: "18px" },
-                  { icon: Receipt, t: "Receipt", s: "Explorer link per transaction", pos: "lg:-right-8 lg:bottom-6", depth: "-20px" },
-                ].map((c) => (
-                  <div key={c.t} className={`vp-orbit flex items-center gap-3 ${c.pos}`} data-parallax style={{ "--depth": c.depth } as React.CSSProperties}>
-                    <span className="vp-seal-icon">
-                      <c.icon className="size-4" aria-hidden />
-                    </span>
-                    <span>
-                      <span className="block text-[14px] font-extrabold text-vp-ink">{c.t}</span>
-                      <span className="block text-[12.5px] text-vp-muted">{c.s}</span>
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <figcaption className="vp-small mt-10 text-center">Illustration of the workspace — not live data.</figcaption>
-            </figure>
+            <JourneyFilm />
           </div>
         </section>
 

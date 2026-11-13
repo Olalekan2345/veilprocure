@@ -966,7 +966,7 @@
 }
 @media (max-width: 1023px) {
   .vp-orbit {
-    position: static;
+    position: relative;
     translate: none;
   }
 }
@@ -1319,6 +1319,666 @@
   .vp-totop-btn {
     width: 46px;
     height: 46px;
+  }
+}
+
+
+/* ---------------------------------------------------------------- luminous finishing pass
+ * One or two focal points per viewport: mint is lit with a crisp inner edge, a restrained halo and
+ * a very soft bloom. Glyphs are never blurred; only borders, shadows and pseudo-elements glow. */
+.site {
+  --vp-glow-edge: 0 0 0 1px rgb(0 236 151 / 0.42);
+  --vp-glow-halo: 0 0 18px -3px rgb(0 236 151 / 0.5);
+}
+/* Buttons: a specular pass on hover, mint edge light, crisp focus and press states. */
+.vp-btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.vp-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -40%;
+  width: 40%;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent, rgb(255 255 255 / 0.2) 50%, transparent);
+  transform: skewX(-14deg);
+  pointer-events: none;
+}
+.vp-btn-mint::after {
+  background: linear-gradient(105deg, transparent, rgb(255 255 255 / 0.55) 50%, transparent);
+}
+.vp-btn-secondary::after {
+  background: linear-gradient(105deg, transparent, rgb(0 236 151 / 0.16) 50%, transparent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .vp-btn:hover::after {
+    transform: translateX(380%) skewX(-14deg);
+    transition: transform 0.85s var(--ease-vp);
+  }
+}
+.vp-btn-primary {
+  box-shadow:
+    inset 0 0 0 1px rgb(0 236 151 / 0.16),
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 12px 30px -18px rgb(0 236 151 / 0.6),
+    0 1px 0 rgb(13 32 28 / 0.08);
+}
+.vp-btn-primary:hover {
+  box-shadow:
+    inset 0 0 0 1px rgb(0 236 151 / 0.38),
+    inset 0 1px 0 rgb(255 255 255 / 0.1),
+    0 10px 30px -10px rgb(0 236 151 / 0.6),
+    0 2px 6px rgb(13 32 28 / 0.18);
+}
+.vp-btn-mint {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.55),
+    inset 0 -1px 0 rgb(8 122 88 / 0.18),
+    0 10px 28px -16px rgb(0 236 151 / 0.85);
+}
+.vp-btn-mint:hover {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.6),
+    inset 0 -1px 0 rgb(8 122 88 / 0.2),
+    0 0 0 1px rgb(0 236 151 / 0.4),
+    0 14px 38px -12px rgb(0 236 151 / 0.9);
+}
+.vp-btn-secondary:hover {
+  box-shadow: 0 10px 26px -18px rgb(8 122 88 / 0.6);
+}
+.vp-btn-ghost-dark:hover {
+  box-shadow:
+    inset 0 0 0 1px rgb(0 236 151 / 0.25),
+    0 0 24px -8px rgb(0 236 151 / 0.6);
+}
+.vp-btn:active {
+  transform: translateY(0) scale(0.985);
+}
+.site .vp-btn:focus-visible {
+  outline: 2px solid var(--color-vp-evergreen);
+  outline-offset: 3px;
+  box-shadow: var(--vp-glow-edge), var(--vp-glow-halo);
+}
+
+/* The hero's underline is the first focal point: lit, not blurred. */
+.vp-underline::after {
+  background: linear-gradient(90deg, #00ec97, #5cf5bd 50%, #00ec97);
+  box-shadow:
+    0 0 2px rgb(0 236 151 / 0.95),
+    0 0 16px rgb(0 236 151 / 0.7),
+    0 0 42px rgb(0 236 151 / 0.35);
+}
+.vp-stage-glow {
+  background: radial-gradient(closest-side, rgb(0 236 151 / 0.3), rgb(232 255 245 / 0.55) 55%, transparent 75%);
+}
+
+/* The hero's dark approval card is its second focal point: mint edge light. */
+.vp-approve {
+  border-color: rgb(0 236 151 / 0.24);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 30px 60px -28px rgb(13 32 28 / 0.4),
+    0 0 46px -14px rgb(0 236 151 / 0.55);
+}
+.vp-overline > .bg-vp-mint {
+  box-shadow: 0 0 8px rgb(0 236 151 / 0.8);
+}
+/* Security icons and dark chips carry a faint edge light. */
+.vp-seal-icon {
+  box-shadow:
+    inset 0 0 0 1px rgb(0 236 151 / 0.2),
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 8px 18px -10px rgb(0 236 151 / 0.6);
+}
+.vp-chip-dark {
+  box-shadow: 0 0 14px -5px rgb(0 236 151 / 0.5);
+}
+
+/* Cards: a top hairline highlight and a tighter contact shadow under the existing depth. */
+.vp-card {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    0 1px 2px rgb(13 32 28 / 0.05),
+    0 30px 60px -28px rgb(13 32 28 / 0.28),
+    0 2px 8px rgb(13 32 28 / 0.06);
+}
+.vp-orbit {
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 1px 2px rgb(13 32 28 / 0.05),
+    0 30px 60px -30px rgb(13 32 28 / 0.35);
+}
+.vp-window {
+  box-shadow:
+    0 1px 2px rgb(13 32 28 / 0.05),
+    0 60px 120px -60px rgb(13 32 28 / 0.45),
+    0 40px 90px -60px rgb(0 236 151 / 0.25);
+}
+.vp-ecard:hover {
+  box-shadow:
+    inset 0 0 0 1px rgb(0 236 151 / 0.16),
+    0 34px 70px -40px rgb(8 122 88 / 0.45);
+}
+
+/* Dark band: the sweep line glows and the three modules light their edge on hover. */
+.vp-sweep {
+  box-shadow: 0 0 12px 1px rgb(0 236 151 / 0.45);
+  opacity: 0.85;
+}
+.vp-module {
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+.vp-module > span:first-child {
+  box-shadow:
+    inset 0 0 0 1px rgb(0 236 151 / 0.24),
+    0 0 20px -6px rgb(0 236 151 / 0.55);
+}
+.vp-module:hover {
+  border-color: rgb(0 236 151 / 0.35);
+  background: rgb(0 236 151 / 0.04);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 24px 60px -30px rgb(0 236 151 / 0.4);
+}
+
+/* ---------------------------------------------------------------- journey film (#journey)
+ * The resting styles are the film's final frame (shown without JavaScript or with reduced motion);
+ * journey-film.tsx animates from offsets of these positions. */
+.jf {
+  position: relative;
+  height: 360px;
+  container: jf / size;
+  overflow: hidden;
+  perspective: 1400px;
+  font-size: clamp(11px, 1.45cqw, 13px);
+  color: var(--color-vp-body);
+  background-color: #fbfcfb;
+  background-image: radial-gradient(rgb(13 32 28 / 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.jf-tilt {
+  position: absolute;
+  inset: 0;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 700ms var(--ease-vp-out);
+}
+.jf-ambient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(34% 44% at 81% 72%, rgb(0 236 151 / 0.2), transparent 70%),
+    radial-gradient(46% 58% at 34% 58%, rgb(232 255 245 / 0.95), transparent 75%);
+  opacity: 0.85;
+  will-change: opacity;
+}
+.jf-paths {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+/* No SVG filters here: animated strokes under a filter repaint the whole stage every frame. */
+.jf-path {
+  fill: none;
+  stroke: url(#jf-stroke);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+/* Animated: the film rewrites the paths in pixels, so the dash offset can draw them. */
+.jf-figure[data-ready="true"] .jf-path {
+  vector-effect: none;
+  stroke-dasharray: 1 1;
+}
+.jf-figure[data-ready="true"] /* Straight connectors have a zero-width (or zero-height) box, where a bounding-box gradient paints nothing. */
+.jf-p-d2.jf-path,
+.jf-p-n1,
+.jf-p-n2 {
+  stroke: var(--color-vp-mint);
+}
+.jf-comet {
+  vector-effect: none;
+}
+.jf-comet {
+  fill: none;
+  stroke: #e9fff6;
+  stroke-width: 3;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 0.16 1.4;
+  opacity: 0;
+}
+.jf-p-b,
+.jf-p-n1,
+.jf-p-n2 {
+  opacity: 0;
+}
+.jf-card {
+  position: absolute;
+  z-index: 2;
+  padding: clamp(10px, 1.5cqw, 14px);
+  border-radius: 16px;
+  background: rgb(255 255 255 / 0.97);
+  border: 1px solid var(--color-vp-border);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 1px 2px rgb(13 32 28 / 0.06),
+    0 22px 44px -24px rgb(13 32 28 / 0.32);
+  transform-origin: center;
+}
+.jf-t {
+  display: block;
+  font-weight: 800;
+  color: var(--color-vp-ink);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+.jf-s {
+  display: block;
+  font-size: 0.86em;
+  line-height: 1.3;
+  color: var(--color-vp-muted);
+}
+.jf-icon {
+  display: grid;
+  place-items: center;
+  width: 2.4em;
+  height: 2.4em;
+  border-radius: 10px;
+  background: var(--color-vp-night);
+  color: var(--color-vp-mint);
+  flex: none;
+  box-shadow:
+    inset 0 0 0 1px rgb(0 236 151 / 0.22),
+    0 6px 16px -8px rgb(0 236 151 / 0.6);
+}
+.jf-icon svg {
+  width: 52%;
+  height: 52%;
+}
+/* Request (beat A); at rest it sits behind the comparison, receded. */
+.jf-req {
+  left: 3%;
+  top: 6%;
+  width: 34%;
+  z-index: 1;
+  transform: scale(0.9);
+  opacity: 0;
+}
+.jf-edge {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.jf-edge rect {
+  fill: none;
+  stroke: var(--color-vp-mint);
+  stroke-width: 2.5;
+  stroke-dasharray: 140 860;
+  opacity: 0;
+}
+.jf-rows {
+  margin-top: 0.9em;
+  display: grid;
+  gap: 0.55em;
+}
+.jf-row {
+  display: grid;
+  grid-template-columns: 46% 1fr;
+  align-items: center;
+  gap: 0.6em;
+}
+.jf-row dt {
+  font-size: 0.82em;
+  font-weight: 600;
+  color: var(--color-vp-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.jf-row i {
+  display: block;
+  height: 6px;
+  border-radius: 999px;
+  background: #e6ece8;
+}
+/* Sealed quotes (beat B); at rest they peek out from behind the comparison. */
+.jf-quote {
+  width: 21%;
+  padding: 0.75em 0.85em;
+  overflow: hidden;
+  z-index: 6;
+  transform: scale(0.9);
+  opacity: 0;
+}
+.jf-q1 {
+  left: 22%;
+  top: 42%;
+}
+.jf-q2 {
+  left: 24%;
+  top: 49%;
+  z-index: 7;
+}
+.jf-q3 {
+  left: 26%;
+  top: 56%;
+  z-index: 8;
+}
+.jf-lock {
+  width: 2.2em;
+  height: 2.2em;
+}
+.jf-lock svg {
+  width: 58%;
+  height: 58%;
+}
+.jf-masked {
+  display: grid;
+  gap: 5px;
+  margin: 0.65em 0;
+}
+.jf-masked i {
+  display: block;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #dfe6e2, #eef2ef);
+}
+.jf-masked i:last-child {
+  width: 60%;
+}
+.jf-glint,
+.jf-verified-glow,
+.jf-ai-glow,
+.vp-orbit-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow:
+    inset 0 0 0 1px rgb(0 236 151 / 0.6),
+    0 0 22px -4px rgb(0 236 151 / 0.6);
+}
+/* Comparison (beat C), scanned against the published rules. */
+.jf-panel {
+  left: 8%;
+  top: 24%;
+  width: 50%;
+  height: 70%;
+  z-index: 5;
+  padding: clamp(12px, 1.8cqw, 18px);
+  overflow: hidden;
+}
+.jf-eyebrow {
+  display: block;
+  font-size: 0.78em;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-vp-evergreen);
+}
+.jf-title {
+  display: block;
+  margin-top: 2px;
+  font-size: 1.22em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--color-vp-ink);
+}
+.jf-ai {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  flex: none;
+  border-radius: 999px;
+  padding: 0.3em 0.7em;
+  background: var(--color-vp-night);
+  color: var(--color-vp-mint);
+  font-size: 0.78em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.jf-ai svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+.jf-prows {
+  margin-top: 0.9em;
+  border: 1px solid var(--color-vp-border);
+  border-radius: 12px;
+}
+.jf-prow {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.62em 0.8em;
+}
+.jf-prow + .jf-prow {
+  border-top: 1px solid var(--color-vp-border);
+}
+.jf-dot {
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 50%;
+  background: var(--color-vp-mint-soft);
+  flex: none;
+}
+.jf-pbar {
+  width: 22%;
+  flex: none;
+}
+.jf-verified {
+  position: relative;
+  margin-left: auto;
+}
+.jf-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+.jf-scan span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-vp-mint) 18%, var(--color-vp-mint) 82%, transparent);
+  box-shadow: 0 0 12px 2px rgb(0 236 151 / 0.5);
+}
+.jf-scan span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 40px;
+  background: linear-gradient(to top, rgb(0 236 151 / 0.12), transparent);
+}
+/* Buyer approval and escrow (beat D). */
+.jf-approve,
+.jf-escrow {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  left: 65%;
+  width: 32%;
+  min-height: 28%;
+  z-index: 6;
+  padding: 0.9em 1em;
+}
+.jf-approve {
+  top: 9%;
+}
+.jf-escrow {
+  top: 57%;
+  flex-wrap: wrap;
+  align-content: center;
+  background: var(--color-vp-night);
+  border-color: rgb(0 236 151 / 0.28);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 26px 50px -24px rgb(13 32 28 / 0.55),
+    0 0 44px -12px rgb(0 236 151 / 0.5);
+}
+.jf-escrow .jf-t {
+  color: #fff;
+}
+.jf-escrow .jf-s {
+  color: rgb(255 255 255 / 0.64);
+}
+.jf-shield {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.6em;
+  height: 2.6em;
+  border-radius: 12px;
+  background: rgb(0 236 151 / 0.14);
+  color: var(--color-vp-mint);
+  flex: none;
+}
+.jf-shield svg {
+  width: 56%;
+  height: 56%;
+}
+.jf-shield-ring {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow:
+    0 0 0 1px rgb(0 236 151 / 0.7),
+    0 0 20px rgb(0 236 151 / 0.6);
+  opacity: 0.55;
+}
+.jf-net {
+  margin-left: calc(2.6em + 0.7em);
+}
+.jf-nav-on {
+  background: var(--color-vp-night);
+  color: #fff;
+}
+.jf-p-n1,
+.jf-p-n2 {
+  display: none;
+}
+/* Phones: the window keeps the height its earlier content had (~440 px), so the page length is unchanged. */
+@media (max-width: 639px) {
+  .jf {
+    height: 440px;
+  }
+}
+/* Tablet-width windows: drop secondary detail so every label stays whole. */
+@container jf (max-width: 759px) {
+  .jf-pbar,
+  .jf-quote .vp-chip {
+    display: none;
+  }
+}
+/* Phones: the beats replace one another in the same box; legible type, no overlaps at rest. */
+@container jf (max-width: 559px) {
+  .jf {
+    font-size: 12px;
+  }
+  .jf-req {
+    left: 6%;
+    top: 8%;
+    width: 88%;
+    opacity: 0;
+  }
+  .jf-quote {
+    left: 9%;
+    width: 82%;
+    transform: none;
+    opacity: 0;
+  }
+  .jf-quote .vp-chip {
+    display: inline-flex;
+  }
+  .jf-q1 {
+    top: 9%;
+  }
+  .jf-q2 {
+    top: 35%;
+  }
+  .jf-q3 {
+    top: 61%;
+  }
+  .jf-panel {
+    left: 4%;
+    top: 4%;
+    width: 92%;
+    height: 59%;
+  }
+  .jf-dot {
+    display: none;
+  }
+  .jf-prow {
+    padding: 0.5em 0.65em;
+  }
+  .jf-approve,
+  .jf-escrow {
+    top: 67%;
+    width: 44%;
+    min-height: 0;
+    height: 29%;
+    padding: 0.7em;
+    gap: 0.55em;
+  }
+  .jf-approve {
+    left: 4%;
+  }
+  .jf-escrow {
+    left: 52%;
+  }
+  .jf-net {
+    display: none;
+  }
+  .jf-p-d1,
+  .jf-p-d2 {
+    display: none;
+  }
+  .jf-p-n1,
+  .jf-p-n2 {
+    display: inline;
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* Until the film has set its first frame, nothing that will animate is painted. */
+  .vp-motion .jf-figure:not([data-ready]) [data-jf] {
+    opacity: 0;
+  }
+  .vp-motion .jf-figure[data-done="true"][data-visible="true"] .jf-ambient {
+    animation: jf-breathe 5.5s ease-in-out infinite;
+  }
+  /* The hero's looping float pauses while it is off screen. */
+  .vp-stage[data-offscreen="true"] *,
+  .vp-stage[data-offscreen="true"] {
+    animation-play-state: paused !important;
+  }
+}
+@keyframes jf-breathe {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
   }
 }
 

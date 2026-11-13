@@ -24,6 +24,12 @@ export function SiteMotion() {
     );
     document.querySelectorAll("[data-reveal], [data-reveal-group], [data-observe]").forEach((el) => io.observe(el));
 
+    // The hero illustration's looping float pauses while it is off screen.
+    const offscreen = new IntersectionObserver((entries) => {
+      for (const e of entries) (e.target as HTMLElement).dataset.offscreen = String(!e.isIntersecting);
+    });
+    document.querySelectorAll(".vp-stage").forEach((el) => offscreen.observe(el));
+
     const header = document.querySelector<HTMLElement>(".vp-header");
     const steps = document.querySelector<HTMLElement>("[data-steps]");
     const stepItems = steps ? Array.from(steps.querySelectorAll<HTMLElement>("[data-step]")) : [];
@@ -70,6 +76,7 @@ export function SiteMotion() {
 
     return () => {
       io.disconnect();
+      offscreen.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       window.removeEventListener("hashchange", openTarget);
