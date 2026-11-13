@@ -1,0 +1,19 @@
+{
+  "name": "veilprocure-explainer",
+  "private": true,
+  "description": "Remotion project for the VeilProcure product explainer (edit, captions, overlays).",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts Explainer out/explainer-video.mp4 --codec h264 --crf 16 --muted"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.539",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "remotion": "4.0.539"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,1827 @@
+{
+ "durationSec": 177.9,
+ "segments": [
+  {
+   "type": "hook",
+   "dur": 12.4,
+   "id": "S1-1",
+   "start": 0.0,
+   "fadeIn": 0.2
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 0.8,
+   "dur": 14.6,
+   "rate": 1.2,
+   "moves": [
+    {
+     "t": 0,
+     "x": 0,
+     "y": 0,
+     "w": 1920
+    },
+    {
+     "t": 14.6,
+     "x": 90,
+     "y": 40,
+     "w": 1740
+    }
+   ],
+   "role": null,
+   "edgeFade": false,
+   "callouts": [],
+   "fadeIn": 0.5,
+   "id": "S2-1",
+   "start": 12.4,
+   "chapter": "The product"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 24.0,
+   "dur": 3.4,
+   "rate": 2.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 335,
+     "y": 300,
+     "w": 1250
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": false,
+   "callouts": [],
+   "fadeIn": 0.35,
+   "id": "S3-1",
+   "start": 27.0,
+   "chapter": "01 \u00b7 Buyer set-up"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 53.0,
+   "dur": 3.8,
+   "rate": 2.4,
+   "moves": [
+    {
+     "t": 0,
+     "x": 375,
+     "y": 128,
+     "w": 1500
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S3-2",
+   "start": 30.4,
+   "chapter": "01 \u00b7 Buyer set-up"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 64.2,
+   "dur": 2.3,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 110,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S3-3",
+   "start": 34.2,
+   "chapter": "01 \u00b7 Buyer set-up"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 85.2,
+   "dur": 4.0,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 60,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S3-4",
+   "start": 36.5,
+   "chapter": "01 \u00b7 Buyer set-up"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 117.0,
+   "dur": 4.6,
+   "rate": 2.6,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 236,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.35,
+   "id": "S4-1",
+   "start": 40.5,
+   "chapter": "02 \u00b7 Request & rules"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 135.5,
+   "dur": 5.0,
+   "rate": 2.5,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 120,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S4-2",
+   "start": 45.1,
+   "chapter": "02 \u00b7 Request & rules"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 170.0,
+   "dur": 3.2,
+   "rate": 3.2,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 180,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S4-3",
+   "start": 50.1,
+   "chapter": "02 \u00b7 Request & rules"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 206.4,
+   "dur": 3.6,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 160,
+     "y": 85,
+     "w": 1600
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": false,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S4-4",
+   "start": 53.3,
+   "chapter": "02 \u00b7 Request & rules"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 228.4,
+   "dur": 3.6,
+   "rate": 0.55,
+   "moves": [
+    {
+     "t": 0,
+     "x": 460,
+     "y": 258,
+     "w": 1000
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": false,
+   "callouts": [
+    {
+     "t0": 0.3,
+     "t1": 3.4,
+     "x": 630,
+     "y": 490,
+     "w": 660,
+     "h": 140,
+     "text": "Rules frozen: policy hash on NEAR testnet"
+    }
+   ],
+   "fadeIn": 0.2,
+   "id": "S4-5",
+   "start": 56.9,
+   "chapter": "02 \u00b7 Request & rules"
+  },
+  {
+   "type": "footage",
+   "cam": "supplierA",
+   "src": 19.5,
+   "dur": 3.4,
+   "rate": 2.2,
+   "moves": [
+    {
+     "t": 0,
+     "x": 310,
+     "y": 120,
+     "w": 1300
+    }
+   ],
+   "role": {
+    "kind": "Supplier",
+    "name": "Clearline Accessibility (test supplier)"
+   },
+   "edgeFade": false,
+   "callouts": [],
+   "fadeIn": 0.35,
+   "id": "S5-1",
+   "start": 60.5,
+   "chapter": "03 \u00b7 Sealed bids"
+  },
+  {
+   "type": "footage",
+   "cam": "supplierA",
+   "src": 66.0,
+   "dur": 4.4,
+   "rate": 4.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 236,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Supplier",
+    "name": "Clearline Accessibility (test supplier)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S5-2",
+   "start": 63.9,
+   "chapter": "03 \u00b7 Sealed bids"
+  },
+  {
+   "type": "footage",
+   "cam": "supplierA",
+   "src": 102.2,
+   "dur": 2.8,
+   "rate": 1.2,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 160,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Supplier",
+    "name": "Clearline Accessibility (test supplier)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S5-3",
+   "start": 68.3,
+   "chapter": "03 \u00b7 Sealed bids"
+  },
+  {
+   "type": "footage",
+   "cam": "supplierA",
+   "src": 109.5,
+   "dur": 2.4,
+   "rate": 1.4,
+   "moves": [
+    {
+     "t": 0,
+     "x": 160,
+     "y": 85,
+     "w": 1600
+    }
+   ],
+   "role": {
+    "kind": "Supplier",
+    "name": "Clearline Accessibility (test supplier)"
+   },
+   "edgeFade": false,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S5-4",
+   "start": 71.1,
+   "chapter": "03 \u00b7 Sealed bids"
+  },
+  {
+   "type": "footage",
+   "cam": "supplierA",
+   "src": 122.8,
+   "dur": 2.0,
+   "rate": 0.8,
+   "moves": [
+    {
+     "t": 0,
+     "x": 460,
+     "y": 258,
+     "w": 1000
+    }
+   ],
+   "role": {
+    "kind": "Supplier",
+    "name": "Clearline Accessibility (test supplier)"
+   },
+   "edgeFade": false,
+   "callouts": [
+    {
+     "t0": 0.2,
+     "t1": 1.9,
+     "x": 630,
+     "y": 490,
+     "w": 660,
+     "h": 140,
+     "text": "Sealed bid committed on chain"
+    }
+   ],
+   "fadeIn": 0.2,
+   "id": "S5-5",
+   "start": 73.5,
+   "chapter": "03 \u00b7 Sealed bids"
+  },
+  {
+   "type": "footage",
+   "cam": "supplierB",
+   "src": 138.3,
+   "dur": 2.8,
+   "rate": 0.9,
+   "moves": [
+    {
+     "t": 0,
+     "x": 560,
+     "y": 300,
+     "w": 800
+    }
+   ],
+   "role": {
+    "kind": "Supplier",
+    "name": "Harbor Digital (test supplier) \u00b7 the competitor"
+   },
+   "edgeFade": false,
+   "callouts": [
+    {
+     "t0": 0.4,
+     "t1": 2.7,
+     "x": 780,
+     "y": 480,
+     "w": 340,
+     "h": 90,
+     "text": "The competitor opens the request: 404"
+    }
+   ],
+   "fadeIn": 0.2,
+   "id": "S5-6",
+   "start": 75.5,
+   "chapter": "03 \u00b7 Sealed bids"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 246.5,
+   "dur": 3.2,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 60,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [
+    {
+     "t0": 0.4,
+     "t1": 3.1,
+     "x": 436,
+     "y": 306,
+     "w": 1378,
+     "h": 92,
+     "text": "The buyer, before the deadline: sealed",
+     "place": "below"
+    }
+   ],
+   "fadeIn": 0.2,
+   "id": "S5-7",
+   "start": 78.3,
+   "chapter": "03 \u00b7 Sealed bids"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 267.0,
+   "dur": 3.0,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 160,
+     "y": 85,
+     "w": 1600
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": false,
+   "callouts": [],
+   "fadeIn": 0.35,
+   "id": "S6-1",
+   "start": 81.5,
+   "chapter": "04 \u00b7 Deadline & integrity"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 286.0,
+   "dur": 2.4,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 460,
+     "y": 258,
+     "w": 1000
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": false,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S6-2",
+   "start": 84.5,
+   "chapter": "04 \u00b7 Deadline & integrity"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 302.6,
+   "dur": 5.6,
+   "rate": 0.48,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 222,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [
+    {
+     "t0": 1.8,
+     "t1": 5.5,
+     "x": 930,
+     "y": 520,
+     "w": 230,
+     "h": 132,
+     "text": "Recomputed against the chain",
+     "place": "below"
+    }
+   ],
+   "fadeIn": 0.2,
+   "id": "S6-3",
+   "start": 86.9,
+   "chapter": "04 \u00b7 Deadline & integrity"
+  },
+  {
+   "type": "diagram",
+   "dur": 7.4,
+   "fadeIn": 0.4,
+   "id": "S6-4",
+   "start": 92.5,
+   "chapter": "04 \u00b7 Deadline & integrity"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 302.6,
+   "dur": 5.2,
+   "rate": 0.5,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 222,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [
+    {
+     "t0": 0.6,
+     "t1": 2.7,
+     "x": 1185,
+     "y": 518,
+     "w": 110,
+     "h": 135
+    },
+    {
+     "t0": 2.8,
+     "t1": 5.1,
+     "x": 1705,
+     "y": 518,
+     "w": 110,
+     "h": 135
+    }
+   ],
+   "fadeIn": 0.4,
+   "id": "S7-1",
+   "start": 99.9,
+   "chapter": "05 \u00b7 Evaluation & private AI"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 313.0,
+   "dur": 3.2,
+   "rate": 1.2,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 120,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S7-2",
+   "start": 105.1,
+   "chapter": "05 \u00b7 Evaluation & private AI"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 326.2,
+   "dur": 2.4,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 130,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S7-3",
+   "start": 108.3,
+   "chapter": "05 \u00b7 Evaluation & private AI"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 333.4,
+   "dur": 3.4,
+   "rate": 0.6,
+   "moves": [
+    {
+     "t": 0,
+     "x": 437,
+     "y": 100,
+     "w": 700
+    },
+    {
+     "t": 3.4,
+     "x": 437,
+     "y": 520,
+     "w": 700
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S7-4",
+   "start": 110.7,
+   "chapter": "05 \u00b7 Evaluation & private AI"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 342.8,
+   "dur": 6.6,
+   "rate": 1.1,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 60,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [
+    {
+     "t0": 0.4,
+     "t1": 3.6,
+     "x": 436,
+     "y": 326,
+     "w": 1378,
+     "h": 94,
+     "text": "Attestation verified before any quote was sent"
+    }
+   ],
+   "fadeIn": 0.2,
+   "id": "S7-5",
+   "start": 114.1,
+   "chapter": "05 \u00b7 Evaluation & private AI"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 371.0,
+   "dur": 4.0,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 200,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [
+    {
+     "t0": 0.3,
+     "t1": 3.9,
+     "x": 450,
+     "y": 392,
+     "w": 1110,
+     "h": 100,
+     "text": "Human decision: the AI cannot award or move funds"
+    }
+   ],
+   "fadeIn": 0.2,
+   "id": "S7-6",
+   "start": 120.7,
+   "chapter": "05 \u00b7 Evaluation & private AI"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 373.0,
+   "dur": 4.2,
+   "rate": 2.4,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 200,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.35,
+   "id": "S8-1",
+   "start": 124.7,
+   "chapter": "06 \u00b7 Award & escrow"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 399.8,
+   "dur": 2.2,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 460,
+     "y": 258,
+     "w": 1000
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": false,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S8-2",
+   "start": 128.9,
+   "chapter": "06 \u00b7 Award & escrow"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 419.5,
+   "dur": 4.0,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 160,
+     "y": 85,
+     "w": 1600
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": false,
+   "callouts": [
+    {
+     "t0": 0.6,
+     "t1": 3.9,
+     "x": 630,
+     "y": 552,
+     "w": 680,
+     "h": 80,
+     "text": "1.2 NEAR held in escrow",
+     "place": "right"
+    }
+   ],
+   "fadeIn": 0.2,
+   "id": "S8-3",
+   "start": 131.1,
+   "chapter": "06 \u00b7 Award & escrow"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 437.5,
+   "dur": 2.4,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 460,
+     "y": 258,
+     "w": 1000
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": false,
+   "callouts": [
+    {
+     "t0": 0.2,
+     "t1": 2.3,
+     "x": 630,
+     "y": 470,
+     "w": 660,
+     "h": 140,
+     "text": "Escrow funded on NEAR testnet"
+    }
+   ],
+   "fadeIn": 0.2,
+   "id": "S8-4",
+   "start": 135.1,
+   "chapter": "06 \u00b7 Award & escrow"
+  },
+  {
+   "type": "rpc",
+   "dur": 5.6,
+   "fadeIn": 0.35,
+   "title": "Escrow funded: the contract holds 1.2 testnet NEAR",
+   "note": "Explorer: testnet.nearblocks.io/txns/ATdXAHnWUrzAvX2AmMS4LZng5YYDQTZecz7EbWaTUrtg",
+   "txs": [
+    {
+     "step": "award_supplier \u2014 buyer awards Clearline (rank 1)",
+     "method": "award_supplier",
+     "signer": "vp-106725-test-buyer.testnet",
+     "receiver": "veilprocure-106725.testnet",
+     "depositNear": "0.0200",
+     "status": "Success",
+     "block": 277286994,
+     "at": "2026-11-12T00:10:54.674Z",
+     "txHash": "64LdSTA2Cg4zhLbQH5qb12qwnP1dZRRoDoKHhQ52ysAQ",
+     "explorer": "https://testnet.nearblocks.io/txns/64LdSTA2Cg4zhLbQH5qb12qwnP1dZRRoDoKHhQ52ysAQ"
+    },
+    {
+     "step": "fund_award \u2014 1.2 testnet NEAR attached; held by the contract",
+     "method": "fund_award",
+     "signer": "vp-106725-test-buyer.testnet",
+     "receiver": "veilprocure-106725.testnet",
+     "depositNear": "1.2000",
+     "status": "Success",
+     "block": 277287053,
+     "at": "2026-11-12T00:11:30.434Z",
+     "txHash": "ATdXAHnWUrzAvX2AmMS4LZng5YYDQTZecz7EbWaTUrtg",
+     "explorer": "https://testnet.nearblocks.io/txns/ATdXAHnWUrzAvX2AmMS4LZng5YYDQTZecz7EbWaTUrtg"
+    }
+   ],
+   "id": "S8-5",
+   "start": 137.5,
+   "chapter": "06 \u00b7 Award & escrow"
+  },
+  {
+   "type": "footage",
+   "cam": "supplierA",
+   "src": 148.5,
+   "dur": 2.0,
+   "rate": 1.6,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 120,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Supplier",
+    "name": "Clearline Accessibility (test supplier)"
+   },
+   "edgeFade": true,
+   "callouts": [
+    {
+     "t0": 0.2,
+     "t1": 1.9,
+     "x": 452,
+     "y": 360,
+     "w": 640,
+     "h": 42,
+     "text": "Funded: 1.2 testnet NEAR",
+     "place": "right"
+    }
+   ],
+   "fadeIn": 0.35,
+   "id": "S9-1",
+   "start": 143.1,
+   "chapter": "07 \u00b7 Delivery & payment"
+  },
+  {
+   "type": "footage",
+   "cam": "supplierA",
+   "src": 180.0,
+   "dur": 1.4,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 460,
+     "y": 258,
+     "w": 1000
+    }
+   ],
+   "role": {
+    "kind": "Supplier",
+    "name": "Clearline Accessibility (test supplier)"
+   },
+   "edgeFade": false,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S9-2",
+   "start": 145.1,
+   "chapter": "07 \u00b7 Delivery & payment"
+  },
+  {
+   "type": "footage",
+   "cam": "supplierA",
+   "src": 200.0,
+   "dur": 1.8,
+   "rate": 3.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 300,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Supplier",
+    "name": "Clearline Accessibility (test supplier)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S9-3",
+   "start": 146.5,
+   "chapter": "07 \u00b7 Delivery & payment"
+  },
+  {
+   "type": "footage",
+   "cam": "supplierA",
+   "src": 227.0,
+   "dur": 1.4,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 300,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Supplier",
+    "name": "Clearline Accessibility (test supplier)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S9-4",
+   "start": 148.3,
+   "chapter": "07 \u00b7 Delivery & payment"
+  },
+  {
+   "type": "footage",
+   "cam": "supplierA",
+   "src": 261.8,
+   "dur": 1.4,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 460,
+     "y": 258,
+     "w": 1000
+    }
+   ],
+   "role": {
+    "kind": "Supplier",
+    "name": "Clearline Accessibility (test supplier)"
+   },
+   "edgeFade": false,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S9-5",
+   "start": 149.7,
+   "chapter": "07 \u00b7 Delivery & payment"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 467.2,
+   "dur": 2.4,
+   "rate": 1.6,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 60,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [
+    {
+     "t0": 0.2,
+     "t1": 2.3,
+     "x": 464,
+     "y": 504,
+     "w": 1320,
+     "h": 132,
+     "text": "Delivery evidence: its hash is anchored on chain",
+     "place": "inside"
+    }
+   ],
+   "fadeIn": 0.2,
+   "id": "S9-6",
+   "start": 151.1,
+   "chapter": "07 \u00b7 Delivery & payment"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 476.5,
+   "dur": 2.0,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 160,
+     "y": 85,
+     "w": 1600
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": false,
+   "callouts": [],
+   "fadeIn": 0.2,
+   "id": "S9-7",
+   "start": 153.5,
+   "chapter": "07 \u00b7 Delivery & payment"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 507.0,
+   "dur": 1.8,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 460,
+     "y": 258,
+     "w": 1000
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": false,
+   "callouts": [
+    {
+     "t0": 0.1,
+     "t1": 1.8,
+     "x": 630,
+     "y": 470,
+     "w": 660,
+     "h": 140,
+     "text": "Payment released"
+    }
+   ],
+   "fadeIn": 0.2,
+   "id": "S9-8",
+   "start": 155.5,
+   "chapter": "07 \u00b7 Delivery & payment"
+  },
+  {
+   "type": "rpc",
+   "dur": 4.6,
+   "fadeIn": 0.35,
+   "title": "The contract paid the supplier",
+   "note": "Explorer: testnet.nearblocks.io/txns/Dutg14DupfC7vA8Ziv9iyK5G3Fp15M5u94rLo6qjhMob",
+   "txs": [
+    {
+     "step": "approve_release \u2192 transfer \u2192 on_payment_result \u2014 contract pays Clearline",
+     "method": "approve_release",
+     "signer": "vp-106725-test-buyer.testnet",
+     "receiver": "veilprocure-106725.testnet",
+     "depositNear": "0.0000",
+     "status": "Success",
+     "block": 277287425,
+     "at": "2026-11-12T00:15:01.361Z",
+     "txHash": "Dutg14DupfC7vA8Ziv9iyK5G3Fp15M5u94rLo6qjhMob",
+     "explorer": "https://testnet.nearblocks.io/txns/Dutg14DupfC7vA8Ziv9iyK5G3Fp15M5u94rLo6qjhMob"
+    }
+   ],
+   "balance": {
+    "account": "vp-106725-test-sup-a.testnet",
+    "before": "12.1876",
+    "after": "13.3876",
+    "delta": "1.2"
+   },
+   "id": "S9-9",
+   "start": 157.3,
+   "chapter": "07 \u00b7 Delivery & payment"
+  },
+  {
+   "type": "rpc",
+   "dur": 5.4,
+   "fadeIn": 0.3,
+   "title": "Everyone else is refused by the contract",
+   "note": "Sent directly to the contract from the test process to test it (not app buttons). Each failed with the contract's own error.",
+   "txs": [
+    {
+     "step": "attack \u2014 outsider calls approve_release: rejected VP_NOT_BUYER",
+     "method": "approve_release",
+     "signer": "vp-106725-test-outsider.testnet",
+     "receiver": "veilprocure-106725.testnet",
+     "depositNear": "0.0000",
+     "status": "VP_NOT_BUYER",
+     "block": 277287101,
+     "at": "2026-11-12T00:11:58.038Z",
+     "txHash": "An7onatrWWfooU4EnHBYvGsKfufb7uQ7crJhrNckrp1G",
+     "explorer": "https://testnet.nearblocks.io/txns/An7onatrWWfooU4EnHBYvGsKfufb7uQ7crJhrNckrp1G"
+    },
+    {
+     "step": "attack \u2014 losing supplier calls accept_award: rejected VP_NOT_SUPPLIER",
+     "method": "accept_award",
+     "signer": "vp-106725-test-sup-b.testnet",
+     "receiver": "veilprocure-106725.testnet",
+     "depositNear": "0.0000",
+     "status": "VP_NOT_SUPPLIER",
+     "block": 277287109,
+     "at": "2026-11-12T00:12:02.578Z",
+     "txHash": "AL3icH5wwLGYSmadtbE3895yWGgCDFcp8QdAwepCfo6c",
+     "explorer": "https://testnet.nearblocks.io/txns/AL3icH5wwLGYSmadtbE3895yWGgCDFcp8QdAwepCfo6c"
+    },
+    {
+     "step": "attack \u2014 buyer calls approve_release a second time: rejected (no double payout)",
+     "method": "approve_release",
+     "signer": "vp-106725-test-buyer.testnet",
+     "receiver": "veilprocure-106725.testnet",
+     "depositNear": "0.0000",
+     "status": "VP_NO_AWARD",
+     "block": 277287469,
+     "at": "2026-11-12T00:15:27.999Z",
+     "txHash": "DfmEVoUASQJp56mYabXAcCpeGRDLaH5uYgWHZAofa6oH",
+     "explorer": "https://testnet.nearblocks.io/txns/DfmEVoUASQJp56mYabXAcCpeGRDLaH5uYgWHZAofa6oH"
+    }
+   ],
+   "id": "S9-10",
+   "start": 161.9,
+   "chapter": "07 \u00b7 Delivery & payment"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 549.5,
+   "dur": 2.6,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 60,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [],
+   "fadeIn": 0.35,
+   "id": "S10-1",
+   "start": 167.3,
+   "chapter": "08 \u00b7 Records"
+  },
+  {
+   "type": "footage",
+   "cam": "buyer",
+   "src": 560.0,
+   "dur": 2.4,
+   "rate": 1.0,
+   "moves": [
+    {
+     "t": 0,
+     "x": 395,
+     "y": 100,
+     "w": 1460
+    }
+   ],
+   "role": {
+    "kind": "Buyer",
+    "name": "Northwind Studio (test buyer)"
+   },
+   "edgeFade": true,
+   "callouts": [
+    {
+     "t0": 0.2,
+     "t1": 2.3,
+     "x": 1484,
+     "y": 296,
+     "w": 334,
+     "h": 142,
+     "text": "Paid out: 1.2 NEAR",
+     "place": "below"
+    }
+   ],
+   "fadeIn": 0.2,
+   "id": "S10-2",
+   "start": 169.9,
+   "chapter": "08 \u00b7 Records"
+  },
+  {
+   "type": "outro",
+   "dur": 5.6,
+   "fadeIn": 0.5,
+   "id": "S10-3",
+   "start": 172.3,
+   "chapter": "08 \u00b7 Records"
+  }
+ ],
+ "captions": [
+  {
+   "start": 0.5,
+   "end": 4.378,
+   "text": "Quotes scattered across e-mail. Comparisons in spreadsheets."
+  },
+  {
+   "start": 4.418,
+   "end": 7.708,
+   "text": "Decisions nobody can explain. And payment on trust."
+  },
+  {
+   "start": 8.148,
+   "end": 11.65,
+   "text": "VeilProcure turns that into one confidential workflow,"
+  },
+  {
+   "start": 11.69,
+   "end": 12.175,
+   "text": "on NEAR."
+  },
+  {
+   "start": 12.7,
+   "end": 16.074,
+   "text": "Picture a small studio hiring an accessibility auditor."
+  },
+  {
+   "start": 16.514,
+   "end": 18.733,
+   "text": "It wants competing quotes kept apart,"
+  },
+  {
+   "start": 18.773,
+   "end": 22.396,
+   "text": "rules everyone sees up front, and payment only when the work"
+  },
+  {
+   "start": 22.436,
+   "end": 23.19,
+   "text": "is delivered."
+  },
+  {
+   "start": 23.63,
+   "end": 26.875,
+   "text": "Here is that whole journey, recorded live on NEAR testnet."
+  },
+  {
+   "start": 27.3,
+   "end": 29.498,
+   "text": "Sign in with a one-time e-mail link,"
+  },
+  {
+   "start": 29.538,
+   "end": 33.104,
+   "text": "create your organisation, and bind your NEAR wallet with a"
+  },
+  {
+   "start": 33.144,
+   "end": 34.036,
+   "text": "signed message."
+  },
+  {
+   "start": 35.4,
+   "end": 38.932,
+   "text": "VeilProcure never holds your keys: every on-chain step is"
+  },
+  {
+   "start": 38.972,
+   "end": 39.809,
+   "text": "signed by you."
+  },
+  {
+   "start": 40.9,
+   "end": 43.568,
+   "text": "Describe the work, the deliverables and the budget."
+  },
+  {
+   "start": 45.3,
+   "end": 47.679,
+   "text": "Set hard requirements every quote must pass,"
+  },
+  {
+   "start": 47.719,
+   "end": 49.604,
+   "text": "and the weights that rank the rest."
+  },
+  {
+   "start": 50.5,
+   "end": 52.754,
+   "text": "Invite suppliers, and set a deadline."
+  },
+  {
+   "start": 53.1,
+   "end": 56.974,
+   "text": "Publishing freezes these rules and anchors their hash on NEAR"
+  },
+  {
+   "start": 57.014,
+   "end": 60.31,
+   "text": "testnet, so the criteria can't quietly change later."
+  },
+  {
+   "start": 60.8,
+   "end": 64.637,
+   "text": "Each supplier gets a private invitation that only their e-mail"
+  },
+  {
+   "start": 64.677,
+   "end": 65.325,
+   "text": "can accept."
+  },
+  {
+   "start": 65.7,
+   "end": 68.206,
+   "text": "They quote price, delivery and approach,"
+  },
+  {
+   "start": 68.246,
+   "end": 70.497,
+   "text": "attach a proposal, and seal the bid:"
+  },
+  {
+   "start": 70.537,
+   "end": 73.998,
+   "text": "a salted fingerprint of the quote is recorded on chain."
+  },
+  {
+   "start": 75.9,
+   "end": 78.493,
+   "text": "Until the deadline, the buyer sees nothing,"
+  },
+  {
+   "start": 78.533,
+   "end": 81.187,
+   "text": "and competitors can't even open the request."
+  },
+  {
+   "start": 81.9,
+   "end": 85.058,
+   "text": "After the chain-time deadline, the buyer closes bidding."
+  },
+  {
+   "start": 87.1,
+   "end": 90.305,
+   "text": "Every opened quote is recomputed against its fingerprint,"
+  },
+  {
+   "start": 90.345,
+   "end": 92.923,
+   "text": "so any change since sealing would be detected."
+  },
+  {
+   "start": 93.5,
+   "end": 95.643,
+   "text": "That proves integrity, not secrecy:"
+  },
+  {
+   "start": 95.683,
+   "end": 99.449,
+   "text": "quotes are encrypted at rest, and the platform holds the key."
+  },
+  {
+   "start": 100.1,
+   "end": 103.59,
+   "text": "First, the published rules: ineligible quotes are flagged,"
+  },
+  {
+   "start": 103.63,
+   "end": 106.268,
+   "text": "and eligible ones are ranked by the weights."
+  },
+  {
+   "start": 106.7,
+   "end": 109.689,
+   "text": "Then, if you ask, a private AI reviews the quotes."
+  },
+  {
+   "start": 109.9,
+   "end": 113.699,
+   "text": "Nothing is sent until the model's hardware attestation is"
+  },
+  {
+   "start": 113.739,
+   "end": 117.606,
+   "text": "verified through NEAR AI Cloud, and the signed response is"
+  },
+  {
+   "start": 117.646,
+   "end": 118.818,
+   "text": "checked on return."
+  },
+  {
+   "start": 120.5,
+   "end": 124.574,
+   "text": "The notes are advisory: the AI cannot award or move money."
+  },
+  {
+   "start": 125.1,
+   "end": 128.829,
+   "text": "The buyer awards the top quote and funds the escrow with"
+  },
+  {
+   "start": 128.869,
+   "end": 131.387,
+   "text": "exactly that amount: 1.2 testnet NEAR,"
+  },
+  {
+   "start": 131.427,
+   "end": 132.868,
+   "text": "from their own wallet."
+  },
+  {
+   "start": 135.7,
+   "end": 139.377,
+   "text": "The contract now holds the funds. It can only pay the awarded"
+  },
+  {
+   "start": 139.417,
+   "end": 141.692,
+   "text": "supplier, or return them to the buyer."
+  },
+  {
+   "start": 144.3,
+   "end": 147.578,
+   "text": "The supplier accepts, delivers, and anchors evidence of the"
+  },
+  {
+   "start": 147.618,
+   "end": 147.859,
+   "text": "work."
+  },
+  {
+   "start": 153.1,
+   "end": 156.642,
+   "text": "The buyer approves, and the contract pays the supplier:"
+  },
+  {
+   "start": 156.682,
+   "end": 160.093,
+   "text": "a real transaction anyone can verify on NEAR testnet."
+  },
+  {
+   "start": 162.1,
+   "end": 164.94,
+   "text": "A release by anyone else, or a second payout,"
+  },
+  {
+   "start": 164.98,
+   "end": 167.18,
+   "text": "is rejected by the contract itself."
+  },
+  {
+   "start": 167.5,
+   "end": 170.261,
+   "text": "And every step lands in a hash-chained audit trail."
+  },
+  {
+   "start": 172.3,
+   "end": 175.582,
+   "text": "VeilProcure. Private bids. Intelligent decisions."
+  },
+  {
+   "start": 175.622,
+   "end": 177.481,
+   "text": "Payments under your control."
+  }
+ ],
+ "testnet": [
+  {
+   "start": 53.3,
+   "end": 172.3
+  }
+ ],
+ "footageMeta": {
+  "buyer": {
+   "file": "footage/buyer.mp4",
+   "seconds": 575.99
+  },
+  "supplierA": {
+   "file": "footage/supplierA.mp4",
+   "seconds": 285.23
+  },
+  "supplierB": {
+   "file": "footage/supplierB.mp4",
+   "seconds": 147.59
+  }
+ },
+ "voice": [
+  {
+   "file": "S1-1.wav",
+   "start": 0.5,
+   "end": 7.748,
+   "text": "Quotes scattered across e-mail. Comparisons in spreadsheets. Decisions nobody can explain. And payment on trust.",
+   "line": "S1-1"
+  },
+  {
+   "file": "S1-2.wav",
+   "start": 8.148,
+   "end": 12.215,
+   "text": "Veil Procure turns that into one confidential workflow, on NEAR.",
+   "line": "S1-2"
+  },
+  {
+   "file": "S2-1.wav",
+   "start": 12.7,
+   "end": 16.114,
+   "text": "Picture a small studio hiring an accessibility auditor.",
+   "line": "S2-1"
+  },
+  {
+   "file": "S2-2.wav",
+   "start": 16.514,
+   "end": 23.23,
+   "text": "It wants competing quotes kept apart, rules everyone sees up front, and payment only when the work is delivered.",
+   "line": "S2-2"
+  },
+  {
+   "file": "S2-3.wav",
+   "start": 23.63,
+   "end": 26.915,
+   "text": "Here is that whole journey, recorded live on NEAR testnet.",
+   "line": "S2-3"
+  },
+  {
+   "file": "S3-1.wav",
+   "start": 27.3,
+   "end": 34.076,
+   "text": "Sign in with a one-time e-mail link, create your organisation, and bind your NEAR wallet with a signed message.",
+   "line": "S3-1"
+  },
+  {
+   "file": "S3-2.wav",
+   "start": 35.4,
+   "end": 39.849,
+   "text": "Veil Procure never holds your keys: every on-chain step is signed by you.",
+   "line": "S3-2"
+  },
+  {
+   "file": "S4-1.wav",
+   "start": 40.9,
+   "end": 43.608,
+   "text": "Describe the work, the deliverables and the budget.",
+   "line": "S4-1"
+  },
+  {
+   "file": "S4-2.wav",
+   "start": 45.3,
+   "end": 49.644,
+   "text": "Set hard requirements every quote must pass, and the weights that rank the rest.",
+   "line": "S4-2"
+  },
+  {
+   "file": "S4-3.wav",
+   "start": 50.5,
+   "end": 52.794,
+   "text": "Invite suppliers, and set a deadline.",
+   "line": "S4-3"
+  },
+  {
+   "file": "S4-4.wav",
+   "start": 53.1,
+   "end": 60.35,
+   "text": "Publishing freezes these rules and anchors their hash on NEAR testnet, so the criteria can't quietly change later.",
+   "line": "S4-4"
+  },
+  {
+   "file": "S5-1.wav",
+   "start": 60.8,
+   "end": 65.365,
+   "text": "Each supplier gets a private invitation that only their e-mail can accept.",
+   "line": "S5-1"
+  },
+  {
+   "file": "S5-2.wav",
+   "start": 65.7,
+   "end": 74.038,
+   "text": "They quote price, delivery and approach, attach a proposal, and seal the bid: a salted fingerprint of the quote is recorded on chain.",
+   "line": "S5-2"
+  },
+  {
+   "file": "S5-3.wav",
+   "start": 75.9,
+   "end": 81.227,
+   "text": "Until the deadline, the buyer sees nothing, and competitors can't even open the request.",
+   "line": "S5-3"
+  },
+  {
+   "file": "S6-1.wav",
+   "start": 81.9,
+   "end": 85.098,
+   "text": "After the chain-time deadline, the buyer closes bidding.",
+   "line": "S6-1"
+  },
+  {
+   "file": "S6-2.wav",
+   "start": 87.1,
+   "end": 92.963,
+   "text": "Every opened quote is recomputed against its fingerprint, so any change since sealing would be detected.",
+   "line": "S6-2"
+  },
+  {
+   "file": "S6-3.wav",
+   "start": 93.5,
+   "end": 99.489,
+   "text": "That proves integrity, not secrecy: quotes are encrypted at rest, and the platform holds the key.",
+   "line": "S6-3"
+  },
+  {
+   "file": "S7-1.wav",
+   "start": 100.1,
+   "end": 106.308,
+   "text": "First, the published rules: ineligible quotes are flagged, and eligible ones are ranked by the weights.",
+   "line": "S7-1"
+  },
+  {
+   "file": "S7-2.wav",
+   "start": 106.7,
+   "end": 109.729,
+   "text": "Then, if you ask, a private A.I. reviews the quotes.",
+   "line": "S7-2"
+  },
+  {
+   "file": "S7-3.wav",
+   "start": 109.9,
+   "end": 118.858,
+   "text": "Nothing is sent until the model's hardware attestation is verified through NEAR A.I. Cloud, and the signed response is checked on return.",
+   "line": "S7-3"
+  },
+  {
+   "file": "S7-4.wav",
+   "start": 120.5,
+   "end": 124.614,
+   "text": "The notes are advisory: the A.I. cannot award or move money.",
+   "line": "S7-4"
+  },
+  {
+   "file": "S8-1.wav",
+   "start": 125.1,
+   "end": 132.908,
+   "text": "The buyer awards the top quote and funds the escrow with exactly that amount: 1.2 testnet NEAR, from their own wallet.",
+   "line": "S8-1"
+  },
+  {
+   "file": "S8-2.wav",
+   "start": 135.7,
+   "end": 141.732,
+   "text": "The contract now holds the funds. It can only pay the awarded supplier, or return them to the buyer.",
+   "line": "S8-2"
+  },
+  {
+   "file": "S9-1.wav",
+   "start": 144.3,
+   "end": 147.899,
+   "text": "The supplier accepts, delivers, and anchors evidence of the work.",
+   "line": "S9-1"
+  },
+  {
+   "file": "S9-2.wav",
+   "start": 153.1,
+   "end": 160.133,
+   "text": "The buyer approves, and the contract pays the supplier: a real transaction anyone can verify on NEAR testnet.",
+   "line": "S9-2"
+  },
+  {
+   "file": "S9-3.wav",
+   "start": 162.1,
+   "end": 167.22,
+   "text": "A release by anyone else, or a second payout, is rejected by the contract itself.",
+   "line": "S9-3"
+  },
+  {
+   "file": "S9-4.wav",
+   "start": 167.5,
+   "end": 170.301,
+   "text": "And every step lands in a hash-chained audit trail.",
+   "line": "S9-4"
+  },
+  {
+   "file": "S10-1.wav",
+   "start": 172.3,
+   "end": 177.521,
+   "text": "Veil Procure. Private bids. Intelligent decisions. Payments under your control.",
+   "line": "S10-1"
+  }
+ ],
+ "accents": [
+  {
+   "t": 12.25,
+   "kind": "whoosh"
+  },
+  {
+   "t": 57.15,
+   "kind": "chime"
+  },
+  {
+   "t": 73.75,
+   "kind": "chime"
+  },
+  {
+   "t": 92.35,
+   "kind": "whoosh"
+  },
+  {
+   "t": 135.35,
+   "kind": "chime"
+  },
+  {
+   "t": 138.1,
+   "kind": "chime"
+  },
+  {
+   "t": 155.75,
+   "kind": "chime"
+  },
+  {
+   "t": 157.9,
+   "kind": "chime"
+  },
+  {
+   "t": 172.15,
+   "kind": "whoosh"
+  }
+ ]
+}

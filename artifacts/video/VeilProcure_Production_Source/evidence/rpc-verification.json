@@ -1,0 +1,151 @@
+{
+  "checkedAt": "2026-11-12T00:22:50.282Z",
+  "rpc": "https://rpc.testnet.near.org",
+  "contract": "veilprocure-106725.testnet",
+  "txs": [
+    {
+      "step": "create_rfq — buyer publishes the policy hash and one invite leaf per supplier",
+      "txHash": "BeLsJWBjAmSm3zD1VXXiMGgXe2BNEkE6Y6ZBrfEoeoKQ",
+      "explorer": "https://testnet.nearblocks.io/txns/BeLsJWBjAmSm3zD1VXXiMGgXe2BNEkE6Y6ZBrfEoeoKQ",
+      "signer": "vp-106725-test-buyer.testnet",
+      "receiver": "veilprocure-106725.testnet",
+      "method": "create_rfq",
+      "depositNear": "0.0500",
+      "status": "Success",
+      "block": 277284804,
+      "at": "2026-11-11T23:49:11.780Z"
+    },
+    {
+      "step": "commit_bid — Clearline Accessibility (test supplier) seals its quote (salted hash on chain)",
+      "txHash": "3WF6hPo9WcnNmAMvzbfMQ98oUHJSeTDT7ewZXU9k853n",
+      "explorer": "https://testnet.nearblocks.io/txns/3WF6hPo9WcnNmAMvzbfMQ98oUHJSeTDT7ewZXU9k853n",
+      "signer": "vp-106725-test-sup-a.testnet",
+      "receiver": "veilprocure-106725.testnet",
+      "method": "commit_bid",
+      "depositNear": "0.0100",
+      "status": "Success",
+      "block": 277285042,
+      "at": "2026-11-11T23:51:35.701Z"
+    },
+    {
+      "step": "commit_bid — Harbor Digital (test supplier) seals its quote (salted hash on chain)",
+      "txHash": "CJdDfcN6fegr9LdCujNzU655vW2ug3BDB8U2hhkT3nJd",
+      "explorer": "https://testnet.nearblocks.io/txns/CJdDfcN6fegr9LdCujNzU655vW2ug3BDB8U2hhkT3nJd",
+      "signer": "vp-106725-test-sup-b.testnet",
+      "receiver": "veilprocure-106725.testnet",
+      "method": "commit_bid",
+      "depositNear": "0.0100",
+      "status": "Success",
+      "block": 277285274,
+      "at": "2026-11-11T23:53:47.729Z"
+    },
+    {
+      "step": "close_rfq — after the chain-time deadline",
+      "txHash": "9j1XshnBtxn1TVHeFuRH8xnaUEa6cLKjedYHU4pLfYTE",
+      "explorer": "https://testnet.nearblocks.io/txns/9j1XshnBtxn1TVHeFuRH8xnaUEa6cLKjedYHU4pLfYTE",
+      "signer": "vp-106725-test-buyer.testnet",
+      "receiver": "veilprocure-106725.testnet",
+      "method": "close_rfq",
+      "depositNear": "0.0000",
+      "status": "Success",
+      "block": 277286612,
+      "at": "2026-11-12T00:07:04.598Z"
+    },
+    {
+      "step": "award_supplier — buyer awards Clearline (rank 1)",
+      "txHash": "64LdSTA2Cg4zhLbQH5qb12qwnP1dZRRoDoKHhQ52ysAQ",
+      "explorer": "https://testnet.nearblocks.io/txns/64LdSTA2Cg4zhLbQH5qb12qwnP1dZRRoDoKHhQ52ysAQ",
+      "signer": "vp-106725-test-buyer.testnet",
+      "receiver": "veilprocure-106725.testnet",
+      "method": "award_supplier",
+      "depositNear": "0.0200",
+      "status": "Success",
+      "block": 277286994,
+      "at": "2026-11-12T00:10:54.674Z"
+    },
+    {
+      "step": "fund_award — 1.2 testnet NEAR attached; held by the contract",
+      "txHash": "ATdXAHnWUrzAvX2AmMS4LZng5YYDQTZecz7EbWaTUrtg",
+      "explorer": "https://testnet.nearblocks.io/txns/ATdXAHnWUrzAvX2AmMS4LZng5YYDQTZecz7EbWaTUrtg",
+      "signer": "vp-106725-test-buyer.testnet",
+      "receiver": "veilprocure-106725.testnet",
+      "method": "fund_award",
+      "depositNear": "1.2000",
+      "status": "Success",
+      "block": 277287053,
+      "at": "2026-11-12T00:11:30.434Z"
+    },
+    {
+      "step": "attack — outsider calls approve_release: rejected VP_NOT_BUYER",
+      "txHash": "An7onatrWWfooU4EnHBYvGsKfufb7uQ7crJhrNckrp1G",
+      "explorer": "https://testnet.nearblocks.io/txns/An7onatrWWfooU4EnHBYvGsKfufb7uQ7crJhrNckrp1G",
+      "signer": "vp-106725-test-outsider.testnet",
+      "receiver": "veilprocure-106725.testnet",
+      "method": "approve_release",
+      "depositNear": "0.0000",
+      "status": "VP_NOT_BUYER",
+      "block": 277287101,
+      "at": "2026-11-12T00:11:58.038Z"
+    },
+    {
+      "step": "attack — losing supplier calls accept_award: rejected VP_NOT_SUPPLIER",
+      "txHash": "AL3icH5wwLGYSmadtbE3895yWGgCDFcp8QdAwepCfo6c",
+      "explorer": "https://testnet.nearblocks.io/txns/AL3icH5wwLGYSmadtbE3895yWGgCDFcp8QdAwepCfo6c",
+      "signer": "vp-106725-test-sup-b.testnet",
+      "receiver": "veilprocure-106725.testnet",
+      "method": "accept_award",
+      "depositNear": "0.0000",
+      "status": "VP_NOT_SUPPLIER",
+      "block": 277287109,
+      "at": "2026-11-12T00:12:02.578Z"
+    },
+    {
+      "step": "accept_award — Clearline accepts the funded award",
+      "txHash": "AZhjcy91jSKy4Y1KLvmWUPzhduTwQ8cEFqXncAd9dZXW",
+      "explorer": "https://testnet.nearblocks.io/txns/AZhjcy91jSKy4Y1KLvmWUPzhduTwQ8cEFqXncAd9dZXW",
+      "signer": "vp-106725-test-sup-a.testnet",
+      "receiver": "veilprocure-106725.testnet",
+      "method": "accept_award",
+      "depositNear": "0.0000",
+      "status": "Success",
+      "block": 277287176,
+      "at": "2026-11-12T00:12:39.397Z"
+    },
+    {
+      "step": "submit_delivery — hash of the delivery evidence anchored",
+      "txHash": "8i5xTuJJtxg2eftYZjM4eefa112iavXoCDeVmr3ufqS2",
+      "explorer": "https://testnet.nearblocks.io/txns/8i5xTuJJtxg2eftYZjM4eefa112iavXoCDeVmr3ufqS2",
+      "signer": "vp-106725-test-sup-a.testnet",
+      "receiver": "veilprocure-106725.testnet",
+      "method": "submit_delivery",
+      "depositNear": "0.0000",
+      "status": "Success",
+      "block": 277287327,
+      "at": "2026-11-12T00:14:03.459Z"
+    },
+    {
+      "step": "approve_release → transfer → on_payment_result — contract pays Clearline",
+      "txHash": "Dutg14DupfC7vA8Ziv9iyK5G3Fp15M5u94rLo6qjhMob",
+      "explorer": "https://testnet.nearblocks.io/txns/Dutg14DupfC7vA8Ziv9iyK5G3Fp15M5u94rLo6qjhMob",
+      "signer": "vp-106725-test-buyer.testnet",
+      "receiver": "veilprocure-106725.testnet",
+      "method": "approve_release",
+      "depositNear": "0.0000",
+      "status": "Success",
+      "block": 277287425,
+      "at": "2026-11-12T00:15:01.361Z"
+    },
+    {
+      "step": "attack — buyer calls approve_release a second time: rejected (no double payout)",
+      "txHash": "DfmEVoUASQJp56mYabXAcCpeGRDLaH5uYgWHZAofa6oH",
+      "explorer": "https://testnet.nearblocks.io/txns/DfmEVoUASQJp56mYabXAcCpeGRDLaH5uYgWHZAofa6oH",
+      "signer": "vp-106725-test-buyer.testnet",
+      "receiver": "veilprocure-106725.testnet",
+      "method": "approve_release",
+      "depositNear": "0.0000",
+      "status": "VP_NO_AWARD",
+      "block": 277287469,
+      "at": "2026-11-12T00:15:27.999Z"
+    }
+  ]
+}

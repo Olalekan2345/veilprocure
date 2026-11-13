@@ -1,0 +1,11 @@
+# Regenerable or large production media stay out of the repository (see README).
+remotion/node_modules/
+remotion/out/
+remotion/public/footage/*.mp4
+audio/premix.wav
+audio/final_mix.wav
+audio/music_bed.wav
+qc/
+sheets/
+footage-build.log
+logo-preview.png

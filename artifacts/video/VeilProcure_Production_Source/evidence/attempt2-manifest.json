@@ -1,0 +1,46 @@
+{
+  "startedAt": "2026-11-11T23:09:00.746Z",
+  "txs": [
+    {
+      "step": "create_rfq \u00e2\u20ac\u201d buyer publishes the policy hash and one invite leaf per supplier",
+      "txHash": "HYDR4BUSN8XKU8Pv4U92ofmAo75mJMq39mLv17DkZK5B",
+      "explorer": "https://testnet.nearblocks.io/txns/HYDR4BUSN8XKU8Pv4U92ofmAo75mJMq39mLv17DkZK5B",
+      "cam": "buyer",
+      "at": "2026-11-11T23:13:10.335Z"
+    }
+  ],
+  "events": [],
+  "mode": "full",
+  "accounts": {
+    "contract": "veilprocure-106725.testnet",
+    "buyer": "vp-106725-test-buyer.testnet",
+    "supplierA": "vp-106725-test-sup-a.testnet",
+    "supplierB": "vp-106725-test-sup-b.testnet",
+    "outsider": "vp-106725-test-outsider.testnet"
+  },
+  "people": {
+    "buyer": {
+      "email": "buyer@northwind-studio.test",
+      "org": "Northwind Studio (test buyer)"
+    },
+    "supplierA": {
+      "email": "bids@clearline-a11y.test",
+      "org": "Clearline Accessibility (test supplier)",
+      "price": "1.2",
+      "days": "14",
+      "revs": "2"
+    },
+    "supplierB": {
+      "email": "quotes@harbor-digital.test",
+      "org": "Harbor Digital (test supplier)",
+      "price": "1.5",
+      "days": "10",
+      "revs": "1"
+    }
+  },
+  "rfqId": "ac18f0fa-93f3-436e-adc5-2f55012ee2b8",
+  "deadline": "2026-11-11T23:30:00.000Z",
+  "onchainId": "8",
+  "policyHash": "94791720ce5501f214846cf43df99341cfcb9b2a00c23fd43d8b8c099383681e",
+  "note": "Attempt 2 (2026-11-11 23:09Z): published RFQ #8, then stalled at supplier A invitation (reused e-mail already had an organisation, so the page showed an organisation picker); stopped after the bid deadline passed. No bids, escrow or AI call."
+}

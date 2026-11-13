@@ -1,0 +1,261 @@
+{
+  "sampleRate": 24000,
+  "voice": "af_heart",
+  "speed": 0.97,
+  "totalWords": 390,
+  "totalSeconds": 145.76,
+  "lines": [
+    {
+      "scene": "S1",
+      "n": 1,
+      "file": "S1-1.wav",
+      "seconds": 7.248,
+      "words": 15,
+      "text": "Quotes scattered across e-mail. Comparisons in spreadsheets. Decisions nobody can explain. And payment on trust.",
+      "peak": 0.495
+    },
+    {
+      "scene": "S1",
+      "n": 2,
+      "file": "S1-2.wav",
+      "seconds": 4.067,
+      "words": 10,
+      "text": "Veil Procure turns that into one confidential workflow, on NEAR.",
+      "peak": 0.548
+    },
+    {
+      "scene": "S2",
+      "n": 1,
+      "file": "S2-1.wav",
+      "seconds": 3.414,
+      "words": 8,
+      "text": "Picture a small studio hiring an accessibility auditor.",
+      "peak": 0.643
+    },
+    {
+      "scene": "S2",
+      "n": 2,
+      "file": "S2-2.wav",
+      "seconds": 6.716,
+      "words": 19,
+      "text": "It wants competing quotes kept apart, rules everyone sees up front, and payment only when the work is delivered.",
+      "peak": 1.076
+    },
+    {
+      "scene": "S2",
+      "n": 3,
+      "file": "S2-3.wav",
+      "seconds": 3.285,
+      "words": 10,
+      "text": "Here is that whole journey, recorded live on NEAR testnet.",
+      "peak": 0.47
+    },
+    {
+      "scene": "S3",
+      "n": 1,
+      "file": "S3-1.wav",
+      "seconds": 6.776,
+      "words": 19,
+      "text": "Sign in with a one-time e-mail link, create your organisation, and bind your NEAR wallet with a signed message.",
+      "peak": 0.596
+    },
+    {
+      "scene": "S3",
+      "n": 2,
+      "file": "S3-2.wav",
+      "seconds": 4.449,
+      "words": 13,
+      "text": "Veil Procure never holds your keys: every on-chain step is signed by you.",
+      "peak": 0.682
+    },
+    {
+      "scene": "S4",
+      "n": 1,
+      "file": "S4-1.wav",
+      "seconds": 2.708,
+      "words": 8,
+      "text": "Describe the work, the deliverables and the budget.",
+      "peak": 0.41
+    },
+    {
+      "scene": "S4",
+      "n": 2,
+      "file": "S4-2.wav",
+      "seconds": 4.344,
+      "words": 14,
+      "text": "Set hard requirements every quote must pass, and the weights that rank the rest.",
+      "peak": 0.602
+    },
+    {
+      "scene": "S4",
+      "n": 3,
+      "file": "S4-3.wav",
+      "seconds": 2.294,
+      "words": 6,
+      "text": "Invite suppliers, and set a deadline.",
+      "peak": 0.548
+    },
+    {
+      "scene": "S4",
+      "n": 4,
+      "file": "S4-4.wav",
+      "seconds": 7.25,
+      "words": 18,
+      "text": "Publishing freezes these rules and anchors their hash on NEAR testnet, so the criteria can't quietly change later.",
+      "peak": 0.581
+    },
+    {
+      "scene": "S5",
+      "n": 1,
+      "file": "S5-1.wav",
+      "seconds": 4.565,
+      "words": 12,
+      "text": "Each supplier gets a private invitation that only their e-mail can accept.",
+      "peak": 0.56
+    },
+    {
+      "scene": "S5",
+      "n": 2,
+      "file": "S5-2.wav",
+      "seconds": 8.338,
+      "words": 23,
+      "text": "They quote price, delivery and approach, attach a proposal, and seal the bid: a salted fingerprint of the quote is recorded on chain.",
+      "peak": 0.675
+    },
+    {
+      "scene": "S5",
+      "n": 3,
+      "file": "S5-3.wav",
+      "seconds": 5.327,
+      "words": 14,
+      "text": "Until the deadline, the buyer sees nothing, and competitors can't even open the request.",
+      "peak": 0.516
+    },
+    {
+      "scene": "S6",
+      "n": 1,
+      "file": "S6-1.wav",
+      "seconds": 3.198,
+      "words": 8,
+      "text": "After the chain-time deadline, the buyer closes bidding.",
+      "peak": 0.664
+    },
+    {
+      "scene": "S6",
+      "n": 2,
+      "file": "S6-2.wav",
+      "seconds": 5.863,
+      "words": 16,
+      "text": "Every opened quote is recomputed against its fingerprint, so any change since sealing would be detected.",
+      "peak": 0.721
+    },
+    {
+      "scene": "S6",
+      "n": 3,
+      "file": "S6-3.wav",
+      "seconds": 5.989,
+      "words": 16,
+      "text": "That proves integrity, not secrecy: quotes are encrypted at rest, and the platform holds the key.",
+      "peak": 0.558
+    },
+    {
+      "scene": "S7",
+      "n": 1,
+      "file": "S7-1.wav",
+      "seconds": 6.208,
+      "words": 16,
+      "text": "First, the published rules: ineligible quotes are flagged, and eligible ones are ranked by the weights.",
+      "peak": 0.814
+    },
+    {
+      "scene": "S7",
+      "n": 2,
+      "file": "S7-2.wav",
+      "seconds": 3.029,
+      "words": 10,
+      "text": "Then, if you ask, a private A.I. reviews the quotes.",
+      "peak": 0.477
+    },
+    {
+      "scene": "S7",
+      "n": 3,
+      "file": "S7-3.wav",
+      "seconds": 8.958,
+      "words": 22,
+      "text": "Nothing is sent until the model's hardware attestation is verified through NEAR A.I. Cloud, and the signed response is checked on return.",
+      "peak": 0.556
+    },
+    {
+      "scene": "S7",
+      "n": 4,
+      "file": "S7-4.wav",
+      "seconds": 4.114,
+      "words": 11,
+      "text": "The notes are advisory: the A.I. cannot award or move money.",
+      "peak": 0.483
+    },
+    {
+      "scene": "S8",
+      "n": 1,
+      "file": "S8-1.wav",
+      "seconds": 7.808,
+      "words": 21,
+      "text": "The buyer awards the top quote and funds the escrow with exactly that amount: 1.2 testnet NEAR, from their own wallet.",
+      "peak": 0.547
+    },
+    {
+      "scene": "S8",
+      "n": 2,
+      "file": "S8-2.wav",
+      "seconds": 6.032,
+      "words": 19,
+      "text": "The contract now holds the funds. It can only pay the awarded supplier, or return them to the buyer.",
+      "peak": 0.421
+    },
+    {
+      "scene": "S9",
+      "n": 1,
+      "file": "S9-1.wav",
+      "seconds": 3.599,
+      "words": 10,
+      "text": "The supplier accepts, delivers, and anchors evidence of the work.",
+      "peak": 0.77
+    },
+    {
+      "scene": "S9",
+      "n": 2,
+      "file": "S9-2.wav",
+      "seconds": 7.033,
+      "words": 18,
+      "text": "The buyer approves, and the contract pays the supplier: a real transaction anyone can verify on NEAR testnet.",
+      "peak": 0.546
+    },
+    {
+      "scene": "S9",
+      "n": 3,
+      "file": "S9-3.wav",
+      "seconds": 5.12,
+      "words": 15,
+      "text": "A release by anyone else, or a second payout, is rejected by the contract itself.",
+      "peak": 0.484
+    },
+    {
+      "scene": "S9",
+      "n": 4,
+      "file": "S9-4.wav",
+      "seconds": 2.801,
+      "words": 9,
+      "text": "And every step lands in a hash-chained audit trail.",
+      "peak": 0.473
+    },
+    {
+      "scene": "S10",
+      "n": 1,
+      "file": "S10-1.wav",
+      "seconds": 5.221,
+      "words": 10,
+      "text": "Veil Procure. Private bids. Intelligent decisions. Payments under your control.",
+      "peak": 0.648
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "startedAt": "2026-11-11T22:48:52.796Z",
+  "txs": [
+    {
+      "step": "create_rfq \u00e2\u20ac\u201d buyer publishes the policy hash and one invite leaf per supplier",
+      "txHash": "58QTf8ry9h9zXqv7BqWhbn224eim1UU7w8ReEk2R7Niw",
+      "explorer": "https://testnet.nearblocks.io/txns/58QTf8ry9h9zXqv7BqWhbn224eim1UU7w8ReEk2R7Niw",
+      "cam": "buyer",
+      "at": "2026-11-11T22:55:47.120Z"
+    }
+  ],
+  "events": [],
+  "mode": "full",
+  "accounts": {
+    "contract": "veilprocure-106725.testnet",
+    "buyer": "vp-106725-test-buyer.testnet",
+    "supplierA": "vp-106725-test-sup-a.testnet",
+    "supplierB": "vp-106725-test-sup-b.testnet",
+    "outsider": "vp-106725-test-outsider.testnet"
+  },
+  "people": {
+    "buyer": {
+      "email": "buyer@northwind-studio.test",
+      "org": "Northwind Studio (test buyer)"
+    },
+    "supplierA": {
+      "email": "bids@clearline-a11y.test",
+      "org": "Clearline Accessibility (test supplier)",
+      "price": "1.2",
+      "days": "14",
+      "revs": "2"
+    },
+    "supplierB": {
+      "email": "quotes@harbor-digital.test",
+      "org": "Harbor Digital (test supplier)",
+      "price": "1.5",
+      "days": "10",
+      "revs": "1"
+    }
+  },
+  "rfqId": "0e329d44-8c64-4422-ad0c-0c2a8c73d0e9",
+  "deadline": "2026-11-11T22:59:00.000Z",
+  "onchainId": "7",
+  "policyHash": "14982fc9b2ba9595425f86f0f47988d934098b4c62c1b64d7e63507c27fbe042",
+  "note": "Attempt 1 (2026-11-12): published RFQ #7; supplier A commit_bid rejected VP_BIDDING_CLOSED (deadline too short for filming pace). Rejected tx: CRaqPxh6FRMNq1pXWwRWYrDbJhyWDMwiFY6HmszD4e4q",
+  "rejectedTx": {
+    "step": "commit_bid (Clearline, attempt 1) rejected VP_BIDDING_CLOSED",
+    "txHash": "CRaqPxh6FRMNq1pXWwRWYrDbJhyWDMwiFY6HmszD4e4q",
+    "signer": "vp-106725-test-sup-a.testnet"
+  }
+}

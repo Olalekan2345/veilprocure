@@ -1,0 +1,164 @@
+{
+  "startedAt": "2026-11-11T23:44:59.767Z",
+  "txs": [
+    {
+      "step": "create_rfq — buyer publishes the policy hash and one invite leaf per supplier",
+      "txHash": "BeLsJWBjAmSm3zD1VXXiMGgXe2BNEkE6Y6ZBrfEoeoKQ",
+      "explorer": "https://testnet.nearblocks.io/txns/BeLsJWBjAmSm3zD1VXXiMGgXe2BNEkE6Y6ZBrfEoeoKQ",
+      "cam": "buyer",
+      "at": "2026-11-11T23:49:12.361Z"
+    },
+    {
+      "step": "commit_bid — Clearline Accessibility (test supplier) seals its quote (salted hash on chain)",
+      "txHash": "3WF6hPo9WcnNmAMvzbfMQ98oUHJSeTDT7ewZXU9k853n",
+      "explorer": "https://testnet.nearblocks.io/txns/3WF6hPo9WcnNmAMvzbfMQ98oUHJSeTDT7ewZXU9k853n",
+      "cam": "supplierA",
+      "at": "2026-11-11T23:51:33.362Z"
+    },
+    {
+      "step": "commit_bid — Harbor Digital (test supplier) seals its quote (salted hash on chain)",
+      "txHash": "CJdDfcN6fegr9LdCujNzU655vW2ug3BDB8U2hhkT3nJd",
+      "explorer": "https://testnet.nearblocks.io/txns/CJdDfcN6fegr9LdCujNzU655vW2ug3BDB8U2hhkT3nJd",
+      "cam": "supplierB",
+      "at": "2026-11-11T23:53:44.948Z"
+    },
+    {
+      "step": "close_rfq — after the chain-time deadline",
+      "txHash": "9j1XshnBtxn1TVHeFuRH8xnaUEa6cLKjedYHU4pLfYTE",
+      "explorer": "https://testnet.nearblocks.io/txns/9j1XshnBtxn1TVHeFuRH8xnaUEa6cLKjedYHU4pLfYTE",
+      "cam": "buyer",
+      "at": "2026-11-12T00:07:01.266Z"
+    },
+    {
+      "step": "award_supplier — buyer awards Clearline (rank 1)",
+      "txHash": "64LdSTA2Cg4zhLbQH5qb12qwnP1dZRRoDoKHhQ52ysAQ",
+      "explorer": "https://testnet.nearblocks.io/txns/64LdSTA2Cg4zhLbQH5qb12qwnP1dZRRoDoKHhQ52ysAQ",
+      "cam": "buyer",
+      "at": "2026-11-12T00:10:51.725Z"
+    },
+    {
+      "step": "fund_award — 1.2 testnet NEAR attached; held by the contract",
+      "txHash": "ATdXAHnWUrzAvX2AmMS4LZng5YYDQTZecz7EbWaTUrtg",
+      "explorer": "https://testnet.nearblocks.io/txns/ATdXAHnWUrzAvX2AmMS4LZng5YYDQTZecz7EbWaTUrtg",
+      "cam": "buyer",
+      "at": "2026-11-12T00:11:30.092Z"
+    },
+    {
+      "step": "attack — outsider calls approve_release: rejected VP_NOT_BUYER",
+      "txHash": "An7onatrWWfooU4EnHBYvGsKfufb7uQ7crJhrNckrp1G",
+      "explorer": "https://testnet.nearblocks.io/txns/An7onatrWWfooU4EnHBYvGsKfufb7uQ7crJhrNckrp1G",
+      "cam": "rpc",
+      "at": "2026-11-12T00:11:49.407Z"
+    },
+    {
+      "step": "attack — losing supplier calls accept_award: rejected VP_NOT_SUPPLIER",
+      "txHash": "AL3icH5wwLGYSmadtbE3895yWGgCDFcp8QdAwepCfo6c",
+      "explorer": "https://testnet.nearblocks.io/txns/AL3icH5wwLGYSmadtbE3895yWGgCDFcp8QdAwepCfo6c",
+      "cam": "rpc",
+      "at": "2026-11-12T00:11:53.636Z"
+    },
+    {
+      "step": "accept_award — Clearline accepts the funded award",
+      "txHash": "AZhjcy91jSKy4Y1KLvmWUPzhduTwQ8cEFqXncAd9dZXW",
+      "explorer": "https://testnet.nearblocks.io/txns/AZhjcy91jSKy4Y1KLvmWUPzhduTwQ8cEFqXncAd9dZXW",
+      "cam": "supplierA",
+      "at": "2026-11-12T00:12:40.221Z"
+    },
+    {
+      "step": "submit_delivery — hash of the delivery evidence anchored",
+      "txHash": "8i5xTuJJtxg2eftYZjM4eefa112iavXoCDeVmr3ufqS2",
+      "explorer": "https://testnet.nearblocks.io/txns/8i5xTuJJtxg2eftYZjM4eefa112iavXoCDeVmr3ufqS2",
+      "cam": "supplierA",
+      "at": "2026-11-12T00:14:05.830Z"
+    },
+    {
+      "step": "approve_release → transfer → on_payment_result — contract pays Clearline",
+      "txHash": "Dutg14DupfC7vA8Ziv9iyK5G3Fp15M5u94rLo6qjhMob",
+      "explorer": "https://testnet.nearblocks.io/txns/Dutg14DupfC7vA8Ziv9iyK5G3Fp15M5u94rLo6qjhMob",
+      "cam": "buyer",
+      "at": "2026-11-12T00:15:08.397Z"
+    },
+    {
+      "step": "attack — buyer calls approve_release a second time: rejected (no double payout)",
+      "txHash": "DfmEVoUASQJp56mYabXAcCpeGRDLaH5uYgWHZAofa6oH",
+      "explorer": "https://testnet.nearblocks.io/txns/DfmEVoUASQJp56mYabXAcCpeGRDLaH5uYgWHZAofa6oH",
+      "cam": "rpc",
+      "at": "2026-11-12T00:15:19.441Z"
+    }
+  ],
+  "events": [
+    {
+      "name": "waiting for the chain-time deadline",
+      "detail": {
+        "ms": 728033
+      },
+      "at": "2026-11-11T23:54:16.967Z"
+    },
+    {
+      "name": "worker run start",
+      "at": "2026-11-12T00:07:31.990Z"
+    }
+  ],
+  "mode": "full",
+  "accounts": {
+    "contract": "veilprocure-106725.testnet",
+    "buyer": "vp-106725-test-buyer.testnet",
+    "supplierA": "vp-106725-test-sup-a.testnet",
+    "supplierB": "vp-106725-test-sup-b.testnet",
+    "outsider": "vp-106725-test-outsider.testnet"
+  },
+  "people": {
+    "buyer": {
+      "email": "buyer.rnry0@northwind-studio.test",
+      "org": "Northwind Studio (test buyer)"
+    },
+    "supplierA": {
+      "email": "bids.rnry0@clearline-a11y.test",
+      "org": "Clearline Accessibility (test supplier)",
+      "price": "1.2",
+      "days": "14",
+      "revs": "2"
+    },
+    "supplierB": {
+      "email": "quotes.rnry0@harbor-digital.test",
+      "org": "Harbor Digital (test supplier)",
+      "price": "1.5",
+      "days": "10",
+      "revs": "1"
+    }
+  },
+  "rfqId": "3d0518bb-84e7-45ee-92b5-cb49e406d6d1",
+  "deadline": "2026-11-12T00:06:00.000Z",
+  "onchainId": "9",
+  "policyHash": "709cc13db099e5f28efd3182d4f57e7d1d552beaf13fa1727076a7e9d160215d",
+  "aiJob": {
+    "id": "18b2be2c-60b3-49b7-a379-1d633ae90589",
+    "status": "succeeded",
+    "error_code": null,
+    "error_message": null,
+    "verified": true,
+    "model_id": "Qwen/Qwen3.8-27B",
+    "signature_kind": "provider_tee",
+    "signing_address": "0x835ab53d20294ef795906dff21ae4c045336aa26",
+    "request_sha256": "7345f03824893b12d755f9310e12453598976be7fe4f19d89df6dc6965a77084",
+    "response_sha256": "8abaacf9771317ad745515830d44486e5805d0943b73e66c6c91206777caf6d2",
+    "gateway_quote_sha256": "5e0a184f290cd7f816b01c4998ce6fd1b88fe4d5fdf1abbe3ccb8c558f3f8720",
+    "model_quote_sha256": "e23c55f020be039ac5f5f1a51b52ba2cf3befc55d90bfc164bbf1086d03281ee",
+    "tcb_status": "UpToDate",
+    "gpu_verdict": "NRAS overall attestation true",
+    "failure_reasons": []
+  },
+  "supplierBalance": {
+    "account": "vp-106725-test-sup-a.testnet",
+    "beforeYocto": "12187598132925445599999986",
+    "afterYocto": "13387598132925445599999986",
+    "deltaNear": 1.2
+  },
+  "awardStatus": "paid",
+  "frames": {
+    "buyer": 1589,
+    "supplierA": 838,
+    "supplierB": 497
+  },
+  "finishedAt": "2026-11-12T00:16:29.355Z"
+}

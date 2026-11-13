@@ -1,0 +1,124 @@
+{
+  "voice": "af_heart",
+  "speed": 0.97,
+  "scenes": [
+    {
+      "id": "S1",
+      "window": [
+        0,
+        12
+      ],
+      "lines": [
+        "Quotes scattered across e-mail. Comparisons in spreadsheets. Decisions nobody can explain. And payment on trust.",
+        "Veil Procure turns that into one confidential workflow, on NEAR."
+      ]
+    },
+    {
+      "id": "S2",
+      "window": [
+        12,
+        30
+      ],
+      "lines": [
+        "Picture a small studio hiring an accessibility auditor.",
+        "It wants competing quotes kept apart, rules everyone sees up front, and payment only when the work is delivered.",
+        "Here is that whole journey, recorded live on NEAR testnet."
+      ]
+    },
+    {
+      "id": "S3",
+      "window": [
+        30,
+        45
+      ],
+      "lines": [
+        "Sign in with a one-time e-mail link, create your organisation, and bind your NEAR wallet with a signed message.",
+        "Veil Procure never holds your keys: every on-chain step is signed by you."
+      ]
+    },
+    {
+      "id": "S4",
+      "window": [
+        45,
+        68
+      ],
+      "lines": [
+        "Describe the work, the deliverables and the budget.",
+        "Set hard requirements every quote must pass, and the weights that rank the rest.",
+        "Invite suppliers, and set a deadline.",
+        "Publishing freezes these rules and anchors their hash on NEAR testnet, so the criteria can't quietly change later."
+      ]
+    },
+    {
+      "id": "S5",
+      "window": [
+        68,
+        92
+      ],
+      "lines": [
+        "Each supplier gets a private invitation that only their e-mail can accept.",
+        "They quote price, delivery and approach, attach a proposal, and seal the bid: a salted fingerprint of the quote is recorded on chain.",
+        "Until the deadline, the buyer sees nothing, and competitors can't even open the request."
+      ]
+    },
+    {
+      "id": "S6",
+      "window": [
+        92,
+        111
+      ],
+      "lines": [
+        "After the chain-time deadline, the buyer closes bidding.",
+        "Every opened quote is recomputed against its fingerprint, so any change since sealing would be detected.",
+        "That proves integrity, not secrecy: quotes are encrypted at rest, and the platform holds the key."
+      ]
+    },
+    {
+      "id": "S7",
+      "window": [
+        111,
+        137
+      ],
+      "lines": [
+        "First, the published rules: ineligible quotes are flagged, and eligible ones are ranked by the weights.",
+        "Then, if you ask, a private A.I. reviews the quotes.",
+        "Nothing is sent until the model's hardware attestation is verified through NEAR A.I. Cloud, and the signed response is checked on return.",
+        "The notes are advisory: the A.I. cannot award or move money."
+      ]
+    },
+    {
+      "id": "S8",
+      "window": [
+        137,
+        156
+      ],
+      "lines": [
+        "The buyer awards the top quote and funds the escrow with exactly that amount: 1.2 testnet NEAR, from their own wallet.",
+        "The contract now holds the funds. It can only pay the awarded supplier, or return them to the buyer."
+      ]
+    },
+    {
+      "id": "S9",
+      "window": [
+        156,
+        173
+      ],
+      "lines": [
+        "The supplier accepts, delivers, and anchors evidence of the work.",
+        "The buyer approves, and the contract pays the supplier: a real transaction anyone can verify on NEAR testnet.",
+        "A release by anyone else, or a second payout, is rejected by the contract itself.",
+        "And every step lands in a hash-chained audit trail."
+      ]
+    },
+    {
+      "id": "S10",
+      "window": [
+        173,
+        178
+      ],
+      "lines": [
+        "Veil Procure. Private bids. Intelligent decisions. Payments under your control."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,345 @@
+{
+ "cams": {
+  "buyer": {
+   "file": "footage/buyer.mp4",
+   "t0Wall": 1794440723200,
+   "seconds": 575.99,
+   "frames": 1589,
+   "capSeconds": 6.0
+  },
+  "supplierA": {
+   "file": "footage/supplierA.mp4",
+   "t0Wall": 1794440968702,
+   "seconds": 285.23,
+   "frames": 838,
+   "capSeconds": 6.0
+  },
+  "supplierB": {
+   "file": "footage/supplierB.mp4",
+   "t0Wall": 1794441102815,
+   "seconds": 147.59,
+   "frames": 497,
+   "capSeconds": 6.0
+  }
+ },
+ "markers": [
+  {
+   "name": "S2 landing",
+   "cam": "buyer",
+   "wall": 1794440723132,
+   "t": 0.0
+  },
+  {
+   "name": "S3 signin",
+   "cam": "buyer",
+   "wall": 1794440741985,
+   "t": 18.79
+  },
+  {
+   "name": "confirm-link",
+   "cam": "buyer",
+   "wall": 1794440761184,
+   "t": 37.98
+  },
+  {
+   "name": "S3 onboarding",
+   "cam": "buyer",
+   "wall": 1794440770048,
+   "t": 46.85
+  },
+  {
+   "name": "S3 dashboard-empty",
+   "cam": "buyer",
+   "wall": 1794440785870,
+   "t": 62.67
+  },
+  {
+   "name": "wallet",
+   "cam": "buyer",
+   "wall": 1794440794003,
+   "t": 70.8
+  },
+  {
+   "name": "wallet-rebind-confirm",
+   "cam": "buyer",
+   "wall": 1794440800722,
+   "t": 77.52
+  },
+  {
+   "name": "S3 team",
+   "cam": "buyer",
+   "wall": 1794440810446,
+   "t": 87.25
+  },
+  {
+   "name": "S3 settings",
+   "cam": "buyer",
+   "wall": 1794440818263,
+   "t": 95.06
+  },
+  {
+   "name": "S4 new-request",
+   "cam": "buyer",
+   "wall": 1794440822646,
+   "t": 99.45
+  },
+  {
+   "name": "S4 editor",
+   "cam": "buyer",
+   "wall": 1794440838506,
+   "t": 115.31
+  },
+  {
+   "name": "S4 rules",
+   "cam": "buyer",
+   "wall": 1794440864219,
+   "t": 141.02
+  },
+  {
+   "name": "S4 weights",
+   "cam": "buyer",
+   "wall": 1794440886417,
+   "t": 163.22
+  },
+  {
+   "name": "S4 suppliers",
+   "cam": "buyer",
+   "wall": 1794440894019,
+   "t": 170.82
+  },
+  {
+   "name": "S4 deadline",
+   "cam": "buyer",
+   "wall": 1794440911999,
+   "t": 188.8
+  },
+  {
+   "name": "S4 review",
+   "cam": "buyer",
+   "wall": 1794440917845,
+   "t": 194.65
+  },
+  {
+   "name": "S4 publish",
+   "cam": "buyer",
+   "wall": 1794440924118,
+   "t": 200.92
+  },
+  {
+   "name": "S5 supplierA invite-signin",
+   "cam": "supplierA",
+   "wall": 1794440968850,
+   "t": 0.15
+  },
+  {
+   "name": "confirm-link",
+   "cam": "supplierA",
+   "wall": 1794440981724,
+   "t": 13.02
+  },
+  {
+   "name": "S5 supplierA invitation",
+   "cam": "supplierA",
+   "wall": 1794440989013,
+   "t": 20.31
+  },
+  {
+   "name": "wallet",
+   "cam": "supplierA",
+   "wall": 1794441007333,
+   "t": 38.63
+  },
+  {
+   "name": "wallet-rebind-confirm",
+   "cam": "supplierA",
+   "wall": 1794441014992,
+   "t": 46.29
+  },
+  {
+   "name": "S5 supplierA quote",
+   "cam": "supplierA",
+   "wall": 1794441025326,
+   "t": 56.62
+  },
+  {
+   "name": "S5 supplierA attachment",
+   "cam": "supplierA",
+   "wall": 1794441070210,
+   "t": 101.51
+  },
+  {
+   "name": "S5 supplierA commit",
+   "cam": "supplierA",
+   "wall": 1794441074895,
+   "t": 106.19
+  },
+  {
+   "name": "S5 supplierB invite-signin",
+   "cam": "supplierB",
+   "wall": 1794441102983,
+   "t": 0.17
+  },
+  {
+   "name": "confirm-link",
+   "cam": "supplierB",
+   "wall": 1794441118318,
+   "t": 15.5
+  },
+  {
+   "name": "S5 supplierB invitation",
+   "cam": "supplierB",
+   "wall": 1794441125527,
+   "t": 22.71
+  },
+  {
+   "name": "wallet",
+   "cam": "supplierB",
+   "wall": 1794441141455,
+   "t": 38.64
+  },
+  {
+   "name": "wallet-rebind-confirm",
+   "cam": "supplierB",
+   "wall": 1794441150224,
+   "t": 47.41
+  },
+  {
+   "name": "S5 supplierB quote",
+   "cam": "supplierB",
+   "wall": 1794441168101,
+   "t": 65.29
+  },
+  {
+   "name": "S5 supplierB commit",
+   "cam": "supplierB",
+   "wall": 1794441206930,
+   "t": 104.11
+  },
+  {
+   "name": "S5 competitor-404",
+   "cam": "supplierB",
+   "wall": 1794441239449,
+   "t": 135.09
+  },
+  {
+   "name": "S5 buyer-blind",
+   "cam": "buyer",
+   "wall": 1794441249535,
+   "t": 245.6
+  },
+  {
+   "name": "S6 close",
+   "cam": "buyer",
+   "wall": 1794441985012,
+   "t": 255.59
+  },
+  {
+   "name": "S6 verify",
+   "cam": "buyer",
+   "wall": 1794442025020,
+   "t": 290.86
+  },
+  {
+   "name": "S7 ranking",
+   "cam": "buyer",
+   "wall": 1794442038557,
+   "t": 304.4
+  },
+  {
+   "name": "S7 request-ai",
+   "cam": "buyer",
+   "wall": 1794442044523,
+   "t": 310.36
+  },
+  {
+   "name": "S7 ai-notes",
+   "cam": "buyer",
+   "wall": 1794442173097,
+   "t": 322.59
+  },
+  {
+   "name": "S7 ai-evidence",
+   "cam": "buyer",
+   "wall": 1794442186183,
+   "t": 335.68
+  },
+  {
+   "name": "S7 record-evaluation",
+   "cam": "buyer",
+   "wall": 1794442212586,
+   "t": 362.08
+  },
+  {
+   "name": "S8 award",
+   "cam": "buyer",
+   "wall": 1794442218641,
+   "t": 368.14
+  },
+  {
+   "name": "S8 fund",
+   "cam": "buyer",
+   "wall": 1794442254563,
+   "t": 404.06
+  },
+  {
+   "name": "S9 attacks",
+   "cam": "buyer",
+   "wall": 1794442304230,
+   "t": 453.72
+  },
+  {
+   "name": "S9 accept",
+   "cam": "supplierA",
+   "wall": 1794442313637,
+   "t": 140.08
+  },
+  {
+   "name": "S9 delivery",
+   "cam": "supplierA",
+   "wall": 1794442374871,
+   "t": 193.95
+  },
+  {
+   "name": "S9 release",
+   "cam": "buyer",
+   "wall": 1794442452083,
+   "t": 458.9
+  },
+  {
+   "name": "S10 paid",
+   "cam": "buyer",
+   "wall": 1794442519442,
+   "t": 516.84
+  },
+  {
+   "name": "S10 transactions",
+   "cam": "buyer",
+   "wall": 1794442536291,
+   "t": 532.9
+  },
+  {
+   "name": "S10 activity",
+   "cam": "buyer",
+   "wall": 1794442547807,
+   "t": 544.41
+  },
+  {
+   "name": "S10 dashboard",
+   "cam": "buyer",
+   "wall": 1794442558781,
+   "t": 553.25
+  },
+  {
+   "name": "S10 supplier-dashboard",
+   "cam": "supplierA",
+   "wall": 1794442566030,
+   "t": 280.08
+  },
+  {
+   "name": "S10 security",
+   "cam": "buyer",
+   "wall": 1794442576223,
+   "t": 566.19
+  }
+ ]
+}
