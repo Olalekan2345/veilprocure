@@ -85,3 +85,7 @@ Commit IDs are those after the 2026-10-30 author-e-mail rewrite (see README, chr
 ### App-wide re-theme (2026-11-10, commit `d6c467f`)
 
 Deployed from a clean Linux clone (deploy `6af39bb8fd5faed328a0d0a5`). Checked on https://veilprocure.netlify.app at 1440 and 390 px: `/`, `/signin` and `/security` render in Manrope (font loaded), show only the green logo files (`vp-mark-green.png`, `vp-wordmark-green.png`, served through Netlify's image CDN), have no horizontal overflow and log no console errors; the sign-in button is night green (`rgb(13, 32, 28)`); `/icon.png` 200 `image/png`.
+
+### Landing motion upgrade (2026-11-13, commits `cd8d6ee`, `35a867a`)
+
+Deployed from a clean Linux clone (deploy `6af66e2d9915de558924ae5a`). Checked on https://veilprocure.netlify.app: the "Inside the workspace" film starts in view, plays to its final frame (`data-done="true"`) with no console errors at 1440, 768 and 390 px; reduced motion shows the still final frame (`data-ready="static"`); page height 11,330 px at 1440 × 900 (unchanged) and 15,657 px at 390 × 844 (was 15,659); no horizontal overflow on phones; headings render in Manrope. Details: `docs/landing-motion-upgrade.md`.
