@@ -1362,16 +1362,18 @@
 }
 .vp-btn-primary {
   box-shadow:
-    inset 0 0 0 1px rgb(0 236 151 / 0.16),
-    inset 0 1px 0 rgb(255 255 255 / 0.08),
-    0 12px 30px -18px rgb(0 236 151 / 0.6),
+    inset 0 0 0 1px rgb(0 236 151 / 0.24),
+    inset 0 1px 0 rgb(255 255 255 / 0.1),
+    0 14px 36px -16px rgb(0 236 151 / 0.75),
+    0 0 22px -10px rgb(0 236 151 / 0.6),
     0 1px 0 rgb(13 32 28 / 0.08);
 }
 .vp-btn-primary:hover {
   box-shadow:
-    inset 0 0 0 1px rgb(0 236 151 / 0.38),
-    inset 0 1px 0 rgb(255 255 255 / 0.1),
-    0 10px 30px -10px rgb(0 236 151 / 0.6),
+    inset 0 0 0 1px rgb(0 236 151 / 0.5),
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    0 16px 40px -12px rgb(0 236 151 / 0.85),
+    0 0 30px -8px rgb(0 236 151 / 0.7),
     0 2px 6px rgb(13 32 28 / 0.18);
 }
 .vp-btn-mint {
@@ -1427,12 +1429,47 @@
 .vp-overline > .bg-vp-mint {
   box-shadow: 0 0 8px rgb(0 236 151 / 0.8);
 }
+/* Highlighted headline words carry a soft mint halo around crisp glyphs. */
+.vp-hl {
+  text-shadow: 0 0 26px rgb(0 236 151 / 0.35);
+}
+.vp-night .text-vp-mint {
+  text-shadow: 0 0 30px rgb(0 236 151 / 0.45);
+}
+.vp-chip-mint {
+  box-shadow: 0 0 14px -5px rgb(0 236 151 / 0.55);
+}
+/* Cards pass a soft light sheen when hovered. */
+.vp-ecard,
+.vp-role {
+  position: relative;
+  overflow: hidden;
+}
+.vp-ecard::after,
+.vp-role::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 45%;
+  background: linear-gradient(105deg, transparent, rgb(0 236 151 / 0.12) 45%, rgb(255 255 255 / 0.5) 50%, transparent);
+  transform: skewX(-16deg);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .vp-ecard:hover::after,
+  .vp-role:hover::after {
+    transform: translateX(460%) skewX(-16deg);
+    transition: transform 1s var(--ease-vp);
+  }
+}
 /* Security icons and dark chips carry a faint edge light. */
 .vp-seal-icon {
   box-shadow:
-    inset 0 0 0 1px rgb(0 236 151 / 0.2),
+    inset 0 0 0 1px rgb(0 236 151 / 0.28),
     inset 0 1px 0 rgb(255 255 255 / 0.06),
-    0 8px 18px -10px rgb(0 236 151 / 0.6);
+    0 8px 20px -8px rgb(0 236 151 / 0.7);
 }
 .vp-chip-dark {
   box-shadow: 0 0 14px -5px rgb(0 236 151 / 0.5);
@@ -1490,34 +1527,96 @@
 }
 
 /* ---------------------------------------------------------------- journey film (#journey)
- * The resting styles are the film's final frame (shown without JavaScript or with reduced motion);
- * journey-film.tsx animates from offsets of these positions. */
+ * A 3D stage inside the existing window: the plate floats at an angle, cards hover at different
+ * depths over a security network. Resting styles are the film's final frame (shown without
+ * JavaScript or with reduced motion); journey-film.tsx animates from offsets of these places.
+ * The loops (network pulses, floating, data pulses, shield ring) run only while the window is on
+ * screen and never under reduced motion. */
 .jf {
   position: relative;
   height: 360px;
   container: jf / size;
   overflow: hidden;
-  perspective: 1400px;
+  perspective: 1100px;
+  perspective-origin: 50% 42%;
   font-size: clamp(11px, 1.45cqw, 13px);
   color: var(--color-vp-body);
-  background-color: #fbfcfb;
-  background-image: radial-gradient(rgb(13 32 28 / 0.07) 1px, transparent 1px);
-  background-size: 22px 22px;
+  background:
+    radial-gradient(55% 65% at 42% 48%, #ffffff, transparent 72%),
+    radial-gradient(38% 50% at 84% 70%, rgb(0 236 151 / 0.16), transparent 70%),
+    radial-gradient(30% 40% at 10% 20%, rgb(0 236 151 / 0.08), transparent 70%),
+    #f4f8f6;
+}
+/* Phones: the window keeps the height its earlier content had (~440 px), so the page length is unchanged. */
+@media (max-width: 639px) {
+  .jf {
+    height: 440px;
+  }
+}
+.jf-net {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.jf-link {
+  stroke: rgb(8 122 88 / 0.16);
+  stroke-width: 1;
+}
+.jf-pulse {
+  fill: none;
+  stroke: var(--color-vp-mint);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 0.07 1;
+  stroke-dashoffset: 1.08;
+  opacity: 0;
+}
+.jf-node {
+  fill: #fff;
+  stroke: rgb(8 122 88 / 0.4);
+  stroke-width: 1;
+}
+.jf-node-glow {
+  fill: rgb(0 236 151 / 0.16);
+}
+.jf-lockn {
+  fill: #fff;
+  stroke: rgb(0 236 151 / 0.7);
+  stroke-width: 1.5;
+}
+.jf-lockn-ring {
+  fill: none;
+  stroke: rgb(0 236 151 / 0.5);
+  stroke-width: 1;
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0.6;
+}
+.jf-lockn-icon {
+  fill: none;
+  stroke: var(--color-vp-evergreen);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
 }
 .jf-tilt {
   position: absolute;
   inset: 0;
+  transform-style: preserve-3d;
   transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition: transform 700ms var(--ease-vp-out);
 }
-.jf-ambient {
+.jf-scene {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(34% 44% at 81% 72%, rgb(0 236 151 / 0.2), transparent 70%),
-    radial-gradient(46% 58% at 34% 58%, rgb(232 255 245 / 0.95), transparent 75%);
-  opacity: 0.85;
-  will-change: opacity;
+  transform-style: preserve-3d;
+  transform: rotateX(8deg) rotateY(-12deg);
+}
+.jf-scene > div {
+  position: absolute;
+  transform-style: preserve-3d;
+  transform: translate3d(0, 0, var(--z, 0px));
+  backface-visibility: hidden;
 }
 .jf-paths {
   position: absolute;
@@ -1526,7 +1625,6 @@
   height: 100%;
   overflow: visible;
 }
-/* No SVG filters here: animated strokes under a filter repaint the whole stage every frame. */
 .jf-path {
   fill: none;
   stroke: url(#jf-stroke);
@@ -1534,46 +1632,69 @@
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
 }
-/* Animated: the film rewrites the paths in pixels, so the dash offset can draw them. */
+/* Straight connectors have a zero-width (or zero-height) box, where a bounding-box gradient paints nothing. */
+.jf-path.jf-p-d2,
+.jf-path.jf-p-n1,
+.jf-path.jf-p-n2 {
+  stroke: var(--color-vp-mint);
+}
+.jf-comet {
+  fill: none;
+  stroke: #eafff6;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 0.14 1.3;
+  opacity: 0;
+}
+/* Animated: the film rewrites the scene paths in pixels, so the dash offset can draw them. */
 .jf-figure[data-ready="true"] .jf-path {
   vector-effect: none;
   stroke-dasharray: 1 1;
 }
-.jf-figure[data-ready="true"] /* Straight connectors have a zero-width (or zero-height) box, where a bounding-box gradient paints nothing. */
-.jf-p-d2.jf-path,
-.jf-p-n1,
-.jf-p-n2 {
-  stroke: var(--color-vp-mint);
-}
-.jf-comet {
+.jf-figure[data-ready="true"] .jf-comet {
   vector-effect: none;
-}
-.jf-comet {
-  fill: none;
-  stroke: #e9fff6;
-  stroke-width: 3;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-  stroke-dasharray: 0.16 1.4;
-  opacity: 0;
 }
 .jf-p-b,
 .jf-p-n1,
 .jf-p-n2 {
   opacity: 0;
 }
-.jf-card {
-  position: absolute;
-  z-index: 2;
-  padding: clamp(10px, 1.5cqw, 14px);
+.jf-path.jf-p-n1,
+.jf-path.jf-p-n2,
+.jf-comet.jf-p-n1,
+.jf-comet.jf-p-n2 {
+  display: none;
+}
+/* Shared card look (the inner element floats; the outer one is placed and animated). */
+.jf-card,
+.jf-plate {
   border-radius: 16px;
   background: rgb(255 255 255 / 0.97);
   border: 1px solid var(--color-vp-border);
   box-shadow:
     inset 0 1px 0 #fff,
     0 1px 2px rgb(13 32 28 / 0.06),
-    0 22px 44px -24px rgb(13 32 28 / 0.32);
-  transform-origin: center;
+    0 26px 50px -24px rgb(13 32 28 / 0.38);
+}
+.jf-card {
+  position: relative;
+  overflow: hidden;
+  padding: 0.85em 0.95em;
+}
+.jf-sheen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -55%;
+  width: 45%;
+  z-index: 3;
+  background: linear-gradient(105deg, transparent, rgb(255 255 255 / 0.75) 50%, transparent);
+  transform: translateX(0) skewX(-16deg);
+  pointer-events: none;
+}
+.jf-escrow .jf-sheen {
+  background: linear-gradient(105deg, transparent, rgb(0 236 151 / 0.28) 50%, transparent);
 }
 .jf-t {
   display: block;
@@ -1589,6 +1710,7 @@
   color: var(--color-vp-muted);
 }
 .jf-icon {
+  position: relative;
   display: grid;
   place-items: center;
   width: 2.4em;
@@ -1598,49 +1720,48 @@
   color: var(--color-vp-mint);
   flex: none;
   box-shadow:
-    inset 0 0 0 1px rgb(0 236 151 / 0.22),
-    0 6px 16px -8px rgb(0 236 151 / 0.6);
+    inset 0 0 0 1px rgb(0 236 151 / 0.25),
+    0 6px 18px -8px rgb(0 236 151 / 0.7);
 }
 .jf-icon svg {
   width: 52%;
   height: 52%;
 }
-/* Request (beat A); at rest it sits behind the comparison, receded. */
-.jf-req {
-  left: 3%;
-  top: 6%;
-  width: 34%;
-  z-index: 1;
-  transform: scale(0.9);
-  opacity: 0;
+/* The plate: the "device" at the centre of the story. */
+.jf-plate {
+  left: 14%;
+  top: 11%;
+  width: 46%;
+  height: 74%;
+  overflow: hidden;
+  border-radius: 20px;
+  border-color: rgb(0 236 151 / 0.3);
+  background: linear-gradient(180deg, #ffffff, #fbfefc);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 0 0 1px rgb(0 236 151 / 0.08),
+    0 44px 80px -36px rgb(13 32 28 / 0.5),
+    0 0 70px -22px rgb(0 236 151 / 0.45);
 }
-.jf-edge {
+.jf-layer {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  pointer-events: none;
+  inset: clamp(12px, 1.8cqw, 18px);
 }
-.jf-edge rect {
-  fill: none;
-  stroke: var(--color-vp-mint);
-  stroke-width: 2.5;
-  stroke-dasharray: 140 860;
+.jf-layer-req {
   opacity: 0;
 }
 .jf-rows {
   margin-top: 0.9em;
   display: grid;
-  gap: 0.55em;
+  gap: 0.6em;
 }
-.jf-row {
+.jf-req-row {
   display: grid;
-  grid-template-columns: 46% 1fr;
+  grid-template-columns: 42% 1fr;
   align-items: center;
   gap: 0.6em;
 }
-.jf-row dt {
+.jf-req-row dt {
   font-size: 0.82em;
   font-weight: 600;
   color: var(--color-vp-muted);
@@ -1648,79 +1769,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.jf-row i {
+.jf-req-row i {
   display: block;
   height: 6px;
   border-radius: 999px;
-  background: #e6ece8;
-}
-/* Sealed quotes (beat B); at rest they peek out from behind the comparison. */
-.jf-quote {
-  width: 21%;
-  padding: 0.75em 0.85em;
-  overflow: hidden;
-  z-index: 6;
-  transform: scale(0.9);
-  opacity: 0;
-}
-.jf-q1 {
-  left: 22%;
-  top: 42%;
-}
-.jf-q2 {
-  left: 24%;
-  top: 49%;
-  z-index: 7;
-}
-.jf-q3 {
-  left: 26%;
-  top: 56%;
-  z-index: 8;
-}
-.jf-lock {
-  width: 2.2em;
-  height: 2.2em;
-}
-.jf-lock svg {
-  width: 58%;
-  height: 58%;
-}
-.jf-masked {
-  display: grid;
-  gap: 5px;
-  margin: 0.65em 0;
-}
-.jf-masked i {
-  display: block;
-  height: 6px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #dfe6e2, #eef2ef);
-}
-.jf-masked i:last-child {
-  width: 60%;
-}
-.jf-glint,
-.jf-verified-glow,
-.jf-ai-glow,
-.vp-orbit-glow {
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0;
-  box-shadow:
-    inset 0 0 0 1px rgb(0 236 151 / 0.6),
-    0 0 22px -4px rgb(0 236 151 / 0.6);
-}
-/* Comparison (beat C), scanned against the published rules. */
-.jf-panel {
-  left: 8%;
-  top: 24%;
-  width: 50%;
-  height: 70%;
-  z-index: 5;
-  padding: clamp(12px, 1.8cqw, 18px);
-  overflow: hidden;
+  background: linear-gradient(90deg, #087a58, #00ec97);
+  opacity: 0.55;
+  transform-origin: left center;
 }
 .jf-eyebrow {
   display: block;
@@ -1738,36 +1793,19 @@
   letter-spacing: -0.03em;
   color: var(--color-vp-ink);
 }
-.jf-ai {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  flex: none;
-  border-radius: 999px;
-  padding: 0.3em 0.7em;
-  background: var(--color-vp-night);
-  color: var(--color-vp-mint);
-  font-size: 0.78em;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.jf-ai svg {
-  width: 1.1em;
-  height: 1.1em;
-}
 .jf-prows {
   margin-top: 0.9em;
   border: 1px solid var(--color-vp-border);
   border-radius: 12px;
+  background: #fff;
 }
-.jf-prow {
+.jf-cmp-row {
   display: flex;
   align-items: center;
   gap: 0.6em;
   padding: 0.62em 0.8em;
 }
-.jf-prow + .jf-prow {
+.jf-cmp-row + .jf-cmp-row {
   border-top: 1px solid var(--color-vp-border);
 }
 .jf-dot {
@@ -1778,12 +1816,25 @@
   flex: none;
 }
 .jf-pbar {
-  width: 22%;
+  width: 18%;
   flex: none;
 }
 .jf-verified {
   position: relative;
   margin-left: auto;
+}
+.jf-glint,
+.jf-verified-glow,
+.jf-ai-glow,
+.vp-orbit-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow:
+    inset 0 0 0 1px rgb(0 236 151 / 0.65),
+    0 0 24px -4px rgb(0 236 151 / 0.7);
 }
 .jf-scan {
   position: absolute;
@@ -1793,12 +1844,12 @@
 }
 .jf-scan span {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: -4%;
+  right: -4%;
   top: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--color-vp-mint) 18%, var(--color-vp-mint) 82%, transparent);
-  box-shadow: 0 0 12px 2px rgb(0 236 151 / 0.5);
+  background: linear-gradient(90deg, transparent, var(--color-vp-mint) 15%, #b9ffe2 50%, var(--color-vp-mint) 85%, transparent);
+  box-shadow: 0 0 14px 3px rgb(0 236 151 / 0.55);
 }
 .jf-scan span::after {
   content: "";
@@ -1806,40 +1857,185 @@
   left: 0;
   right: 0;
   bottom: 2px;
-  height: 40px;
-  background: linear-gradient(to top, rgb(0 236 151 / 0.12), transparent);
+  height: 48px;
+  background: linear-gradient(to top, rgb(0 236 151 / 0.14), transparent);
 }
-/* Buyer approval and escrow (beat D). */
+.jf-pub {
+  flex: none;
+}
+/* A: requirement chips (rest docked inside the request, faded). */
+.jf-chip {
+  left: 17%;
+  opacity: 0;
+}
+.jf-chip-1 {
+  top: 30%;
+}
+.jf-chip-2 {
+  top: 38.5%;
+}
+.jf-chip-3 {
+  top: 47%;
+}
+.jf-chip-4 {
+  top: 55.5%;
+}
+.jf-chip-5 {
+  top: 64%;
+}
+.jf-chip-in {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: 0.42em 0.8em;
+  font-size: 0.85em;
+  font-weight: 700;
+  color: var(--color-vp-ink);
+  background: #fff;
+  border: 1px solid rgb(0 236 151 / 0.45);
+  box-shadow:
+    0 0 0 3px rgb(0 236 151 / 0.08),
+    0 0 20px -6px rgb(0 236 151 / 0.65),
+    0 16px 30px -18px rgb(13 32 28 / 0.4);
+}
+.jf-chip-dot {
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: var(--color-vp-mint);
+  box-shadow: 0 0 8px rgb(0 236 151 / 0.9);
+}
+/* B: sealed quotes (rest plugged into the comparison, faded). */
+.jf-q {
+  left: 22%;
+  width: 22%;
+  opacity: 0;
+}
+.jf-q1 {
+  top: 38%;
+}
+.jf-q2 {
+  top: 48%;
+}
+.jf-q3 {
+  top: 58%;
+}
+.jf-q .jf-card {
+  border-color: rgb(0 236 151 / 0.35);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 0 0 1px rgb(0 236 151 / 0.06),
+    0 30px 50px -24px rgb(13 32 28 / 0.45),
+    0 0 34px -12px rgb(0 236 151 / 0.55);
+}
+.jf-lock {
+  width: 2.2em;
+  height: 2.2em;
+}
+.jf-lock svg {
+  width: 58%;
+  height: 58%;
+}
+.jf-lockring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 12px;
+  border: 2px solid var(--color-vp-mint);
+  opacity: 0;
+}
+.jf-masked {
+  display: grid;
+  gap: 5px;
+  margin: 0.65em 0;
+}
+.jf-masked i {
+  display: block;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #dfe6e2, #eef2ef);
+}
+.jf-masked i:last-child {
+  width: 60%;
+}
+/* C: the advisory AI node above the comparison. */
+.jf-ai {
+  left: 43%;
+  top: 15%;
+  --z: 120px;
+}
+.jf-ai .jf-float {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+.jf-ai-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  border-radius: 999px;
+  padding: 0.4em 0.85em;
+  background: var(--color-vp-night);
+  color: var(--color-vp-mint);
+  font-size: 0.82em;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow:
+    inset 0 0 0 1px rgb(0 236 151 / 0.3),
+    0 0 26px -6px rgb(0 236 151 / 0.7),
+    0 18px 32px -16px rgb(13 32 28 / 0.6);
+}
+.jf-ai-pill svg {
+  width: 1.15em;
+  height: 1.15em;
+}
+.jf-beam {
+  display: block;
+  width: 2px;
+  height: 2.8em;
+  background: linear-gradient(var(--color-vp-mint), transparent);
+  box-shadow: 0 0 10px rgb(0 236 151 / 0.6);
+  transform-origin: top center;
+}
+/* D: buyer approval and escrow. */
 .jf-approve,
 .jf-escrow {
-  display: flex;
-  align-items: center;
-  gap: 0.7em;
-  left: 65%;
-  width: 32%;
-  min-height: 28%;
-  z-index: 6;
-  padding: 0.9em 1em;
+  left: 64%;
+  width: 29%;
 }
 .jf-approve {
-  top: 9%;
+  top: 13%;
+  --z: 70px;
 }
 .jf-escrow {
   top: 57%;
+  --z: 35px;
+}
+.jf-approve .jf-card,
+.jf-escrow .jf-card {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  min-height: 6.6em;
+  padding: 0.9em 1em;
+}
+.jf-escrow .jf-card {
   flex-wrap: wrap;
   align-content: center;
-  background: var(--color-vp-night);
-  border-color: rgb(0 236 151 / 0.28);
+  background: linear-gradient(160deg, #12302a, var(--color-vp-night) 60%);
+  border-color: rgb(0 236 151 / 0.35);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.06),
-    0 26px 50px -24px rgb(13 32 28 / 0.55),
-    0 0 44px -12px rgb(0 236 151 / 0.5);
+    inset 0 1px 0 rgb(255 255 255 / 0.07),
+    0 30px 60px -26px rgb(13 32 28 / 0.6),
+    0 0 54px -12px rgb(0 236 151 / 0.6);
 }
 .jf-escrow .jf-t {
   color: #fff;
 }
 .jf-escrow .jf-s {
-  color: rgb(255 255 255 / 0.64);
+  color: rgb(255 255 255 / 0.66);
 }
 .jf-shield {
   position: relative;
@@ -1848,7 +2044,7 @@
   width: 2.6em;
   height: 2.6em;
   border-radius: 12px;
-  background: rgb(0 236 151 / 0.14);
+  background: rgb(0 236 151 / 0.15);
   color: var(--color-vp-mint);
   flex: none;
 }
@@ -1861,99 +2057,97 @@
   inset: -1px;
   border-radius: inherit;
   box-shadow:
-    0 0 0 1px rgb(0 236 151 / 0.7),
-    0 0 20px rgb(0 236 151 / 0.6);
+    0 0 0 1.5px rgb(0 236 151 / 0.75),
+    0 0 22px rgb(0 236 151 / 0.65);
   opacity: 0.55;
 }
-.jf-net {
+.jf-net-chip {
   margin-left: calc(2.6em + 0.7em);
 }
 .jf-nav-on {
   background: var(--color-vp-night);
   color: #fff;
 }
-.jf-p-n1,
-.jf-p-n2 {
-  display: none;
-}
-/* Phones: the window keeps the height its earlier content had (~440 px), so the page length is unchanged. */
-@media (max-width: 639px) {
-  .jf {
-    height: 440px;
-  }
-}
 /* Tablet-width windows: drop secondary detail so every label stays whole. */
 @container jf (max-width: 759px) {
   .jf-pbar,
-  .jf-quote .vp-chip {
-    display: none;
-  }
-}
-/* Phones: the beats replace one another in the same box; legible type, no overlaps at rest. */
-@container jf (max-width: 559px) {
-  .jf {
-    font-size: 12px;
-  }
-  .jf-req {
-    left: 6%;
-    top: 8%;
-    width: 88%;
-    opacity: 0;
-  }
-  .jf-quote {
-    left: 9%;
-    width: 82%;
-    transform: none;
-    opacity: 0;
-  }
-  .jf-quote .vp-chip {
-    display: inline-flex;
-  }
-  .jf-q1 {
-    top: 9%;
-  }
-  .jf-q2 {
-    top: 35%;
-  }
-  .jf-q3 {
-    top: 61%;
-  }
-  .jf-panel {
-    left: 4%;
-    top: 4%;
-    width: 92%;
-    height: 59%;
-  }
+  .jf-sealed,
   .jf-dot {
     display: none;
   }
-  .jf-prow {
+}
+/* Phones: a gentler camera, beats in the same box, legible type, no overlaps at rest. */
+@container jf (max-width: 599px) {
+  .jf {
+    font-size: 12px;
+  }
+  .jf-scene {
+    transform: rotateX(6deg) rotateY(-7deg);
+  }
+  .jf-plate {
+    left: 5%;
+    top: 5%;
+    width: 90%;
+    height: 51%;
+  }
+  .jf-chip {
+    display: none;
+  }
+  .jf-q {
+    left: 12%;
+    width: 76%;
+  }
+  .jf-q1 {
+    top: 14%;
+  }
+  .jf-q2 {
+    top: 28%;
+  }
+  .jf-q3 {
+    top: 42%;
+  }
+  .jf-ai {
+    left: 50%;
+    top: 3%;
+    --z: 30px;
+  }
+  .jf-beam {
+    display: none;
+  }
+  .jf-cmp-row {
     padding: 0.5em 0.65em;
   }
   .jf-approve,
   .jf-escrow {
-    top: 67%;
-    width: 44%;
-    min-height: 0;
-    height: 29%;
-    padding: 0.7em;
-    gap: 0.55em;
+    top: 61%;
+    width: 43%;
   }
   .jf-approve {
     left: 4%;
+    --z: 25px;
   }
   .jf-escrow {
-    left: 52%;
+    left: 51%;
+    --z: 30px;
   }
-  .jf-net {
+  .jf-approve .jf-card,
+  .jf-escrow .jf-card {
+    min-height: 0;
+    height: 8.6em;
+    padding: 0.7em;
+    gap: 0.55em;
+  }
+  .jf-net-chip {
     display: none;
   }
-  .jf-p-d1,
-  .jf-p-d2 {
+  .jf-path.jf-p-d1,
+  .jf-path.jf-p-d2,
+  .jf-comet.jf-p-d1,
+  .jf-comet.jf-p-d2 {
     display: none;
   }
-  .jf-p-n1,
-  .jf-p-n2 {
+  .jf-path.jf-p-n1,
+  .jf-path.jf-p-n2 {
     display: inline;
     opacity: 1;
   }
@@ -1963,8 +2157,39 @@
   .vp-motion .jf-figure:not([data-ready]) [data-jf] {
     opacity: 0;
   }
-  .vp-motion .jf-figure[data-done="true"][data-visible="true"] .jf-ambient {
-    animation: jf-breathe 5.5s ease-in-out infinite;
+  /* Ambient life while the window is on screen: light on the network, floating cards. */
+  .jf-figure[data-visible="true"] .jf-pulse {
+    opacity: 0.9;
+    animation: jf-flow 4.4s linear infinite;
+  }
+  .jf-figure[data-visible="true"] .jf-float {
+    animation: jf-bob 6.5s ease-in-out infinite;
+  }
+  .jf-figure[data-visible="true"] .jf-q2 .jf-float,
+  .jf-figure[data-visible="true"] .jf-escrow .jf-float,
+  .jf-figure[data-visible="true"] .jf-chip-2 .jf-float,
+  .jf-figure[data-visible="true"] .jf-chip-4 .jf-float {
+    animation-delay: -2.2s;
+  }
+  .jf-figure[data-visible="true"] .jf-q3 .jf-float,
+  .jf-figure[data-visible="true"] .jf-ai .jf-float,
+  .jf-figure[data-visible="true"] .jf-chip-3 .jf-float,
+  .jf-figure[data-visible="true"] .jf-chip-5 .jf-float {
+    animation-delay: -4.1s;
+  }
+  .jf-figure[data-visible="true"] .jf-lockn-ring {
+    animation: jf-ring 3.4s ease-out infinite;
+  }
+  /* After the story: data keeps flowing from approval to escrow and the shield pulses. */
+  .jf-figure[data-done="true"][data-visible="true"] .jf-comet {
+    opacity: 1;
+    animation: jf-flow 2.4s linear infinite;
+  }
+  .jf-figure[data-done="true"][data-visible="true"] .jf-comet.jf-p-d2 {
+    animation-delay: -1.2s;
+  }
+  .jf-figure[data-done="true"][data-visible="true"] .jf-shield-ring {
+    animation: jf-ring 2.8s ease-out infinite;
   }
   /* The hero's looping float pauses while it is off screen. */
   .vp-stage[data-offscreen="true"] *,
@@ -1972,13 +2197,31 @@
     animation-play-state: paused !important;
   }
 }
-@keyframes jf-breathe {
+@keyframes jf-flow {
+  from {
+    stroke-dashoffset: 1.08;
+  }
+  to {
+    stroke-dashoffset: -0.08;
+  }
+}
+@keyframes jf-bob {
   0%,
   100% {
-    opacity: 0.8;
+    transform: translateY(-4px);
   }
   50% {
-    opacity: 1;
+    transform: translateY(4px);
+  }
+}
+@keyframes jf-ring {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.9);
   }
 }
 

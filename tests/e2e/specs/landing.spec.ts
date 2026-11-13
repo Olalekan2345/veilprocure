@@ -152,14 +152,34 @@ test.describe("landing page", () => {
     const before = await fig.boundingBox();
     await fig.scrollIntoViewIfNeeded();
     await expect(fig).toHaveAttribute("data-done", "true", { timeout: 30_000 });
-    for (const sel of [".jf-panel", ".jf-approve", ".jf-escrow"]) {
+    for (const sel of [".jf-plate", ".jf-layer-cmp", ".jf-ai", ".jf-approve", ".jf-escrow"]) {
       expect(Number(await fig.locator(sel).evaluate((el) => getComputedStyle(el).opacity)), sel).toBe(1);
     }
+    // The sealed quotes have merged into the comparison: none is left floating in the final frame.
+    for (const q of await fig.locator(".jf-q").all()) expect(Number(await q.evaluate((el) => getComputedStyle(el).opacity))).toBe(0);
     // Same footprint as before it played, and no claim that a payment happened.
     expect((await fig.boundingBox())!.height).toBeCloseTo(before!.height, 0);
     const text = await fig.innerText();
     expect(text).not.toMatch(/\bpaid\b|confirmed|\d+(\.\d+)?\s?NEAR\b/i);
     expect(text).toContain("Illustration of the workspace — not live data.");
+  });
+
+  test("phone: the showcase plays through and its final cards stay inside the window", async ({ browser }) => {
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    const page = await ctx.newPage();
+    await page.goto("/");
+    const fig = page.locator(".jf-figure");
+    await fig.locator(".jf").scrollIntoViewIfNeeded();
+    await expect(fig).toHaveAttribute("data-done", "true", { timeout: 30_000 });
+    const stage = (await fig.locator(".jf").boundingBox())!;
+    for (const sel of [".jf-plate", ".jf-approve", ".jf-escrow"]) {
+      const b = (await fig.locator(sel).boundingBox())!;
+      expect(b.x, sel).toBeGreaterThanOrEqual(stage.x - 1);
+      expect(b.x + b.width, sel).toBeLessThanOrEqual(stage.x + stage.width + 1);
+      expect(b.y + b.height, sel).toBeLessThanOrEqual(stage.y + stage.height + 1);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(false);
+    await ctx.close();
   });
 
   test("reduced motion: the showcase shows its complete final frame without animating", async ({ browser }) => {
@@ -168,9 +188,11 @@ test.describe("landing page", () => {
     await page.goto("/");
     const fig = page.locator(".jf-figure");
     await expect(fig).toHaveAttribute("data-ready", "static");
-    for (const sel of [".jf-panel", ".jf-approve", ".jf-escrow"]) {
+    for (const sel of [".jf-plate", ".jf-layer-cmp", ".jf-ai", ".jf-approve", ".jf-escrow"]) {
       expect(Number(await fig.locator(sel).evaluate((el) => getComputedStyle(el).opacity)), sel).toBe(1);
     }
+    // The sealed quotes have merged into the comparison: none is left floating in the final frame.
+    for (const q of await fig.locator(".jf-q").all()) expect(Number(await q.evaluate((el) => getComputedStyle(el).opacity))).toBe(0);
     expect(await page.evaluate(() => document.getAnimations().filter((a) => a.playState === "running").length)).toBe(0);
     await ctx.close();
   });
